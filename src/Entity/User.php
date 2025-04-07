@@ -50,9 +50,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Habit::class, mappedBy: 'user')]
     private Collection $habit;
 
+    /**
+     * @var Collection<int, OwnHabit>
+     */
+    #[ORM\OneToMany(targetEntity: OwnHabit::class, mappedBy: 'user')]
+    private Collection $ownHabit;
+
     public function __construct()
     {
         $this->habit = new ArrayCollection();
+        $this->ownHabit = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -194,6 +201,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($habit->getUser() === $this) {
                 $habit->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, OwnHabit>
+     */
+    public function getOwnHabit(): Collection
+    {
+        return $this->ownHabit;
+    }
+
+    public function addOwnHabit(OwnHabit $ownHabit): static
+    {
+        if (!$this->ownHabit->contains($ownHabit)) {
+            $this->ownHabit->add($ownHabit);
+            $ownHabit->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOwnHabit(OwnHabit $ownHabit): static
+    {
+        if ($this->ownHabit->removeElement($ownHabit)) {
+            // set the owning side to null (unless already changed)
+            if ($ownHabit->getUser() === $this) {
+                $ownHabit->setUser(null);
             }
         }
 

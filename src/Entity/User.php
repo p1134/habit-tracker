@@ -44,11 +44,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $lastname = null;
 
-    /**
-     * @var Collection<int, Habit>
-     */
-    #[ORM\OneToMany(targetEntity: Habit::class, mappedBy: 'user')]
-    private Collection $habit;
+    // /**
+    //  * @var Collection<int, Habit>
+    //  */
+    // #[ORM\OneToMany(targetEntity: Habit::class, mappedBy: 'user')]
+    // private Collection $habit;
 
     /**
      * @var Collection<int, OwnHabit>
@@ -188,35 +188,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Habit>
-     */
-    public function getHabit(): Collection
-    {
-        return $this->habit;
-    }
+    // /**
+    //  * @return Collection<int, Habit>
+    //  */
+    // public function getHabit(): Collection
+    // {
+    //     return $this->habit;
+    // }
 
-    public function addHabit(Habit $habit): static
-    {
-        if (!$this->habit->contains($habit)) {
-            $this->habit->add($habit);
-            $habit->setUser($this);
-        }
+    // public function addHabit(Habit $habit): static
+    // {
+    //     if (!$this->habit->contains($habit)) {
+    //         $this->habit->add($habit);
+    //         $habit->setUser($this);
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function removeHabit(Habit $habit): static
-    {
-        if ($this->habit->removeElement($habit)) {
-            // set the owning side to null (unless already changed)
-            if ($habit->getUser() === $this) {
-                $habit->setUser(null);
-            }
-        }
+    // public function removeHabit(Habit $habit): static
+    // {
+    //     if ($this->habit->removeElement($habit)) {
+    //         // set the owning side to null (unless already changed)
+    //         if ($habit->getUser() === $this) {
+    //             $habit->setUser(null);
+    //         }
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * @return Collection<int, OwnHabit>

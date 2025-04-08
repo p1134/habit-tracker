@@ -1,4 +1,6 @@
 {{ form_start(form) }}
-    {{ form_widget(form.name) }}
+    {{ form_widget(form.habits) }}
+    {{ form_widget(form.ownHabits) }}
     <button>Zapisz</button>
+    <a href="{{ path('app_habit') }}"><button>Anuluj</button></a>
 {{ form_end(form) }}

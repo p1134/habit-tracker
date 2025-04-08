@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\SelectedHabitsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SelectedHabitsRepository::class)]
@@ -15,16 +16,22 @@ class SelectedHabits
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    // #[ORM\Column(length: 255)]
+    // private ?string $name = null;
 
     #[ORM\OneToOne(inversedBy: 'selectedHabit', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Habit $habit = null;
 
+    #[ORM\ManyToOne(targetEntity: OwnHabit::class)]
+    private ?OwnHabit $ownHabit = null;
+
     #[ORM\ManyToOne(inversedBy: 'selectedHabit')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $date = null;
 
     // /**
     //  * @var Collection<int, User>
@@ -42,10 +49,10 @@ class SelectedHabits
         return $this->id;
     }
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
+    // public function getName(): ?string
+    // {
+    //     return $this->name;
+    // }
 
     public function setName(string $name): static
     {
@@ -66,6 +73,13 @@ class SelectedHabits
         return $this;
     }
 
+    public function setOwnHabit(?OwnHabit $ownHabit): self
+    {
+        $this->ownHabit = $ownHabit;
+        return $this;
+    }
+
+    
     /**
      * @return Collection<int, User>
      */
@@ -104,6 +118,18 @@ class SelectedHabits
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): static
+    {
+        $this->date = $date;
 
         return $this;
     }

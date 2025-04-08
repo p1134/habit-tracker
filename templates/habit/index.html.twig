@@ -4,6 +4,9 @@
 
 {% block body %}
 
-
+{% for h in habits %}
+    {{ h.habit.name }}
+{% endfor %}
+<a href="{{ path('app_select_habit') }}"><button>Dodaj/usuń nawyki</button></a>
 
 {% endblock %}

@@ -13,7 +13,7 @@ final class LoginController extends AbstractController
     public function __construct(private EmailVerifier $emailVerifier)
     {
     }
-    #[Route('/login', name: 'app_login')]
+    #[Route('/login', 'app_login')]
     public function index(AuthenticationUtils $utils): Response
     {
         $lastUsername = $utils->getLastUsername();
@@ -30,7 +30,7 @@ final class LoginController extends AbstractController
         ]);
     }
 
-    #[Route('/logout', name: 'app_logout')]
+    #[Route('/logout', 'app_logout')]
     public function logout(){}
 
 }

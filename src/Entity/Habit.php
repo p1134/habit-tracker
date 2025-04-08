@@ -15,9 +15,9 @@ class Habit
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'habit')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $user = null;
+    // #[ORM\ManyToOne(inversedBy: 'habit')]
+    // #[ORM\JoinColumn(nullable: false)]
+    // private ?User $user = null;
 
     /**
      * @var Collection<int, Tracking>
@@ -45,10 +45,10 @@ class Habit
         return $this->id;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
+    // public function getUser(): ?User
+    // {
+    //     return $this->user;
+    // }
 
     public function setUser(?User $user): static
     {

@@ -15,21 +15,24 @@ class SelectedHabitsRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, SelectedHabits::class);
     }
+    
 
     //    /**
     //     * @return SelectedHabits[] Returns an array of SelectedHabits objects
     //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('s.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+       public function habitsToTrack($user): array
+       {
+           return $this->createQueryBuilder('sh')
+               ->andWhere('sh.user = :user')
+               ->setParameter('user', $user)
+               ->leftJoin('sh.habit', 'h')
+               ->addSelect('h')
+               ->leftJoin('sh.user', 'oh')
+               ->addSelect('oh')
+               ->getQuery()
+               ->getResult()
+           ;
+       }
 
     //    public function findOneBySomeField($value): ?SelectedHabits
     //    {

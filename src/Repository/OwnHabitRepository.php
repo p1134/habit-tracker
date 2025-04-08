@@ -15,6 +15,17 @@ class OwnHabitRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, OwnHabit::class);
     }
+    public function habitsToTrack($user): array
+    {
+        return $this->createQueryBuilder('oh')
+            ->andWhere('oh.user = :user')
+            ->setParameter('user', $user)
+            ->leftJoin('oh.habit', 'h')
+            ->addSelect('h')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
     //    /**
     //     * @return OwnHabit[] Returns an array of OwnHabit objects

@@ -21,10 +21,9 @@ class AppFixtures extends Fixture
         $manager->persist($category2);
         $manager->persist($category3);
 
-        $manager->flush();
-
-
-
+        
+        
+        
         $habit = new Habit();
         $habit2 = new Habit();
         $habit3 = new Habit();
@@ -41,35 +40,35 @@ class AppFixtures extends Fixture
         $habit14 = new Habit();
         $habit15 = new Habit();
         $habit->setName('Kontrola cinienia');
-        $habit->setCategory($category->getId());
+        $habit->setCategory($category);
         $habit2->setName('Spacer');
-        $habit2->setCategory($category->getId());
+        $habit2->setCategory($category);
         $habit3->setName('Branie leków');
-        $habit3->setCategory($category->getId());
+        $habit3->setCategory($category);
         $habit4->setName('Kontrola poziomu cukru');
-        $habit4->setCategory($category->getId());
+        $habit4->setCategory($category);
         $habit5->setName('Sen o stałych porach');
-        $habit5->setCategory($category->getId());
+        $habit5->setCategory($category);
         $habit6->setName('Krótkie ćwiczenia poranne');
-        $habit6->setCategory($category->getId());
+        $habit6->setCategory($category);
         $habit7->setName('Medytacja');
-        $habit7->setCategory($category2->getId());
+        $habit7->setCategory($category2);
         $habit8->setName('Czytanie');
-        $habit8->setCategory($category2->getId());
+        $habit8->setCategory($category2);
         $habit9->setName('Rozwiązywanie krzyżówek');
-        $habit9->setCategory($category2->getId());
+        $habit9->setCategory($category2);
         $habit10->setName('Pielęgnacja roślin');
-        $habit10->setCategory($category2->getId());
+        $habit10->setCategory($category2);
         $habit11->setName('Zajęcia dla seniorów');
-        $habit11->setCategory($category3->getId());
+        $habit11->setCategory($category3);
         $habit12->setName('Udział w spotkaniach religijnych');
-        $habit12->setCategory($category3->getId());
+        $habit12->setCategory($category3);
         $habit13->setName('Wolontariat');
-        $habit13->setCategory($category3->getId());
+        $habit13->setCategory($category3);
         $habit14->setName('Kontakt z min. jedną osobą dziennie');
-        $habit14->setCategory($category3->getId());
+        $habit14->setCategory($category3);
         $habit15->setName('Ograniczenie wiadomości do 15 minut dziennie');
-        $habit15->setCategory($category3->getId());
+        $habit15->setCategory($category3);
         $manager->persist($habit);
         $manager->persist($habit2);
         $manager->persist($habit3);
@@ -85,6 +84,10 @@ class AppFixtures extends Fixture
         $manager->persist($habit13);
         $manager->persist($habit14);
         $manager->persist($habit15);
+
+
+        
+        $manager->flush();
     }
 
 

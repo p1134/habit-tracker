@@ -56,10 +56,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: OwnHabit::class, mappedBy: 'user')]
     private Collection $ownHabit;
 
+    /**
+     * @var Collection<int, SelectedHabits>
+     */
+    #[ORM\OneToMany(targetEntity: SelectedHabits::class, mappedBy: 'user')]
+    private Collection $selectedHabit;
+
+    // #[ORM\ManyToOne(inversedBy: 'user')]
+    // #[ORM\JoinColumn(nullable: false)]
+    // private ?SelectedHabits $selectedHabit = null;
+
     public function __construct()
     {
         $this->habit = new ArrayCollection();
         $this->ownHabit = new ArrayCollection();
+        $this->selectedHabit = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -236,4 +247,46 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-}
+
+    // public function getSelectedHabit(): ?SelectedHabits
+    // {
+    //     return $this->selectedHabit;
+    // }
+
+    // public function setSelectedHabit(?SelectedHabits $selectedHabit): static
+    // {
+    //     $this->selectedHabit = $selectedHabit;
+
+    //     return $this;
+    // }
+
+    /**
+     * @return Collection<int, SelectedHabits>
+     */
+    public function getSelectedHabit(): Collection
+    {
+        return $this->selectedHabit;
+    }
+
+    public function addSelectedHabit(SelectedHabits $selectedHabit): static
+    {
+        if (!$this->selectedHabit->contains($selectedHabit)) {
+            $this->selectedHabit->add($selectedHabit);
+            $selectedHabit->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSelectedHabit(SelectedHabits $selectedHabit): static
+    {
+        if ($this->selectedHabit->removeElement($selectedHabit)) {
+            // set the owning side to null (unless already changed)
+            if ($selectedHabit->getUser() === $this) {
+                $selectedHabit->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+    }

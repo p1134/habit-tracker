@@ -32,6 +32,9 @@ class Habit
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 
+    #[ORM\OneToOne(mappedBy: 'habit', cascade: ['persist', 'remove'])]
+    private ?SelectedHabits $selectedHabit = null;
+
     public function __construct()
     {
         $this->tracking = new ArrayCollection();
@@ -104,6 +107,23 @@ class Habit
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getSelectedHabit(): ?SelectedHabits
+    {
+        return $this->selectedHabit;
+    }
+
+    public function setSelectedHabit(SelectedHabits $selectedHabit): static
+    {
+        // set the owning side of the relation if necessary
+        if ($selectedHabit->getHabit() !== $this) {
+            $selectedHabit->setHabit($this);
+        }
+
+        $this->selectedHabit = $selectedHabit;
 
         return $this;
     }

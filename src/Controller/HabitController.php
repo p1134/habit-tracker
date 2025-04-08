@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Habit;
 use App\Form\HabitType;
 use App\Entity\OwnHabit;
+use App\Entity\Tracking;
 use App\Form\OwnHabitType;
 use App\Repository\HabitRepository;
 use App\Repository\OwnHabitRepository;
@@ -59,12 +60,24 @@ final class HabitController extends AbstractController
     }
 
     #[Route('nawyki/wybierz', 'app_select_habit')]
-    public function selectHabit()
+    public function selectHabit(Request $request)
     {
         $user = $this->getUser();
 
+        $form = $this->createForm(HabitType::class);
+        $form->handleRequest($request);
+        
+        if($form->isSubmitted() && $form->isValid()){
+            $habits = $form->get('name')->getData();
+            dd($habits);
+            // foreach($habits as $habit){
+            //     dd($habit);
+            // }
+        }
+
         return $this->render('habit/_select_habit_form.html.twig', [
             'user' => $user->getUserIdentifier(),
+            'form' => $form->createView(),
         ]);
     }
 }

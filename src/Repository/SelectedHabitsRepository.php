@@ -2,43 +2,39 @@
 
 namespace App\Repository;
 
-use App\Entity\Habit;
+use App\Entity\SelectedHabits;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Habit>
+ * @extends ServiceEntityRepository<SelectedHabits>
  */
-class HabitRepository extends ServiceEntityRepository
+class SelectedHabitsRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Habit::class);
-    }
-
-    public function showHabits($user)
-    {
+        parent::__construct($registry, SelectedHabits::class);
     }
 
     //    /**
-    //     * @return Habit[] Returns an array of Habit objects
+    //     * @return SelectedHabits[] Returns an array of SelectedHabits objects
     //     */
     //    public function findByExampleField($value): array
     //    {
-    //        return $this->createQueryBuilder('h')
-    //            ->andWhere('h.exampleField = :val')
+    //        return $this->createQueryBuilder('s')
+    //            ->andWhere('s.exampleField = :val')
     //            ->setParameter('val', $value)
-    //            ->orderBy('h.id', 'ASC')
+    //            ->orderBy('s.id', 'ASC')
     //            ->setMaxResults(10)
     //            ->getQuery()
     //            ->getResult()
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Habit
+    //    public function findOneBySomeField($value): ?SelectedHabits
     //    {
-    //        return $this->createQueryBuilder('h')
-    //            ->andWhere('h.exampleField = :val')
+    //        return $this->createQueryBuilder('s')
+    //            ->andWhere('s.exampleField = :val')
     //            ->setParameter('val', $value)
     //            ->getQuery()
     //            ->getOneOrNullResult()

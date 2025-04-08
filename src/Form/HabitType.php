@@ -15,14 +15,11 @@ class HabitType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
-            ->add('category', EntityType::class, [
-                'class' => Category::class,
-                'choice_label' => 'id',
+            ->add('name', EntityType::class, [
+                'class' => Habit::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+                'expanded' => true
             ])
         ;
     }

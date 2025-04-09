@@ -20,12 +20,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class HabitController extends AbstractController
 {
-    #[Route('/nawyki', name: 'app_habit')]
+    #[Route('/habits', name: 'app_habit')]
     public function Habits(SelectedHabitsRepository $shb): Response
     {
         $user = $this->getUser();
         $habits = $shb->habitsToTrack($user);
-        // dd($habits);
 
         return $this->render('habit/index.html.twig', [
             'controller_name' => 'HabitController',
@@ -34,21 +33,24 @@ final class HabitController extends AbstractController
         ]);
     }
 
-    #[Route('/nawyki/dodaj', 'app_new_habit')]
+    #[Route('/habits/add', 'app_new_habit')]
     public function newHabit(EntityManagerInterface $entityManager, Request $request): Response
     {
         $user = $this->getUser();
-        $form = $this->createForm(OwnHabitType::class, new OwnHabit(), [
+        $form = $this->createForm(OwnHabitType::class, null, [
             'user' => $user,
         ]);
         $form->handleRequest($request);
+        $ownHabit = $form->getData();
+        // dd($ownHabit);
 
         if($form->isSubmitted() && $form->isValid()){
-            $ownHabit = $form->getData();
-            $ownHabit->setUser($user);
-            
+            $habit = new OwnHabit();
+            $habit->setUser($user);
+            $habit->setName($ownHabit['name']);
+            $habit->setCategory($ownHabit['category']);
 
-            $entityManager->persist($ownHabit);
+            $entityManager->persist($habit);
             $entityManager->flush();
             $this->addFlash('success', 'Nawyk został utworzony');
 
@@ -59,29 +61,59 @@ final class HabitController extends AbstractController
             'controller_name' => 'HabitController',
             'user' => $user->getUserIdentifier(),
             'form' => $form->createView(),
-            'form_type' => 'ownHabit',
+            'form_type' => 'ownHabitAdd',
 
         ]);
     }
 
-    #[Route('nawyki/wybierz', 'app_select_habit')]
+    #[Route('/habits/remove', 'app_habit_remove')]
+    public function removeHabit(Request $request, OwnHabitRepository $ownHabits, EntityManagerInterface $entityManager)
+    {
+        $user = $this->getUser();
+
+        $tracking = $ownHabits->habitsToTrack($user);
+        $form = $this->createForm(OwnHabitType::class, null, );
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $data = $form->getData();
+            $selected = $data['ownHabits'] ?? [];
+            
+            foreach ($selected as $habit) {
+                $entityManager->remove($habit);
+            }
+    
+            $entityManager->flush();
+    
+            return $this->redirectToRoute('app_habit');
+        }
+        return $this->render('habit/_remove_habit_form.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+            'form_type' => 'ownHabitRemove',
+        ]);
+    }
+
+    #[Route('/habits/select', 'app_select_habit')]
     public function selectHabit(Request $request, EntityManagerInterface $entityManager, SelectedHabitsRepository $selectedHabits)
     {
         $user = $this->getUser();
 
         $tracking = $selectedHabits->habitsToTrack($user);
-        $selectedHabitsArray = array_map(fn($sh) => $sh->getHabit(), $tracking);
+        // dd($tracking);
+        $selectedHabitsArray = array_map(fn($sh) => $sh->getHabit() ?? $sh->getOwnHabit(), $tracking);
+        // dd($selectedHabitsArray);
 
         $selectedGlobal = array_filter($selectedHabitsArray, fn($habit) => $habit instanceof Habit);
-        $selectedOwn = array_filter($selectedHabitsArray, fn($habit) => $habit instanceof OwmnHabit);
-
-
+        $selectedOwn = array_filter($selectedHabitsArray, fn($habit) => $habit instanceof OwnHabit);
+        // dd($selectedGlobal, $selectedOwn);
         $form = $this->createForm(HabitType::class, [
             'habits' => $selectedGlobal,
             'ownHabits' => $selectedOwn,
         ], [
             'user' => $user,
         ]);
+        // dd($form->getData());
 
         $form->handleRequest($request);
         
@@ -92,14 +124,21 @@ final class HabitController extends AbstractController
             $selectedOwn = $form->get('ownHabits')->getData();
 
             $selectedAll = array_merge($selectedGlobal, $selectedOwn);
-            // dd($today);
+            // dd($tracking);
             // $trackingHabits = $selectedHabits->habitsToTrack($user);
 
             foreach($selectedAll as $habit){
                 $alreadySelected = false;
 
                 foreach($tracking as $th){
-                    if($habit->getId() === $th->getHabit()->getId()){
+                    $trackedHabit = $th->getHabit();
+                    $trackedOwnHabit = $th->getOwnHabit();
+
+                    if (
+                        
+                        ($habit instanceof Habit && $trackedHabit !== null && $habit->getId() === $trackedHabit->getId()) ||
+                        ($habit instanceof OwnHabit && $trackedOwnHabit !== null && $habit->getId() === $trackedOwnHabit->getId())
+                    ){
                         $alreadySelected = true;
                         break;
                     }
@@ -119,10 +158,15 @@ final class HabitController extends AbstractController
                 }
             }
             foreach ($tracking as $th) {
-                if (!in_array($th->getHabit(), $selectedAll, true)) {
+                $trackedHabit = $th->getHabit();
+                $trackedOwnHabit = $th->getOwnHabit();
+                $current = $trackedHabit ?? $trackedOwnHabit;
+            
+                if (!in_array($current, $selectedAll, true)) {
                     $entityManager->remove($th);
                 }
             }
+            
             $entityManager->flush();
 
             $this->addFlash('success', 'Nawyki zostały zaktualizowane');

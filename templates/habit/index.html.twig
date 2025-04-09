@@ -5,8 +5,14 @@
 {% block body %}
 
 {% for h in habits %}
-    {{ h.habit.name }}
+    {% if h.habit != null %}
+        {{ h.habit.name }}
+    {% else %}
+        {{ h.ownHabit.name }}
+    {% endif %}
 {% endfor %}
-<a href="{{ path('app_select_habit') }}"><button>Dodaj/usuń nawyki</button></a>
+<a href="{{ path('app_select_habit') }}"><button>Wybierz nawyki</button></a>
+<a href="{{ path('app_new_habit') }}"><button>Stwórz nowy nawyk</button></a>
+<a href="{{ path('app_habit_remove') }}"><button>Usuń nawyk</button></a>
 
 {% endblock %}

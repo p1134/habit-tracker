@@ -1,5 +1,8 @@
-{{ form_start(form) }}
-    {{ form_row(form.name) }}
-    {{ form_row(form.category) }}
-    <input type="submit">
-{{ form_end(form) }}
+<form method="POST" action="{{ path('app_new_habit') }}" name="form[ownHabits][]">
+    {{ form_widget(form.name) }}
+    {{ form_widget(form.category) }}
+    
+    <input type="hidden" name="{{ form._token.vars.full_name }}" value="{{ form._token.vars.value }}">
+    <input type="submit" value="Dodaj" name="add">
+    <a href="{{ path('app_habit') }}"><button>Anuluj</button></a>
+</form>

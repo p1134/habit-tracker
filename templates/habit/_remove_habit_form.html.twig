@@ -1,0 +1,7 @@
+<form method="POST" action="{{ path('app_habit_remove') }}" name="form[ownHabits][]">
+    {{ form_widget(form.ownHabits) }}
+    
+    <input type="hidden" name="{{ form._token.vars.full_name }}" value="{{ form._token.vars.value }}">
+    <input type="submit" value="Usuń" name="remove">
+    <a href="{{ path('app_habit') }}"><button>Anuluj</button></a>
+</form>

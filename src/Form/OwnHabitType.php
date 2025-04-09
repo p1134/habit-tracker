@@ -29,13 +29,24 @@ class OwnHabitType extends AbstractType
                     return $category->getName();
                 },
             ])
+            ->add('ownHabits', EntityType::class, [
+                'class' => OwnHabit::class ,
+                'multiple' => true,
+                'expanded' => true,
+                'choice_label' => 'name',
+                'query_builder' => function($repo) use ($options){
+                    $repo->createQueryBuilder('oh')
+                    ->where('oh.user = :user')
+                    ->setParameter('user', $options['user']);
+                }
+            ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => OwnHabit::class,
+            'data_class' => null,
             'user' => null
         ]);
     }

@@ -20,10 +20,11 @@ class SelectedHabits
     // private ?string $name = null;
 
     #[ORM\OneToOne(inversedBy: 'selectedHabit', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Habit $habit = null;
-
+    
     #[ORM\ManyToOne(targetEntity: OwnHabit::class)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?OwnHabit $ownHabit = null;
 
     #[ORM\ManyToOne(inversedBy: 'selectedHabit')]
@@ -71,6 +72,11 @@ class SelectedHabits
         $this->habit = $habit;
 
         return $this;
+    }
+
+    public function getOwnHabit(): ?OwnHabit
+    {
+        return $this->ownHabit;
     }
 
     public function setOwnHabit(?OwnHabit $ownHabit): self

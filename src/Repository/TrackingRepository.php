@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Tracking;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -16,20 +17,24 @@ class TrackingRepository extends ServiceEntityRepository
         parent::__construct($registry, Tracking::class);
     }
 
+
     //    /**
     //     * @return Tracking[] Returns an array of Tracking objects
     //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('t')
-    //            ->andWhere('t.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('t.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+       public function dailyTracking($user): array
+       {
+        $today = new DateTime('now')->format('Y/m/d');
+
+           return $this->createQueryBuilder('t')
+               ->andWhere('t.user = :user')
+               ->setParameter('user', $user)
+               ->andWhere('t.date = :today')
+               ->setParameter('today', $today)
+               ->orderBy('t.id', 'ASC')
+               ->getQuery()
+               ->getResult()
+           ;
+       }
 
     //    public function findOneBySomeField($value): ?Tracking
     //    {

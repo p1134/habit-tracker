@@ -34,6 +34,17 @@ class SelectedHabits
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
+    /**
+     * @var Collection<int, Tracking>
+     */
+    #[ORM\OneToMany(targetEntity: Tracking::class, mappedBy: 'selectedHabits')]
+    private Collection $tracking;
+
+    public function __construct()
+    {
+        $this->tracking = new ArrayCollection();
+    }
+
     // /**
     //  * @var Collection<int, User>
     //  */
@@ -136,6 +147,36 @@ class SelectedHabits
     public function setDate(\DateTimeInterface $date): static
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tracking>
+     */
+    public function getTracking(): Collection
+    {
+        return $this->tracking;
+    }
+
+    public function addTracking(Tracking $tracking): static
+    {
+        if (!$this->tracking->contains($tracking)) {
+            $this->tracking->add($tracking);
+            $tracking->setSelectedHabits($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTracking(Tracking $tracking): static
+    {
+        if ($this->tracking->removeElement($tracking)) {
+            // set the owning side to null (unless already changed)
+            if ($tracking->getSelectedHabits() === $this) {
+                $tracking->setSelectedHabits(null);
+            }
+        }
 
         return $this;
     }

@@ -2,17 +2,20 @@
 
 namespace App\Controller;
 
+use App\Form\SelectedHabitsType;
+use App\Repository\TrackingRepository;
+use DateTime;
 use App\Entity\Habit;
-use App\Entity\SelectedHabits;
 use App\Form\HabitType;
 use App\Entity\OwnHabit;
 use App\Entity\Tracking;
 use App\Form\OwnHabitType;
+use App\Form\TrackingType;
+use App\Entity\SelectedHabits;
 use App\Repository\HabitRepository;
 use App\Repository\OwnHabitRepository;
-use App\Repository\SelectedHabitsRepository;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\SelectedHabitsRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -21,17 +24,90 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 final class HabitController extends AbstractController
 {
     #[Route('/habits', name: 'app_habit')]
-    public function Habits(SelectedHabitsRepository $shb): Response
+    public function Habits(TrackingRepository $trackings, SelectedHabitsRepository $sh, Request $request): Response
     {
         $user = $this->getUser();
-        $habits = $shb->habitsToTrack($user);
 
-        return $this->render('habit/index.html.twig', [
-            'controller_name' => 'HabitController',
-            'user' => $user->getUserIdentifier(),
-            'habits' => $shb->habitsToTrack($user),
-        ]);
-    }
+        $today = new Date('now');
+        $today->format('Y/m/d');
+
+        $selected = $sh->habitsToTrack($user);
+        $trackingList = $trackings->dailyTracking($user);
+
+        dd($selected, $trackingList);
+        foreach($trackingList as $tracked){
+            if(!$selected->exists($tracked) && $selected->getDate() < $today){
+                // $tracked->setSelected(false);
+                dd($selected->getSelected());
+            }
+        }
+
+        
+        // dd($trackingList);
+        // dd($selected);    
+        // $tracking = $shb->dailyTracking($user);
+        // dd($tracking);
+
+
+
+            return $this->render('habit/index.html.twig', [
+                'controller_name' => 'HabitController',
+                'user' => $user->getUserIdentifier(),
+                'habits' => $selected,
+                'tracked' => $trackingList,
+            ]);
+        }
+
+        #[Route('/habits/tracking', 'app_tracking_habit')]
+        public function trackHabits(Request $request, EntityManagerInterface $entityManager, SelectedHabitsRepository $sh, TrackingRepository $trackings)
+        {
+            $user = $this->getUser();
+            $today = new DateTime('now');
+        
+            // Pobieramy dane z formularza - ID zaznaczonych nawyków
+            $habitsId = $request->get('habits', []);
+        
+            // Iterujemy po wszystkich zaznaczonych nawykach
+            foreach ($habitsId as $selected) {
+                $toTrack = $sh->selectById($user, $selected);
+                
+                if ($toTrack) {
+                    // Sprawdzamy, czy nawyk jest już śledzony tego dnia
+                    $alreadyTracked = $toTrack->getTracking()->exists(function($key, $tracking) use ($today) {
+                        return $tracking->getDate()->format('Y/m/d') === $today->format('Y/m/d');
+                    });
+        
+                    // Jeśli nie jest śledzony, dodajemy nowe śledzenie
+                    if (!$alreadyTracked) {
+                        $tracking = new Tracking();
+                        $tracking->setUser($user);
+                        $tracking->setDate($today);
+                        $tracking->setSelectedHabits($toTrack);
+                        $tracking->setSelected(true); // Nawyki są zaznaczone
+        
+                        $entityManager->persist($tracking);
+                    }
+                }
+            }
+        
+            // Teraz usuwamy śledzenia, które nie zostały zaznaczone
+            $allTrackedHabits = $trackings->findBy(['user' => $user, 'date' => $today]);
+        
+            foreach ($allTrackedHabits as $trackedHabit) {
+                // Jeśli nawyk nie znajduje się w liście zaznaczonych, usuwamy go
+                if (!in_array($trackedHabit->getSelectedHabits()->getId(), $habitsId)) {
+                    $entityManager->remove($trackedHabit); // Usuwamy śledzenie
+                }
+            }
+        
+            // Zatwierdzamy zmiany w bazie danych
+            $entityManager->flush();
+        
+            return $this->redirectToRoute('app_habit');
+        }
+        
+
+   
 
     #[Route('/habits/add', 'app_new_habit')]
     public function newHabit(EntityManagerInterface $entityManager, Request $request): Response

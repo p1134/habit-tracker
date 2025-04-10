@@ -62,6 +62,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: SelectedHabits::class, mappedBy: 'user')]
     private Collection $selectedHabit;
 
+    /**
+     * @var Collection<int, Tracking>
+     */
+    #[ORM\OneToMany(targetEntity: Tracking::class, mappedBy: 'user')]
+    private Collection $trackings;
+
     // #[ORM\ManyToOne(inversedBy: 'user')]
     // #[ORM\JoinColumn(nullable: false)]
     // private ?SelectedHabits $selectedHabit = null;
@@ -71,6 +77,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->habit = new ArrayCollection();
         $this->ownHabit = new ArrayCollection();
         $this->selectedHabit = new ArrayCollection();
+        $this->trackings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -284,6 +291,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($selectedHabit->getUser() === $this) {
                 $selectedHabit->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tracking>
+     */
+    public function getTrackings(): Collection
+    {
+        return $this->trackings;
+    }
+
+    public function addTracking(Tracking $tracking): static
+    {
+        if (!$this->trackings->contains($tracking)) {
+            $this->trackings->add($tracking);
+            $tracking->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTracking(Tracking $tracking): static
+    {
+        if ($this->trackings->removeElement($tracking)) {
+            // set the owning side to null (unless already changed)
+            if ($tracking->getUser() === $this) {
+                $tracking->setUser(null);
             }
         }
 

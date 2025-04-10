@@ -33,6 +33,34 @@ class SelectedHabitsRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function dailyTracking($user){
+        return $this->createQueryBuilder('sh')
+            ->andwhere('sh.user = :user')
+            -> setParameter('user', $user)
+            ->join('sh.habit', 'h')
+            ->addSelect('h')
+            ->join('t.habit', 'th')
+            ->addSelect('th')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function selectById($user, $selected){
+        return $this->createQueryBuilder('sh')
+        ->andWhere('sh.user = :user')
+        ->setParameter('user', $user)
+        ->andWhere('sh.id = :selected')
+        ->setParameter('selected', $selected)
+        ->leftJoin('sh.habit', 'h')
+        ->addSelect('h')
+        ->leftJoin('sh.ownHabit', 'oh')
+        ->addSelect('oh')
+        ->getQuery()
+        ->getOneOrNullResult()
+        ;
+    }
     
 
     //    public function findOneBySomeField($value): ?SelectedHabits

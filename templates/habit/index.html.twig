@@ -4,13 +4,27 @@
 
 {% block body %}
 
-{% for h in habits %}
-    {% if h.habit != null %}
-        {{ h.habit.name }}
-    {% else %}
-        {{ h.ownHabit.name }}
-    {% endif %}
-{% endfor %}
+{# {% for f in form.vars.data %}
+    {{ f }}
+{% endfor %} #}
+<form method="post" action="{{ path('app_tracking_habit') }}">
+    {% for h in habits %}
+        <div>
+            <label>
+                {{ h.habit.name ?? h.ownHabit.name }}
+                <input type="checkbox" name="habits[]" value="{{ h.id }}"
+                {% for t in tracked %}
+                    {% if t.selectedHabits.id == h.id %}
+                        checked
+                    {% endif %}
+                {% endfor %}
+                >
+            </label>
+        </div>
+    {% endfor %}
+    <button type="submit">Zapisz</button>
+</form>
+
 <a href="{{ path('app_select_habit') }}"><button>Wybierz nawyki</button></a>
 <a href="{{ path('app_new_habit') }}"><button>Stwórz nowy nawyk</button></a>
 <a href="{{ path('app_habit_remove') }}"><button>Usuń nawyk</button></a>

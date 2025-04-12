@@ -35,8 +35,9 @@ class OwnHabitType extends AbstractType
                 'expanded' => true,
                 'choice_label' => 'name',
                 'query_builder' => function($repo) use ($options){
-                    $repo->createQueryBuilder('oh')
+                    return $repo->createQueryBuilder('oh')
                     ->where('oh.user = :user')
+                    ->andwhere('oh.isDeleted = false')
                     ->setParameter('user', $options['user']);
                 }
             ])
@@ -47,7 +48,8 @@ class OwnHabitType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => null,
-            'user' => null
+            'user' => null,
+            'ownHabits' => null,
         ]);
     }
 }

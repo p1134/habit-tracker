@@ -14,6 +14,7 @@ use App\Form\TrackingType;
 use App\Entity\SelectedHabits;
 use App\Repository\HabitRepository;
 use App\Repository\OwnHabitRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\SelectedHabitsRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,32 +29,46 @@ final class HabitController extends AbstractController
     {
         $user = $this->getUser();
 
-        $today = new Date('now');
+        $today = new DateTime('now');
         $today->format('Y/m/d');
 
-        $selected = $sh->habitsToTrack($user);
+        $selected = $sh->showHabits($user);
         $trackingList = $trackings->dailyTracking($user);
 
-        dd($selected, $trackingList);
-        foreach($trackingList as $tracked){
-            if(!$selected->exists($tracked) && $selected->getDate() < $today){
-                // $tracked->setSelected(false);
-                dd($selected->getSelected());
+        $selected = new ArrayCollection($selected);
+
+        $currentSelected = new ArrayCollection();
+        foreach($selected as $s){
+            if($s->getHabit() != null){
+                $currentSelected->add($s);
+            }
+            elseif($s->getOwnHabit() != null && $s->getOwnHabit()->isDeleted() == false){
+                $currentSelected->add($s);
             }
         }
+        // dd($currentSelected);
 
-        
-        // dd($trackingList);
-        // dd($selected);    
-        // $tracking = $shb->dailyTracking($user);
-        // dd($tracking);
+        // dd($selected, $trackingList);
+        // foreach($trackingList as $tracked){
+        //     if(!$selected->exists(function ($key, $tracking) use ($today) {
+        //         return $tracking->getDate()->format('Y-m-d') === $today;
+        //     }))
+        //     {
+        //         foreach($selected as $s){
+        //             if($s->getDate() < $today){
+        //                 $tracked->setSelected(false);
+        //             }
+        //         }
+        //         // dd($selected->getSelected());
+        //     }
+        // }
 
 
 
             return $this->render('habit/index.html.twig', [
                 'controller_name' => 'HabitController',
                 'user' => $user->getUserIdentifier(),
-                'habits' => $selected,
+                'habits' => $currentSelected,
                 'tracked' => $trackingList,
             ]);
         }
@@ -84,6 +99,7 @@ final class HabitController extends AbstractController
                         $tracking->setDate($today);
                         $tracking->setSelectedHabits($toTrack);
                         $tracking->setSelected(true); // Nawyki są zaznaczone
+                        $tracking->setIsDeleted(false);
         
                         $entityManager->persist($tracking);
                     }
@@ -95,9 +111,11 @@ final class HabitController extends AbstractController
         
             foreach ($allTrackedHabits as $trackedHabit) {
                 // Jeśli nawyk nie znajduje się w liście zaznaczonych, usuwamy go
-                if (!in_array($trackedHabit->getSelectedHabits()->getId(), $habitsId)) {
-                    $entityManager->remove($trackedHabit); // Usuwamy śledzenie
+                if (!in_array($trackedHabit->getSelectedHabits()->getId(), $habitsId) && !$trackedHabit->isDeleted()) {
+                    $entityManager->remove($trackedHabit);
+                    // dd($trackedHabit);
                 }
+                // $entityManager->persist($trackedHabit); // Usuwamy śledzenie
             }
         
             // Zatwierdzamy zmiany w bazie danych
@@ -125,6 +143,7 @@ final class HabitController extends AbstractController
             $habit->setUser($user);
             $habit->setName($ownHabit['name']);
             $habit->setCategory($ownHabit['category']);
+            $habit->setIsDeleted(false);
 
             $entityManager->persist($habit);
             $entityManager->flush();
@@ -148,15 +167,22 @@ final class HabitController extends AbstractController
         $user = $this->getUser();
 
         $tracking = $ownHabits->habitsToTrack($user);
-        $form = $this->createForm(OwnHabitType::class, null, );
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()){
-            $data = $form->getData();
-            $selected = $data['ownHabits'] ?? [];
+        // $form = $this->createForm(OwnHabitType::class, null,[
+        //     'ownHabits' => $tracking,
+        // ]);
+        if ($request->isMethod('POST')) {
+            $selectedHabits = $request->get('ownHabits', []);
+            // $data = $form->getData();
+            // $selected = $data['ownHabits'] ?? [];
+            // dd($data);
             
-            foreach ($selected as $habit) {
-                $entityManager->remove($habit);
+            foreach ($selectedHabits as $habitId) {
+                $habit = $ownHabits->find($habitId);
+                if ($habit) {
+                    $habit->setIsDeleted(true);
+                    // dd($habit);
+                    $entityManager->persist($habit);
+                }
             }
     
             $entityManager->flush();
@@ -165,8 +191,9 @@ final class HabitController extends AbstractController
         }
         return $this->render('habit/_remove_habit_form.html.twig', [
             'user' => $user,
-            'form' => $form->createView(),
+            // 'form' => $form->createView(),
             'form_type' => 'ownHabitRemove',
+            'ownHabits' => $tracking,
         ]);
     }
 
@@ -175,7 +202,8 @@ final class HabitController extends AbstractController
     {
         $user = $this->getUser();
 
-        $tracking = $selectedHabits->habitsToTrack($user);
+        //Nawyki wybrane do śledzenia
+        $tracking = $selectedHabits->habitsToTrackFalse($user);
         // dd($tracking);
         $selectedHabitsArray = array_map(fn($sh) => $sh->getHabit() ?? $sh->getOwnHabit(), $tracking);
         // dd($selectedHabitsArray);
@@ -183,6 +211,7 @@ final class HabitController extends AbstractController
         $selectedGlobal = array_filter($selectedHabitsArray, fn($habit) => $habit instanceof Habit);
         $selectedOwn = array_filter($selectedHabitsArray, fn($habit) => $habit instanceof OwnHabit);
         // dd($selectedGlobal, $selectedOwn);
+
         $form = $this->createForm(HabitType::class, [
             'habits' => $selectedGlobal,
             'ownHabits' => $selectedOwn,
@@ -200,7 +229,7 @@ final class HabitController extends AbstractController
             $selectedOwn = $form->get('ownHabits')->getData();
 
             $selectedAll = array_merge($selectedGlobal, $selectedOwn);
-            // dd($tracking);
+            // dd($tracking, $selectedAll);
             // $trackingHabits = $selectedHabits->habitsToTrack($user);
 
             foreach($selectedAll as $habit){
@@ -213,7 +242,7 @@ final class HabitController extends AbstractController
                     if (
                         
                         ($habit instanceof Habit && $trackedHabit !== null && $habit->getId() === $trackedHabit->getId()) ||
-                        ($habit instanceof OwnHabit && $trackedOwnHabit !== null && $habit->getId() === $trackedOwnHabit->getId())
+                        ($habit instanceof OwnHabit && $trackedOwnHabit !== null && $habit->getId() === $trackedOwnHabit->getId() && !$trackedOwnHabit->isDeleted())
                     ){
                         $alreadySelected = true;
                         break;
@@ -230,6 +259,8 @@ final class HabitController extends AbstractController
                     }
                     $selected->setDate($today);
                     $selected->setUser($user);
+                    $selected->setIsDeleted(false);
+
                     $entityManager->persist($selected);
                 }
             }
@@ -239,7 +270,8 @@ final class HabitController extends AbstractController
                 $current = $trackedHabit ?? $trackedOwnHabit;
             
                 if (!in_array($current, $selectedAll, true)) {
-                    $entityManager->remove($th);
+                    $th->setIsDeleted(true);
+                    $entityManager->persist($th);
                 }
             }
             

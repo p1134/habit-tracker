@@ -19,7 +19,7 @@ class SelectedHabits
     // #[ORM\Column(length: 255)]
     // private ?string $name = null;
 
-    #[ORM\OneToOne(inversedBy: 'selectedHabit', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'selectedHabits')]
     #[ORM\JoinColumn(nullable: true)]
     private ?Habit $habit = null;
     
@@ -39,6 +39,9 @@ class SelectedHabits
      */
     #[ORM\OneToMany(targetEntity: Tracking::class, mappedBy: 'selectedHabits')]
     private Collection $tracking;
+
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private ?bool $isDeleted = null;
 
     public function __construct()
     {
@@ -177,6 +180,18 @@ class SelectedHabits
                 $tracking->setSelectedHabits(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isDeleted(): ?bool
+    {
+        return $this->isDeleted;
+    }
+
+    public function setIsDeleted(?bool $isDeleted): static
+    {
+        $this->isDeleted = $isDeleted;
 
         return $this;
     }

@@ -20,6 +20,7 @@ class OwnHabitRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('oh')
             ->andWhere('oh.user = :user')
             ->setParameter('user', $user)
+            ->andWhere('oh.isDeleted = false')
             ->getQuery()
             ->getResult()
         ;

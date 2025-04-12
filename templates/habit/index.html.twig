@@ -11,14 +11,19 @@
     {% for h in habits %}
         <div>
             <label>
+            {% if not h.isDeleted %}
                 {{ h.habit.name ?? h.ownHabit.name }}
                 <input type="checkbox" name="habits[]" value="{{ h.id }}"
                 {% for t in tracked %}
-                    {% if t.selectedHabits.id == h.id %}
+                {# <pre>
+                    {{ dump(t) }}
+                </pre> #}
+                    {% if t.selectedHabits and t.selectedHabits.id == h.id and not t.selectedHabits.isDeleted and not t.isDeleted %}
                         checked
                     {% endif %}
                 {% endfor %}
                 >
+            {% endif %}
             </label>
         </div>
     {% endfor %}

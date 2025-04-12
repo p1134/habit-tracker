@@ -19,11 +19,11 @@ class Habit
     // #[ORM\JoinColumn(nullable: false)]
     // private ?User $user = null;
 
-    /**
-     * @var Collection<int, Tracking>
-     */
-    #[ORM\OneToMany(targetEntity: Tracking::class, mappedBy: 'habit', orphanRemoval: true)]
-    private Collection $tracking;
+    // /**
+    //  * @var Collection<int, Tracking>
+    //  */
+    // #[ORM\OneToMany(targetEntity: Tracking::class, mappedBy: 'habit', orphanRemoval: true)]
+    // private Collection $tracking;
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
@@ -32,12 +32,14 @@ class Habit
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 
-    #[ORM\OneToOne(mappedBy: 'habit', cascade: ['persist', 'remove'])]
-    private ?SelectedHabits $selectedHabit = null;
+    #[ORM\OneToMany(mappedBy: 'habit', targetEntity: SelectedHabits::class)]
+    private Collection $selectedHabits;
+    
 
     public function __construct()
     {
         $this->tracking = new ArrayCollection();
+        $this->selectedHabits = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -65,27 +67,27 @@ class Habit
         return $this->tracking;
     }
 
-    public function addTracking(Tracking $tracking): static
-    {
-        if (!$this->tracking->contains($tracking)) {
-            $this->tracking->add($tracking);
-            $tracking->setHabit($this);
-        }
+    // public function addTracking(Tracking $tracking): static
+    // {
+    //     if (!$this->tracking->contains($tracking)) {
+    //         $this->tracking->add($tracking);
+    //         $tracking->setHabit($this);
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function removeTracking(Tracking $tracking): static
-    {
-        if ($this->tracking->removeElement($tracking)) {
-            // set the owning side to null (unless already changed)
-            if ($tracking->getHabit() === $this) {
-                $tracking->setHabit(null);
-            }
-        }
+    // public function removeTracking(Tracking $tracking): static
+    // {
+    //     if ($this->tracking->removeElement($tracking)) {
+    //         // set the owning side to null (unless already changed)
+    //         if ($tracking->getHabit() === $this) {
+    //             $tracking->setHabit(null);
+    //         }
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getName(): ?string
     {
@@ -111,20 +113,35 @@ class Habit
         return $this;
     }
 
-    public function getSelectedHabit(): ?SelectedHabits
+
+    /**
+ * @return Collection<int, SelectedHabits>
+ */
+    public function getSelectedHabits(): Collection
     {
-        return $this->selectedHabit;
+        return $this->selectedHabits;
     }
 
-    public function setSelectedHabit(SelectedHabits $selectedHabit): static
+    public function addSelectedHabit(SelectedHabits $selectedHabit): static
     {
-        // set the owning side of the relation if necessary
-        if ($selectedHabit->getHabit() !== $this) {
+        if (!$this->selectedHabits->contains($selectedHabit)) {
+            $this->selectedHabits[] = $selectedHabit;
             $selectedHabit->setHabit($this);
         }
 
-        $this->selectedHabit = $selectedHabit;
+        return $this;
+    }
+
+    public function removeSelectedHabit(SelectedHabits $selectedHabit): static
+    {
+        if ($this->selectedHabits->removeElement($selectedHabit)) {
+            // set the owning side to null (unless already changed)
+            // if ($selectedHabit->getHabit() === $this) {
+            //     $selectedHabit->setHabit(null);
+            // }
+        }
 
         return $this;
     }
+
 }

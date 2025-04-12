@@ -28,8 +28,9 @@ class HabitType extends AbstractType
                 'expanded' => true,
                 'choice_label' => 'name',
                 'query_builder' => function($repo) use ($options){
-                    $repo->createQueryBuilder('oh')
+                return $repo->createQueryBuilder('oh')
                     ->where('oh.user = :user')
+                    ->andWhere('oh.isDeleted = false')
                     ->setParameter('user', $options['user']);
                 }
             ])

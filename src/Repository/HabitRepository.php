@@ -16,9 +16,6 @@ class HabitRepository extends ServiceEntityRepository
         parent::__construct($registry, Habit::class);
     }
 
-    public function showHabits($user)
-    {
-    }
 
     //    /**
     //     * @return Habit[] Returns an array of Habit objects

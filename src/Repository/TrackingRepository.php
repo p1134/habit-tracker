@@ -30,6 +30,7 @@ class TrackingRepository extends ServiceEntityRepository
                ->setParameter('user', $user)
                ->andWhere('t.date = :today')
                ->setParameter('today', $today)
+            //    ->andWhere('t.isDeleted = false')
                ->orderBy('t.id', 'ASC')
                ->getQuery()
                ->getResult()

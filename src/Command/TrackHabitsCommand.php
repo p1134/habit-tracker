@@ -2,13 +2,19 @@
 
 namespace App\Command;
 
-use Symfony\Component\Console\Attribute\AsCommand;
+use DateTime;
+use App\Entity\Tracking;
+use App\Repository\UserRepository;
+use App\Repository\TrackingRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\SelectedHabitsRepository;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
     name: 'app:track-habits',
@@ -16,33 +22,53 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class TrackHabitsCommand extends Command
 {
-    public function __construct()
+    public function __construct(EntityManagerInterface $entityManager, SelectedHabitsRepository $selectedHabitsRepository, TrackingRepository $trackingRepository, UserRepository $userRepository)
     {
+        $this->entityManager = $entityManager;
+        $this->selectedHabitsRepository = $selectedHabitsRepository;
+        $this->trackingRepository = $trackingRepository;
+        $this->userRepository = $userRepository;
         parent::__construct();
     }
 
     protected function configure(): void
     {
         $this
-            ->addArgument('arg1', InputArgument::OPTIONAL, 'Argument description')
-            ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description')
+            ->setDescription('Track habits for users automatically once a day')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $io = new SymfonyStyle($input, $output);
-        $arg1 = $input->getArgument('arg1');
+        $users = $this->userRepository->findAll();
+        $today = new DateTime('now');
 
-        if ($arg1) {
-            $io->note(sprintf('You passed an argument: %s', $arg1));
+        foreach ($users as $user) {
+            // Logic to track habits
+            $habits = $this->selectedHabitsRepository->findByUser($user);  // Example function to get habits of a user
+
+            foreach ($habits as $habit) {
+                $alreadyTracked = $this->trackingRepository->findOneBy([
+                    'user' => $user,
+                    'selectedHabits' => $habit,
+                    'date' => $today,
+                ]);
+
+                if (!$alreadyTracked) {
+                    $tracking = new Tracking();
+                    $tracking->setUser($user);
+                    $tracking->setDate($today);
+                    $tracking->setSelectedHabits($habit);
+                    $tracking->setSelected(false);
+
+                    $this->entityManager->persist($tracking);
+                }
+            }
         }
 
-        if ($input->getOption('option1')) {
-            // ...
-        }
+        $this->entityManager->flush();
 
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+        $output->writeln('Tracking completed successfully.');
 
         return Command::SUCCESS;
     }

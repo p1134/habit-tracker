@@ -20,18 +20,62 @@ class SelectedHabitsRepository extends ServiceEntityRepository
     //    /**
     //     * @return SelectedHabits[] Returns an array of SelectedHabits objects
     //     */
-    public function habitsToTrack($user): array
+    public function showHabits($user):array
     {
-        return $this->createQueryBuilder('sh')
+            $query = $this->createQueryBuilder('sh')
             ->andWhere('sh.user = :user')
             ->setParameter('user', $user)
             ->leftJoin('sh.habit', 'h') // Łączenie Habit
             ->addSelect('h')
             ->leftJoin('sh.ownHabit', 'oh') // Łączenie OwnHabit
             ->addSelect('oh')
+            ->leftJoin('sh.tracking', 't') // Dodajemy join do trackingów
+            ->addSelect('t')
             ->andWhere('h IS NOT NULL OR oh IS NOT NULL') // Zapewnienie, że jest zwrócone przynajmniej jedno powiązanie
+            ->andWhere('sh.isDeleted = false')
+
+            // ->andWhere('sh.isDeleted = false')
             ->getQuery()
             ->getResult();
+            // dd($query);
+            return $query;
+    }
+    public function habitsToTrack($user):array
+    {
+            $query = $this->createQueryBuilder('sh')
+            ->andWhere('sh.user = :user')
+            ->setParameter('user', $user)
+            ->leftJoin('sh.habit', 'h') // Łączenie Habit
+            ->addSelect('h')
+            ->leftJoin('sh.ownHabit', 'oh') // Łączenie OwnHabit
+            ->addSelect('oh')
+            ->leftJoin('sh.tracking', 't') // Dodajemy join do trackingów
+            ->addSelect('t')
+            ->andWhere('h IS NOT NULL OR oh IS NOT NULL') // Zapewnienie, że jest zwrócone przynajmniej jedno powiązanie
+            // ->andWhere('sh.isDeleted = false')
+            ->getQuery()
+            ->getResult();
+            // dd($query);
+            return $query;
+    }
+    //     */
+    public function habitsToTrackFalse($user):array
+    {
+            $query = $this->createQueryBuilder('sh')
+            ->andWhere('sh.user = :user')
+            ->setParameter('user', $user)
+            ->leftJoin('sh.habit', 'h') // Łączenie Habit
+            ->addSelect('h')
+            ->leftJoin('sh.ownHabit', 'oh') // Łączenie OwnHabit
+            ->addSelect('oh')
+            ->leftJoin('sh.tracking', 't') // Dodajemy join do trackingów
+            ->addSelect('t')
+            ->andWhere('h IS NOT NULL OR oh IS NOT NULL') // Zapewnienie, że jest zwrócone przynajmniej jedno powiązanie
+            ->andWhere('sh.isDeleted = false')
+            ->getQuery()
+            ->getResult();
+            // dd($query);
+            return $query;
     }
 
     public function dailyTracking($user){
@@ -40,8 +84,9 @@ class SelectedHabitsRepository extends ServiceEntityRepository
             -> setParameter('user', $user)
             ->join('sh.habit', 'h')
             ->addSelect('h')
-            ->join('t.habit', 'th')
+            ->join('sh.tracking', 'th')
             ->addSelect('th')
+            ->andWhere('sh.isDeleted = false')
             ->getQuery()
             ->getResult()
             ;
@@ -57,6 +102,7 @@ class SelectedHabitsRepository extends ServiceEntityRepository
         ->addSelect('h')
         ->leftJoin('sh.ownHabit', 'oh')
         ->addSelect('oh')
+        ->andWhere('sh.isDeleted = false')
         ->getQuery()
         ->getOneOrNullResult()
         ;

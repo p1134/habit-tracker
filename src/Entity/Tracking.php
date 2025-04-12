@@ -14,9 +14,9 @@ class Tracking
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'tracking')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Habit $habit = null;
+    // #[ORM\ManyToOne(inversedBy: 'tracking')]
+    // #[ORM\JoinColumn(nullable: false)]
+    // private ?Habit $habit = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
@@ -29,24 +29,28 @@ class Tracking
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'tracking')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?SelectedHabits $selectedHabits = null;
+
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private ?bool $isDeleted = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getHabit(): ?Habit
-    {
-        return $this->habit;
-    }
+    // public function getHabit(): ?Habit
+    // {
+    //     return $this->habit;
+    // }
 
-    public function setHabit(?Habit $habit): static
-    {
-        $this->habit = $habit;
+    // public function setHabit(?Habit $habit): static
+    // {
+    //     $this->habit = $habit;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getDate(): ?\DateTimeInterface
     {
@@ -92,6 +96,18 @@ class Tracking
     public function setSelectedHabits(?SelectedHabits $selectedHabits): static
     {
         $this->selectedHabits = $selectedHabits;
+
+        return $this;
+    }
+
+    public function isDeleted(): ?bool
+    {
+        return $this->isDeleted;
+    }
+
+    public function setIsDeleted(?bool $isDeleted): static
+    {
+        $this->isDeleted = $isDeleted;
 
         return $this;
     }

@@ -1,25 +1,80 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Habitify - Register{% endblock %}
 
 {% block body %}
     {% for flash_error in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
 
-    <h1>Register</h1>
+    <div class="main__background w-full h-screen">
+    <div class="nav">
+        <div class="profile-text">
+            <a href="{{ path('app_login') }}">
+                <p>Zaloguj się</p>
+            </a>
+        </div>
 
-    {{ form_errors(registrationForm) }}
+        <div class="profile-icon w-30 h-30">
+            <a href="{{ path('app_login') }}">
+                <img src="{{ asset('/img/profile.svg') }}">
+            </a>
+        </div>
+    </div>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.firstname) }}
-        {{ form_row(registrationForm.lastname) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+    <div class="flex flex-col w-auto h-full justify-start items-center mt-20">
+        <div class="main__content md:w-auto w-full h-auto">
+            <div class="main__heading--form">
+                <h1 class="h-auto">REJESTRAC<span class="main-color">JA.</span></h1>
+            </div>
+        </div>
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+        {# <div class="flex flex-col w-"> #}
+        {{ form_errors(registrationForm) }}
+
+        {{ form_start(registrationForm) }}
+            <div class="flex flex-col gap-4 w-full">
+            {{ form_widget(registrationForm.firstname, {
+                'attr': {
+                    'class': 'form__widget',
+                    'placeholder': 'Imię'
+                    }}) }}
+            {{ form_widget(registrationForm.lastname, {
+                'attr': {
+                    'class': 'form__widget',
+                    'placeholder': 'Nazwisko'
+                    }}) }}
+            {{ form_widget(registrationForm.email, {
+                'attr': {
+                    'class': 'form__widget',
+                    'placeholder':'Adres e-mail'
+                    }}) }}
+            {{ form_widget(registrationForm.plainPassword, {
+                'attr': {
+                    'class': 'form__widget',
+                    'placeholder': 'Hasło'
+                }
+            }) }}
+            <a href="{{ path('app_login') }}" class="text-sm text-gray-500">Mam już konto</a>
+            <div class="flex gap-3">
+            {{ form_widget(registrationForm.agreeTerms) }}
+            <p>Akceptuję regulamin</p>
+            </div>
+
+            <div class="mt-10">
+                <div class=" form-submit absolute overflow-hidden">
+                    {# <a href="{{ path('app_register') }}"> #}
+                        <button type="submit" class="form__btn rounded-xl text-xl relative flex gap-3"><span><img src="{{ asset('/img/register.svg') }}" class="main__btn-dashboard w-4/5"></span>Zarejestruj</button>
+                        <div class="btn-dot absolute bottom-2"></div>
+                    {# </a> #}
+                </div>
+            </div>
+
+            </div>
+        {{ form_end(registrationForm) }}
+        {# </div> #}
+    </div>
+
+</div>
+
 {% endblock %}

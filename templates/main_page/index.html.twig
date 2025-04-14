@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="main__background w-full h-screen">
+    <div class="nav">
+        <div class="profile-text">
+            <a href="{{ path('app_login') }}">
+                <p>Zaloguj się</p>
+            </a>
+        </div>
+
+        <div class="profile-icon w-30 h-30">
+            <a href="{{ path('app_login') }}">
+                <img src="{{ asset('/img/profile.svg') }}">
+            </a>
+        </div>
+    </div>
+
+    <div class="flex flex-col w-full h-full justify-center items-center">
+        <div class="main__content md:w-auto w-full h-auto relative">
+            <div class="main__heading">
+                <h1 class="h-auto">HABITIF<span class="main-color">Y.</span></h1>
+            </div>
+            <div class="main__heading--small absolute w-max right-0 bottom-44">
+                <h2 class="text-black w-full h-auto">Przypomni, zanim ty zdążysz zapomnieć</h2>
+            </div>
+        </div>
+        <div class="main__cta absolute bottom-48 overflow-hidden">
+            <a href="{{ path('app_register') }}">
+                <button class="main__cta-btn rounded-xl text-xl relative flex gap-3"><span><img src="{{ asset('/img/dashboard.svg') }}" class="main__btn-dashboard w-4/5"></span>Zacznij teraz</button>
+                <div class="btn-dot absolute bottom-2"></div>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

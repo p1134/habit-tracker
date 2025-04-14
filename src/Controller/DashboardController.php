@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class DashboardController extends AbstractController
 {
-    #[Route('/', 'app_dashboard')]
+    #[Route('/dashboard', 'app_dashboard')]
     public function index(): Response
     {
         $user = $this->getUser();

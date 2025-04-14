@@ -1,24 +1,19 @@
-
 services:
-###> doctrine/doctrine-bundle ###
   mysql:
     image: mariadb:10.8.3
-    # Uncomment below when on Mac M1
-    # platform: linux/arm64/v8
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
     ports:
       - 3306:3306
+
   adminer:
     image: adminer
     restart: always
     ports:
       - 8080:8080
-###< doctrine/doctrine-bundle ###
 
-###> symfony/mailer ###
   mailer:
     image: axllent/mailpit
     ports:
@@ -27,12 +22,18 @@ services:
     environment:
       MP_SMTP_AUTH_ACCEPT_ANY: 1
       MP_SMTP_AUTH_ALLOW_INSECURE: 1
-###< symfony/mailer ###
 
-  cron:
+  app:
+    image: php:7.4-cli
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: habit-app
+    ports:
+      - "8000:8000"
     volumes:
       - .:/var/www/html
-    container_name: habit-cron
+    environment:
+      DATABASE_URL: "mysql://root:root@mysql:3306/habit-tracker?serverVersion=mariadb-10.8.3&charset=utf8mb4"
+    depends_on:
+      - mysql

@@ -23,7 +23,8 @@ class TrackingRepository extends ServiceEntityRepository
     //     */
        public function dailyTracking($user): array
        {
-        $today = new DateTime('now')->format('Y/m/d');
+        $todayDate = new DateTime('now');
+        $today = $todayDate->format('Y/m/d');
 
            return $this->createQueryBuilder('t')
                ->andWhere('t.user = :user')

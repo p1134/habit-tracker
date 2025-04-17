@@ -1,0 +1,13 @@
+        <div class="nav flex w-full">
+            <div class="profile-text">
+                <a href="{{ path('app_register') }}">
+                    <p>{{ userData.firstname }} {{ userData.lastname }} </p>
+                </a>
+            </div>
+
+            <div class="profile-icon w-30 h-30">
+                <a href="{{ path('app_register') }}">
+                    <img src="{{ asset('/img/profile.svg') }}">
+                </a>
+            </div>
+        </div>

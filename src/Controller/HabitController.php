@@ -31,6 +31,12 @@ final class HabitController extends AbstractController
 
         $today = new DateTime('now');
         $today->format('Y/m/d');
+        // $todayDate = $today->format()
+
+        $days = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
+        // dd($days);
+        $dayNumber = date('N');
+        $day = $days[$dayNumber];
 
         $selected = $sh->showHabits($user);
         $trackingList = $trackings->dailyTracking($user);
@@ -38,6 +44,7 @@ final class HabitController extends AbstractController
         $selected = new ArrayCollection($selected);
 
         $currentSelected = new ArrayCollection();
+        // dd($selected);
         foreach($selected as $s){
             if($s->getHabit() != null){
                 $currentSelected->add($s);
@@ -70,6 +77,9 @@ final class HabitController extends AbstractController
                 'user' => $user->getUserIdentifier(),
                 'habits' => $currentSelected,
                 'tracked' => $trackingList,
+                'userData' => $user,
+                'today' => $today->format('d.m.Y'),
+                'day' => $day,
             ]);
         }
 

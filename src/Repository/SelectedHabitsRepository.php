@@ -38,6 +38,12 @@ class SelectedHabitsRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
             // dd($query);
+            usort($query, function ($a, $b) {
+                $nameA = $a->getHabit()?->getName() ?? $a->getOwnHabit()?->getName() ?? '';
+                $nameB = $b->getHabit()?->getName() ?? $b->getOwnHabit()?->getName() ?? '';
+                return strcasecmp($nameA, $nameB);
+            });
+
             return $query;
     }
     public function habitsToTrack($user):array

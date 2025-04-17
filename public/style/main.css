@@ -2,6 +2,34 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
+.btn-active {
+  width: 11em;
+  padding: 0.7em 1.5em 0.7em 1.5em;
+  color: white;
+  background-color: #000000;
+  border-radius: 10px;
+}
+
+.btn-inactive {
+  width: 11em;
+  padding: 0.5em 1.5em 0.5em 1.5em;
+  background-color: transparent;
+}
+
+.btn__nav-dot {
+  bottom: 34.4em;
+  width: 6px;
+  height: 6px;
+  border-radius: 100%;
+  background-color: #FABB18;
+  transform: translateX(-100%);
+}
+
+.nav__dashboard:hover ~ .btn__nav-dot {
+  transform: translateX(17em);
+  transition: transform 0.8s;
+}
+
 .main__content {
   padding: 0 6em 0 6em;
 }
@@ -28,6 +56,9 @@ body {
 .main__background {
   background-color: #F9F9F9;
 }
+.main__background--gold {
+  background-color: #FABB18;
+}
 .main__cta-btn {
   padding: 0.8em 2em 0.8em 2em;
   color: white;
@@ -43,6 +74,9 @@ body {
   align-items: center;
   padding-right: 1em;
   gap: 1em;
+}
+.nav__container {
+  width: 16em;
 }
 
 .btn-dot {
@@ -87,4 +121,23 @@ body {
 .form__btn:hover ~ .btn-dot {
   transform: translateX(17em);
   transition: transform 0.6s;
+}
+
+.habits__main {
+  border-top-left-radius: 40px;
+}
+.habits__panel--left, .habits__panel--right {
+  height: 67%;
+  width: 50%;
+  border-radius: 40px;
+  background-color: #fff;
+}
+.habits__checkbox-progress {
+  width: 0.5em;
+  transition: width 0.2s;
+}
+
+.habits__checkbox:checked ~ .habits__checkbox-progress {
+  width: 10em;
+  transition: width 0.2s;
 }/*# sourceMappingURL=main.css.map */

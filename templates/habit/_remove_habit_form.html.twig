@@ -1,0 +1,17 @@
+<form method="POST" action="{{ path('app_habit_remove') }}" name="form[ownHabits][]">
+{# <pre>
+    {{ dump(ownHabits) }}
+</pre> #}
+{% for oh in ownHabits %}
+        <label for="habit_{{ oh.id }}">
+            {{ oh.name }}
+            <input type="checkbox" name="ownHabits[]" value="{{ oh.id }}" id="habit_{{ oh.id }}">
+        </label>
+    {# {{ oh.name }}
+    <input type="checkbox" name="ownHabits[]" value="{{ oh.id }}"> #}
+{% endfor %}
+    
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('delete_habits') }}">
+    <input type="submit" value="Usuń" name="remove">
+    <a href="{{ path('app_habit') }}"><button>Anuluj</button></a>
+</form>

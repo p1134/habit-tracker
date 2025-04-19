@@ -1,0 +1,87 @@
+<?php
+
+namespace App\Controller;
+
+use DateTime;
+use App\Repository\TrackingRepository;
+use App\Repository\SelectedHabitsRepository;
+use PhpParser\Node\Stmt\Continue_;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
+use Symfony\UX\Chartjs\Model\Chart;
+
+final class DashboardController extends AbstractController
+{
+    #[Route('/dashboard', name: 'app_dashboard')]
+    public function Habits(TrackingRepository $trackings, SelectedHabitsRepository $sh, Request $request, ChartBuilderInterface $chartBuilder): Response
+    {
+        $user = $this->getUser();
+
+        $today = new DateTime('now');
+        $today->format('Y/m/d');
+        // $todayDate = $today->format()
+
+//AKTUALNY DZIEŃ
+        $days = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
+        // dd($days);
+        $dayNumber = date('N');
+        $day = $days[$dayNumber];
+
+//WYBRANE NAWYKI DO ŚLEDZENIA
+        $selected = $sh->showHabits($user);
+        $trackingList = $trackings->dailyTracking($user);
+
+        $selected = new ArrayCollection($selected);
+
+        $currentSelected = new ArrayCollection();
+        // dd($selected);
+        foreach($selected as $s){
+            if($s->getHabit() != null){
+                $currentSelected->add($s);
+            }
+            elseif($s->getOwnHabit() != null && $s->getOwnHabit()->isDeleted() == false){
+                $currentSelected->add($s);
+            }
+        }
+//DIAGRAM POSTĘPU
+        $chart = $chartBuilder->createChart(Chart::TYPE_DOUGHNUT);
+
+        $trackedCount = count($trackingList);
+        $selectedCount = (count($selected)-count($trackingList));
+        $donePercentage = number_format($trackedCount/count($selected)*100, 2);
+
+        $chart->setData([
+            'datasets' => [
+                [
+                    'label' => 'Procent ukończenia',
+                    'backgroundColor' => ['rgb(240, 190, 70)', 'rgb(239,245,254)'],
+                    'borderColor' => ['rgb(240, 190, 70)'],
+                    'borderWidth' => [14, 0],
+                    'data' => [$trackedCount, $selectedCount],
+                ],
+            ],
+        ]);
+
+        $chart->setOptions([
+            'responsive' => true,
+            // 'cutout' => '70%',  // Wycięcie w środku, tworzy efekt pierścienia
+        ]);
+
+            return $this->render('dashboard/index.html.twig', [
+                'controller_name' => 'HabitController',
+                'user' => $user->getUserIdentifier(),
+                'habits' => $currentSelected,
+                'tracked' => $trackingList,
+                'userData' => $user,
+                'today' => $today->format('d.m.Y'),
+                'day' => $day,
+                'chart' => $chart,
+                'percentage' => $donePercentage,
+                'trackedCount' => $trackedCount,
+            ]);
+        }
+}

@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Habitify - Logowanie{% endblock %}
+
+{% block body %}
+
+   {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+
+    <div class="main__background w-full h-screen">
+        <div class="nav">
+            <div class="profile-text">
+                <a href="{{ path('app_register') }}">
+                    <p>Utwórz konto</p>
+                </a>
+            </div>
+
+            <div class="profile-icon w-30 h-30">
+                <a href="{{ path('app_register') }}">
+                    <img src="{{ asset('/img/profile.svg') }}">
+                </a>
+            </div>
+        </div>
+
+        <div class="flex flex-col w-auto h-full justify-start items-center mt-20">
+            <div class="main__content md:w-auto w-full h-auto mb-10">
+                <div class="main__heading--form">
+                    <h1 class="h-auto">LO<span class="main-color">GO</span>WANIE.</h1>
+                </div>
+            </div>
+
+                <form action="{{ path('app_login') }}" method="POST" class="flex flex-col gap-5">
+                    <input class="form__widget" type="text" name="_username" value="{{ lastUsername }}" placeholder="Adres email"/>
+                    <input class="form__widget" type="password" name="_password" placeholder="Hasło">
+                    <input class="form__widget" type="hidden" name="_target_path" value="/habits"/>
+                     <a href="{{ path('app_register') }}" class="text-sm text-gray-500">Nie mam konta</a>
+
+                    <div class="mt-14">
+                        <div class=" form-submit absolute overflow-hidden">
+                            {# <a href="{{ path('app_register') }}"> #}
+                            <button type="submit" class="form__btn--login rounded-xl text-xl relative flex gap-3"><span><img src="{{ asset('/img/register.svg') }}" class="main__btn-dashboard w-4/5"></span>Zaloguj</button>
+                            <div class="btn-dot absolute bottom-2"></div>
+                        </div>
+                    </div>
+                </form>
+        </div>
+
+    </div>
+
+{% endblock %}

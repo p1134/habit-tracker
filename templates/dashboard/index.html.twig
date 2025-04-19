@@ -1,0 +1,200 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Habitify - Dashboard{% endblock %}
+
+{% block body %}
+
+<div class="habits__container w-full h-screen flex flex-col">
+
+    <div class="flex flex w-full h-full">
+        {# Nawigacja #}
+        <div class="nav__container h-full mt-5 flex justify-center">
+            <div class="nav__container h-full flex flex-col items-center">
+                <div class="nav__name mb-16">
+                    <p class="text-4xl font-bold">HABITIF<span class="main-color">Y.</span></p>
+                </div>
+
+                <div class="nav__tabs flex flex-col gap-5">
+
+                        <a class="w-auto h-auto" href="{{ path('app_dashboard') }}">
+                            <div class="nav__dashboard  w-auto h-auto relative overflow-hidden">
+                                <div class="nav__dashboard btn-active flex gap-3 justify-start items-center relative">
+                                    <img class="w-5 h-5" src="{{ asset('/img/dashboard.svg') }}" alt="">
+                                    <p>Dashboard</p>
+                                </div>
+                            <div class="btn__nav-dot absolute bottom-1 left-0"></div>
+                            </div>
+                        </a>
+
+                    <div class="nav__habits btn-inactive flex gap-3 justify-left items-center gap-4">
+                    <a href="" class="flex gap-3">
+                        <img src="{{ asset('img/nawyki-off.svg') }}" alt="">
+                        <p>Nawyki</p>
+                    </a>
+                    </div>
+                    <div class="nav__summary btn-inactive flex gap-3 justify-left items-center gap-4">
+                    <a href="" class="flex gap-3">
+                        <img src="{{ asset('img/podsumowanie-off.svg') }}" alt="">
+                        <p>Podsumowanie</p>
+                    </a>
+                    </div>
+                    <div class="nav__society btn-inactive flex gap-3 justify-left items-center gap-4">
+                    <a href="" class="flex gap-3">
+                        <img src="{{ asset('img/spolecznosc-off.svg') }}" alt="">
+                        <p>Społeczność</p>
+                    </a>
+                    </div>
+                    <div class="nav__option btn-inactive flex gap-3 justify-left items-center gap-4">
+                    <a href="" class="flex gap-3">
+                        <img src="{{ asset('img/ustawienia-off.svg') }}" alt="">
+                        <p>Ustawienia</p>
+                    </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="main-container w-full h-full flex flex-col">
+            {# Górny pasek z profilem #}
+            <div class="nav flex w-full justify-between h-20 mb-4 mt-4">
+                <div class="name-page ml-8 text-xl font-medium">
+                Dashboard
+                </div>
+
+                <div class="profile flex justify-center items-center gap-4">
+                    <div class="profile-text">
+                        <a href="{{ path('app_register') }}">
+                            <p>{{ userData.firstname }} {{ userData.lastname }} </p>
+                        </a>
+                    </div>
+
+                    <div class="profile-icon w-30 h-30">
+                        <a href="{{ path('app_register') }}">
+                            <img src="{{ asset('/img/profile.svg') }}">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            {# Panel główny dashboardu #}
+            <div class="habits__main h-full w-full main__background flex gap-4 flex-col">
+                {# Lewy panel #}
+                <div class="habits__panel--top w-full h-28 flex justify-between mt-6 items-center">
+                    <div class="ml-8">
+                        <p class="text-3xl font-semibold mb-3">Dzisiaj</p>
+                        <p class="text-lg">{{ day }} | {{ today }}</p>
+                    </div>
+                    <div class="mr-8 bg-white w-72 h-20 rounded-3xl flex items-center justify-between">
+                        <p class="ml-4 text-xl">Najdłuższa seria</p>
+                        <div class="main__background--gold w-12 h-12 rounded-xl mr-4 flex justify-center items-center">
+                        
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="habits__panel-main w-full h-full flex flex-row gap-8">
+
+                    <div class="habits__panel--left mt-4 mb-8 ml-8 flex flex-col gap-6">
+                        <div class="overflow-hidden m-8 flex flex-col gap-4">
+                        <p class="text-2xl">Nawyki</p>
+                            <div class="habits__panel__habit overflow-y-scroll overflow-x-hidden">
+                                <form method="post" action="{{ path('app_tracking_habit') }}">
+                                    {% for h in habits %}
+                                        <div class="border rounded-xl mb-5 w-full">
+                                            <label class="habits__row flex p-4 items-center gap-4 cursor-pointer justify-between">
+                                                <div class="habits__row flex items-center gap-4">
+                                                    {% if h.habit.category.id == 1 %}
+                                                    <div class="w-9">
+                                                        <div class="habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-blue-100">
+                                                            <img src="{{ asset('img/icon-blue.svg') }}" alt="">
+                                                        </div>
+                                                    </div>
+                                                    {% elseif h.habit.category.id == 2 %}
+                                                    <div class="w-9">
+                                                        <div class="habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-green-100">
+                                                            <img src="{{ asset('img/icon-green.svg') }}" alt="">
+                                                        </div>
+                                                    </div>
+                                                    {% elseif h.habit.category.id == 3 %}
+                                                    <div class="w-9">
+                                                        <div class="habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-orange-100">
+                                                            <img src="{{ asset('img/icon-yellow.svg') }}" alt="">
+                                                        </div>
+                                                    </div>
+                                                    {% endif %}
+                                                
+                                                    {% if not h.isDeleted %}
+                                                        {{ h.habit.name ?? h.ownHabit.name }}
+                                                </div>
+                                                
+                                                <div class="flex items-center ">
+                                                    <div class="habits__habit-row w-48 flex items-center">
+                                                    <input type="checkbox" name="habits[]" value="{{ h.id }}" class="habits__checkbox cursor-pointer invisible"
+                                                    {% for t in tracked %}
+                                                        {% if t.selectedHabits and t.selectedHabits.id == h.id and not t.selectedHabits.isDeleted and not t.isDeleted %}
+                                                            checked
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                    onchange="this.form.submit()" >
+                                            {% endif %}
+
+
+                                                    <div class="habits__checkbox-progress h-2 rounded-md main__background--gold"></div>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    {% endfor %}
+                                    {# <button type="submit">Zapisz</button> #}
+                                </form>
+                            </div>
+                            <div class="habits__select-btn w-full flex justify-end">
+                                <div class="overflow-hidden relative w-auto h-auto">
+                                    <a class="btn w-24 relative" href="{{ path('app_select_habit') }}"><button class="bg-black text-white text-4xl w-24 rounded-xl mt-1">+</button></a>
+                                    <div class="btn-dot absolute bottom-1 left-0"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    {# <a href="{{ path('app_select_habit') }}"><button>Wybierz nawyki</button></a>
+                    <a href="{{ path('app_new_habit') }}"><button>Stwórz nowy nawyk</button></a>
+                    <a href="{{ path('app_habit_remove') }}"><button>Usuń nawyk</button></a>  #}
+
+                    {# Prawy panel #}
+                    <div class="habits__panel--right mb-8 mr-8 mt-4 flex flex-col gap-6">
+                        <div class="habits__panel-right--top h-3/4 flex flex-col">
+                            <div class="m-8 overflow-hidden">
+                                <p class="text-2xl">Postęp</p>
+                                <div class="chart w-full h-full flex items-start justify-center">
+                                    <div class="w-72 relative">
+                                    {{ render_chart(chart) }}
+                                    </div>
+                                    <div class="chart__text absolute text-center">
+                                        <p>{{ trackedCount }} 
+                                            {% if trackedCount == '1' %} nawyk 
+                                            {% elseif trackedCount == '2' or trackedCount == '3' or trackedCount == '4' %} nawyki
+                                            {% else %}
+                                                 nawyków
+                                            {% endif %}</p>
+                                        <p class="text-gray-600 font-light">{{ percentage }}%</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="habits__panel-right--bottom h-1/4 flex items-center">
+                            <div class="day_streak flex gap-6 items-center ml-2">
+                                <p class="ml-4 text-xl">Dzień</p>
+                                <div class="main__background--gold w-12 h-12 rounded-xl mr-4 flex justify-center items-center">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

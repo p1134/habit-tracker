@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 
+<<<<<<< HEAD
 {% block title %}Habitify - Dashboard{% endblock %}
+=======
+{% block title %}Habitify - Nawyki{% endblock %}
+>>>>>>> 20e8f86bc0dac2968d75a6d3f35548e982f21723
 
 {% block body %}
 
@@ -27,7 +31,11 @@
                         </a>
 
                     <div class="nav__habits btn-inactive flex gap-3 justify-left items-center gap-4">
+<<<<<<< HEAD
                     <a href="" class="flex gap-3">
+=======
+                    <a href="{{ path('app_habit') }}" class="flex gap-3">
+>>>>>>> 20e8f86bc0dac2968d75a6d3f35548e982f21723
                         <img src="{{ asset('img/nawyki-off.svg') }}" alt="">
                         <p>Nawyki</p>
                     </a>
@@ -98,6 +106,7 @@
                     <div class="habits__panel--left mt-4 mb-8 ml-8 flex flex-col gap-6">
                         <div class="overflow-hidden m-8 flex flex-col gap-4">
                         <p class="text-2xl">Nawyki</p>
+<<<<<<< HEAD
                             <div class="habits__panel__habit overflow-y-scroll overflow-x-hidden">
                                 <form method="post" action="{{ path('app_tracking_habit') }}">
                                     {% for h in habits %}
@@ -155,6 +164,59 @@
                                     <div class="btn-dot absolute bottom-1 left-0"></div>
                                 </div>
                             </div>
+=======
+                        <div class="habits__panel__habit overflow-y-scroll overflow-x-hidden">
+                            <form method="post" action="{{ path('app_tracking_habit') }}">
+                                {% for h in habits %}
+                                    <div class="border rounded-xl mb-5 w-full">
+                                        <label class="flex p-4 items-center gap-4 cursor-pointer justify-between">
+                                            <div class="flex items-center gap-4">
+                                                {% if h.habit.category.id == 1 %}
+                                                <div class="w-9">
+                                                    <div class="habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-blue-100">
+                                                        <img src="{{ asset('img/icon-blue.svg') }}" alt="">
+                                                    </div>
+                                                </div>
+                                                {% elseif h.habit.category.id == 2 %}
+                                                <div class="w-9">
+                                                    <div class="habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-green-100">
+                                                        <img src="{{ asset('img/icon-green.svg') }}" alt="">
+                                                    </div>
+                                                </div>
+                                                {% elseif h.habit.category.id == 3 %}
+                                                <div class="w-9">
+                                                    <div class="habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-orange-100">
+                                                        <img src="{{ asset('img/icon-yellow.svg') }}" alt="">
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                            
+                                                {% if not h.isDeleted %}
+                                                    {{ h.habit.name ?? h.ownHabit.name }}
+                                            </div>
+                                            
+                                            <div class="flex items-center ">
+                                                <div class="habits__habit-row w-48 flex items-center">
+                                                <input type="checkbox" name="habits[]" value="{{ h.id }}" class="habits__checkbox cursor-pointer invisible"
+                                                {% for t in tracked %}
+                                                    {% if t.selectedHabits and t.selectedHabits.id == h.id and not t.selectedHabits.isDeleted and not t.isDeleted %}
+                                                        checked
+                                                    {% endif %}
+                                                {% endfor %}
+                                                onchange="this.form.submit()" >
+                                        {% endif %}
+
+
+                                                <div class="habits__checkbox-progress h-2 rounded-md main__background--gold"></div>
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                                {# <button type="submit">Zapisz</button> #}
+                            </form>
+                        </div>
+>>>>>>> 20e8f86bc0dac2968d75a6d3f35548e982f21723
                         </div>
                     </div>
 

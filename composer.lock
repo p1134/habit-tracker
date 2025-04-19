@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "4c1ba59947502524993589500caf47bb",
+=======
+    "content-hash": "2ba5272feca2a5aeb8fa7cd15cf6c20e",
+>>>>>>> 20e8f86bc0dac2968d75a6d3f35548e982f21723
     "packages": [
         {
             "name": "composer/semver",
@@ -6920,6 +6924,7 @@
             "time": "2025-03-24T09:03:36+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "symfony/ux-chartjs",
             "version": "v2.24.0",
             "source": {
@@ -7000,6 +7005,8 @@
             "time": "2025-03-09T21:10:04+00:00"
         },
         {
+=======
+>>>>>>> 20e8f86bc0dac2968d75a6d3f35548e982f21723
             "name": "symfony/ux-turbo",
             "version": "v2.24.0",
             "source": {

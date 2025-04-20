@@ -35,7 +35,7 @@ final class HabitController extends AbstractController
 
         $days = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
         // dd($days);
-        $dayNumber = date('N');
+        $dayNumber = date('w');
         $day = $days[$dayNumber];
 
         $selected = $sh->showHabits($user);

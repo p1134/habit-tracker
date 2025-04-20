@@ -38,6 +38,41 @@ class TrackingRepository extends ServiceEntityRepository
            ;
        }
 
+       public function getStreaks($user){
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = 'WITH habit_check AS (
+                SELECT DISTINCT t.date
+                FROM tracking t
+                WHERE t.user_id = :user AND t.selected = 1
+                ),
+                ranked_dates AS (
+                SELECT
+                    date,
+                    DATEDIFF(date, LAG(date) OVER (ORDER BY date)) AS day_diff
+                FROM habit_check
+                ),
+                grouped_dates AS (
+                SELECT
+                    date,
+                    SUM(CASE WHEN day_diff = 1 THEN 0 ELSE 1 END) OVER (ORDER BY date) AS group_id
+                FROM ranked_dates
+                )
+                SELECT
+                group_id,
+                MIN(date) AS start_date,
+                MAX(date) AS end_date,
+                COUNT(*) AS streak_length
+            FROM grouped_dates
+            GROUP BY group_id
+            ORDER BY start_date;
+            ';
+
+            $stmt = $conn->prepare($sql);
+            $result = $stmt->executeQuery(['user' => $user->getId()]);
+
+            return $result->fetchAllAssociative();
+       }
+
     //    public function findOneBySomeField($value): ?Tracking
     //    {
     //        return $this->createQueryBuilder('t')

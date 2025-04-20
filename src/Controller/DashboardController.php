@@ -5,6 +5,8 @@ namespace App\Controller;
 use DateTime;
 use App\Repository\TrackingRepository;
 use App\Repository\SelectedHabitsRepository;
+use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\ORM\EntityManagerInterface;
 use PhpParser\Node\Stmt\Continue_;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,7 +19,7 @@ use Symfony\UX\Chartjs\Model\Chart;
 final class DashboardController extends AbstractController
 {
     #[Route('/dashboard', name: 'app_dashboard')]
-    public function Habits(TrackingRepository $trackings, SelectedHabitsRepository $sh, Request $request, ChartBuilderInterface $chartBuilder): Response
+    public function Habits(TrackingRepository $trackings, SelectedHabitsRepository $sh, Request $request, ChartBuilderInterface $chartBuilder, EntityManagerInterface $em): Response
     {
         $user = $this->getUser();
 
@@ -28,7 +30,7 @@ final class DashboardController extends AbstractController
 //AKTUALNY DZIEŃ
         $days = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
         // dd($days);
-        $dayNumber = date('N');
+        $dayNumber = date('w');
         $day = $days[$dayNumber];
 
 //WYBRANE NAWYKI DO ŚLEDZENIA
@@ -71,6 +73,34 @@ final class DashboardController extends AbstractController
             // 'cutout' => '70%',  // Wycięcie w środku, tworzy efekt pierścienia
         ]);
 
+//NAJDŁUŻSZA SERIA
+        $streaksArray = $trackings->getStreaks($user);
+        // dd($streaksArray);
+        $streaksLength = [];
+        
+        foreach($streaksArray as $key => $value){
+            $streaksLength[$key] = $value['streak_length'];
+        }
+        $maxStreak = max($streaksLength);
+
+
+//OBECNA SERIA
+        $streaksDate = [];
+
+        foreach($streaksArray as $key => $value){
+
+            if($value['end_date'] == $today->format('Y-m-d'))
+            $streaksDate[$key] = $value['start_date'];
+        }
+        if($streaksDate != null){
+            $startDate = new DateTime($streaksDate[1]);
+            // dd($date1); 
+            
+            $currentStreak = date_diff($today, $startDate)->days + 1;
+            // dd($currentStreak);
+        }
+        
+
             return $this->render('dashboard/index.html.twig', [
                 'controller_name' => 'HabitController',
                 'user' => $user->getUserIdentifier(),
@@ -82,6 +112,8 @@ final class DashboardController extends AbstractController
                 'chart' => $chart,
                 'percentage' => $donePercentage,
                 'trackedCount' => $trackedCount,
+                'maxStreak' =>$maxStreak,
+                'currentStreak' => $currentStreak ?? 0,
             ]);
         }
 }

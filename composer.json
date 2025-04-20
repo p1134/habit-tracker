@@ -38,10 +38,6 @@
         "symfony/string": "7.2.*",
         "symfony/translation": "7.2.*",
         "symfony/twig-bundle": "7.2.*",
-<<<<<<< HEAD
-        "symfony/ux-chartjs": "^2.24",
-=======
->>>>>>> 20e8f86bc0dac2968d75a6d3f35548e982f21723
         "symfony/ux-turbo": "^2.24",
         "symfony/validator": "7.2.*",
         "symfony/web-link": "7.2.*",
@@ -49,11 +45,6 @@
         "symfonycasts/verify-email-bundle": "^1.17",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0"
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 20e8f86bc0dac2968d75a6d3f35548e982f21723
     },
     "config": {
         "allow-plugins": {

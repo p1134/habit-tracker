@@ -73,7 +73,7 @@ class __TwigTemplate_2814b50b2a626810ce0199c7b02a1057 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "title"));
 
-        yield "Habitify - Dashboard";
+        yield "Habitify - Nawyki";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
@@ -128,7 +128,10 @@ class __TwigTemplate_2814b50b2a626810ce0199c7b02a1057 extends Template
                         </a>
 
                     <div class=\"nav__habits btn-inactive flex gap-3 justify-left items-center gap-4\">
-                    <a href=\"\" class=\"flex gap-3\">
+                    <a href=\"";
+        // line 30
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_habit");
+        yield "\" class=\"flex gap-3\">
                         <img src=\"";
         // line 31
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("img/nawyki-off.svg"), "html", null, true);
@@ -223,7 +226,7 @@ class __TwigTemplate_2814b50b2a626810ce0199c7b02a1057 extends Template
                     <div class=\"mr-8 bg-white w-72 h-20 rounded-3xl flex items-center justify-between\">
                         <p class=\"ml-4 text-xl\">Najdłuższa seria</p>
                         <div class=\"main__background--gold w-12 h-12 rounded-xl mr-4 flex justify-center items-center\">
-                        
+
                         </div>
                     </div>
                 </div>
@@ -399,14 +402,14 @@ $context["h"], "habit", [], "any", false, false, false, 119), "category", [], "a
      */
     public function getDebugInfo(): array
     {
-        return array (  363 => 167,  360 => 165,  349 => 154,  343 => 150,  341 => 149,  328 => 141,  324 => 139,  318 => 138,  314 => 136,  311 => 135,  307 => 134,  303 => 133,  294 => 128,  292 => 127,  289 => 126,  282 => 122,  278 => 120,  276 => 119,  270 => 116,  266 => 114,  264 => 113,  258 => 110,  254 => 108,  252 => 107,  247 => 104,  243 => 103,  239 => 102,  218 => 86,  213 => 83,  210 => 81,  201 => 74,  197 => 73,  187 => 68,  183 => 67,  174 => 60,  161 => 49,  152 => 43,  143 => 37,  134 => 31,  122 => 22,  116 => 19,  106 => 11,  100 => 6,  87 => 5,  64 => 3,  41 => 1,);
+        return array (  366 => 167,  363 => 165,  352 => 154,  346 => 150,  344 => 149,  331 => 141,  327 => 139,  321 => 138,  317 => 136,  314 => 135,  310 => 134,  306 => 133,  297 => 128,  295 => 127,  292 => 126,  285 => 122,  281 => 120,  279 => 119,  273 => 116,  269 => 114,  267 => 113,  261 => 110,  257 => 108,  255 => 107,  250 => 104,  246 => 103,  242 => 102,  221 => 86,  216 => 83,  213 => 81,  204 => 74,  200 => 73,  190 => 68,  186 => 67,  177 => 60,  164 => 49,  155 => 43,  146 => 37,  137 => 31,  133 => 30,  122 => 22,  116 => 19,  106 => 11,  100 => 6,  87 => 5,  64 => 3,  41 => 1,);
     }
 
     public function getSourceContext(): Source
     {
         return new Source("{% extends 'base.html.twig' %}
 
-{% block title %}Habitify - Dashboard{% endblock %}
+{% block title %}Habitify - Nawyki{% endblock %}
 
 {% block body %}
 
@@ -433,7 +436,7 @@ $context["h"], "habit", [], "any", false, false, false, 119), "category", [], "a
                         </a>
 
                     <div class=\"nav__habits btn-inactive flex gap-3 justify-left items-center gap-4\">
-                    <a href=\"\" class=\"flex gap-3\">
+                    <a href=\"{{ path('app_habit') }}\" class=\"flex gap-3\">
                         <img src=\"{{ asset('img/nawyki-off.svg') }}\" alt=\"\">
                         <p>Nawyki</p>
                     </a>
@@ -494,7 +497,7 @@ $context["h"], "habit", [], "any", false, false, false, 119), "category", [], "a
                     <div class=\"mr-8 bg-white w-72 h-20 rounded-3xl flex items-center justify-between\">
                         <p class=\"ml-4 text-xl\">Najdłuższa seria</p>
                         <div class=\"main__background--gold w-12 h-12 rounded-xl mr-4 flex justify-center items-center\">
-                        
+
                         </div>
                     </div>
                 </div>

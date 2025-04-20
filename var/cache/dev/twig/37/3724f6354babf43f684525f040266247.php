@@ -128,7 +128,10 @@ class __TwigTemplate_c5dc4a9ea28bd986f46083f238c0abe3 extends Template
                         </a>
 
                     <div class=\"nav__habits btn-inactive flex gap-3 justify-left items-center gap-4\">
-                    <a href=\"\" class=\"flex gap-3\">
+                    <a href=\"";
+        // line 30
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_habit");
+        yield "\" class=\"flex gap-3\">
                         <img src=\"";
         // line 31
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("img/nawyki-off.svg"), "html", null, true);
@@ -172,7 +175,7 @@ class __TwigTemplate_c5dc4a9ea28bd986f46083f238c0abe3 extends Template
             ";
         // line 60
         yield "            <div class=\"nav flex w-full justify-between h-20 mb-4 mt-4\">
-                <div class=\"name-page ml-8 text-xl font-medium\">
+                <div class=\"name-page ml-8 text-xl font-semibold\">
                 Dashboard
                 </div>
 
@@ -221,9 +224,12 @@ class __TwigTemplate_c5dc4a9ea28bd986f46083f238c0abe3 extends Template
         yield "</p>
                     </div>
                     <div class=\"mr-8 bg-white w-72 h-20 rounded-3xl flex items-center justify-between\">
-                        <p class=\"ml-4 text-xl\">Najdłuższa seria</p>
-                        <div class=\"main__background--gold w-12 h-12 rounded-xl mr-4 flex justify-center items-center\">
-                        
+                        <p class=\"ml-8 text-xl\">Najdłuższa seria</p>
+                        <div class=\"main__background--gold w-12 h-12 rounded-xl mr-8 flex justify-center items-center text-3xl font-semibold\">      
+                            ";
+        // line 91
+        yield (((array_key_exists("maxStreak", $context) &&  !(null === $context["maxStreak"]))) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($context["maxStreak"], "html", null, true)) : (0));
+        yield "
                         </div>
                     </div>
                 </div>
@@ -401,9 +407,13 @@ $context["h"], "habit", [], "any", false, false, false, 119), "category", [], "a
                             </div>
                         </div>
                         <div class=\"habits__panel-right--bottom h-1/4 flex items-center\">
-                            <div class=\"day_streak flex gap-6 items-center ml-2\">
+                            <div class=\"day_streak flex gap-6 items-center ml-4\">
                                 <p class=\"ml-4 text-xl\">Dzień</p>
-                                <div class=\"main__background--gold w-12 h-12 rounded-xl mr-4 flex justify-center items-center\">
+                                <div class=\"main__background--gold w-12 h-12 rounded-xl mr-4 flex justify-center items-center text-2xl font-semibold\">
+                                    ";
+        // line 191
+        yield (((array_key_exists("currentStreak", $context) &&  !(null === $context["currentStreak"]))) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($context["currentStreak"], "html", null, true)) : (0));
+        yield "
                                 </div>
                             </div>
                         </div>
@@ -444,7 +454,7 @@ $context["h"], "habit", [], "any", false, false, false, 119), "category", [], "a
      */
     public function getDebugInfo(): array
     {
-        return array (  397 => 182,  394 => 181,  390 => 180,  385 => 178,  381 => 177,  377 => 176,  371 => 173,  363 => 167,  360 => 165,  349 => 154,  343 => 150,  341 => 149,  328 => 141,  324 => 139,  318 => 138,  314 => 136,  311 => 135,  307 => 134,  303 => 133,  294 => 128,  292 => 127,  289 => 126,  282 => 122,  278 => 120,  276 => 119,  270 => 116,  266 => 114,  264 => 113,  258 => 110,  254 => 108,  252 => 107,  247 => 104,  243 => 103,  239 => 102,  218 => 86,  213 => 83,  210 => 81,  201 => 74,  197 => 73,  187 => 68,  183 => 67,  174 => 60,  161 => 49,  152 => 43,  143 => 37,  134 => 31,  122 => 22,  116 => 19,  106 => 11,  100 => 6,  87 => 5,  64 => 3,  41 => 1,);
+        return array (  415 => 191,  403 => 182,  400 => 181,  396 => 180,  391 => 178,  387 => 177,  383 => 176,  377 => 173,  369 => 167,  366 => 165,  355 => 154,  349 => 150,  347 => 149,  334 => 141,  330 => 139,  324 => 138,  320 => 136,  317 => 135,  313 => 134,  309 => 133,  300 => 128,  298 => 127,  295 => 126,  288 => 122,  284 => 120,  282 => 119,  276 => 116,  272 => 114,  270 => 113,  264 => 110,  260 => 108,  258 => 107,  253 => 104,  249 => 103,  245 => 102,  231 => 91,  221 => 86,  216 => 83,  213 => 81,  204 => 74,  200 => 73,  190 => 68,  186 => 67,  177 => 60,  164 => 49,  155 => 43,  146 => 37,  137 => 31,  133 => 30,  122 => 22,  116 => 19,  106 => 11,  100 => 6,  87 => 5,  64 => 3,  41 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -478,7 +488,7 @@ $context["h"], "habit", [], "any", false, false, false, 119), "category", [], "a
                         </a>
 
                     <div class=\"nav__habits btn-inactive flex gap-3 justify-left items-center gap-4\">
-                    <a href=\"\" class=\"flex gap-3\">
+                    <a href=\"{{ path('app_habit') }}\" class=\"flex gap-3\">
                         <img src=\"{{ asset('img/nawyki-off.svg') }}\" alt=\"\">
                         <p>Nawyki</p>
                     </a>
@@ -509,7 +519,7 @@ $context["h"], "habit", [], "any", false, false, false, 119), "category", [], "a
         <div class=\"main-container w-full h-full flex flex-col\">
             {# Górny pasek z profilem #}
             <div class=\"nav flex w-full justify-between h-20 mb-4 mt-4\">
-                <div class=\"name-page ml-8 text-xl font-medium\">
+                <div class=\"name-page ml-8 text-xl font-semibold\">
                 Dashboard
                 </div>
 
@@ -537,9 +547,9 @@ $context["h"], "habit", [], "any", false, false, false, 119), "category", [], "a
                         <p class=\"text-lg\">{{ day }} | {{ today }}</p>
                     </div>
                     <div class=\"mr-8 bg-white w-72 h-20 rounded-3xl flex items-center justify-between\">
-                        <p class=\"ml-4 text-xl\">Najdłuższa seria</p>
-                        <div class=\"main__background--gold w-12 h-12 rounded-xl mr-4 flex justify-center items-center\">
-                        
+                        <p class=\"ml-8 text-xl\">Najdłuższa seria</p>
+                        <div class=\"main__background--gold w-12 h-12 rounded-xl mr-8 flex justify-center items-center text-3xl font-semibold\">      
+                            {{ maxStreak ?? 0 }}
                         </div>
                     </div>
                 </div>
@@ -636,9 +646,10 @@ $context["h"], "habit", [], "any", false, false, false, 119), "category", [], "a
                             </div>
                         </div>
                         <div class=\"habits__panel-right--bottom h-1/4 flex items-center\">
-                            <div class=\"day_streak flex gap-6 items-center ml-2\">
+                            <div class=\"day_streak flex gap-6 items-center ml-4\">
                                 <p class=\"ml-4 text-xl\">Dzień</p>
-                                <div class=\"main__background--gold w-12 h-12 rounded-xl mr-4 flex justify-center items-center\">
+                                <div class=\"main__background--gold w-12 h-12 rounded-xl mr-4 flex justify-center items-center text-2xl font-semibold\">
+                                    {{ currentStreak ?? 0 }}
                                 </div>
                             </div>
                         </div>

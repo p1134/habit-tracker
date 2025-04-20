@@ -75,7 +75,7 @@ class __TwigTemplate_b9e12bba86128d56e79f5b95ff44f372 extends Template
         // line 14
         yield from $this->unwrap()->yieldBlock('javascripts', $context, $blocks);
         // line 19
-        yield "            <script>tailwind.config = {darkomde: 'class'}</script>
+        yield "            <script>tailwind.config = {darkMode: 'class'}</script>
             <script src=\"https://kit.fontawesome.com/4420231fa2.js\" crossorigin=\"anonymous\"></script>
     </head>
     <body class=\"h-full w-full m-0\">
@@ -160,8 +160,9 @@ class __TwigTemplate_b9e12bba86128d56e79f5b95ff44f372 extends Template
         yield from $this->unwrap()->yieldBlock('importmap', $context, $blocks);
         // line 16
         yield "                <script src=\"https://cdn.tailwindcss.com\"></script>
-                <script src=\"../js/main.js\"></script>
-        ";
+                ";
+        // line 18
+        yield "        ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
@@ -237,7 +238,7 @@ class __TwigTemplate_b9e12bba86128d56e79f5b95ff44f372 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  198 => 23,  175 => 15,  162 => 16,  159 => 15,  146 => 14,  135 => 12,  122 => 11,  99 => 5,  86 => 24,  84 => 23,  78 => 19,  76 => 14,  73 => 13,  71 => 11,  64 => 7,  59 => 5,  53 => 1,);
+        return array (  199 => 23,  176 => 15,  165 => 18,  162 => 16,  159 => 15,  146 => 14,  135 => 12,  122 => 11,  99 => 5,  86 => 24,  84 => 23,  78 => 19,  76 => 14,  73 => 13,  71 => 11,  64 => 7,  59 => 5,  53 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -258,9 +259,9 @@ class __TwigTemplate_b9e12bba86128d56e79f5b95ff44f372 extends Template
         {% block javascripts %}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
                 <script src=\"https://cdn.tailwindcss.com\"></script>
-                <script src=\"../js/main.js\"></script>
+                {# <script src=\"../js/main.js\"></script> #}
         {% endblock %}
-            <script>tailwind.config = {darkomde: 'class'}</script>
+            <script>tailwind.config = {darkMode: 'class'}</script>
             <script src=\"https://kit.fontawesome.com/4420231fa2.js\" crossorigin=\"anonymous\"></script>
     </head>
     <body class=\"h-full w-full m-0\">

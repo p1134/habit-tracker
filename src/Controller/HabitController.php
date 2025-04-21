@@ -29,6 +29,10 @@ final class HabitController extends AbstractController
     {
         $user = $this->getUser();
 
+        $formType = 'habits';
+        $session = $request->getSession();
+        $session->set('formType', $formType);
+
         $today = new DateTime('now');
         $today->format('Y/m/d');
         // $todayDate = $today->format()
@@ -53,24 +57,6 @@ final class HabitController extends AbstractController
                 $currentSelected->add($s);
             }
         }
-        // dd($currentSelected);
-
-        // dd($selected, $trackingList);
-        // foreach($trackingList as $tracked){
-        //     if(!$selected->exists(function ($key, $tracking) use ($today) {
-        //         return $tracking->getDate()->format('Y-m-d') === $today;
-        //     }))
-        //     {
-        //         foreach($selected as $s){
-        //             if($s->getDate() < $today){
-        //                 $tracked->setSelected(false);
-        //             }
-        //         }
-        //         // dd($selected->getSelected());
-        //     }
-        // }
-
-
 
             return $this->render('habit/index.html.twig', [
                 'controller_name' => 'HabitController',
@@ -80,6 +66,7 @@ final class HabitController extends AbstractController
                 'userData' => $user,
                 'today' => $today->format('d.m.Y'),
                 'day' => $day,
+                'formType' => 'habits',
             ]);
         }
 
@@ -87,6 +74,11 @@ final class HabitController extends AbstractController
         public function trackHabits(Request $request, EntityManagerInterface $entityManager, SelectedHabitsRepository $sh, TrackingRepository $trackings)
         {
             $user = $this->getUser();
+
+            $session = $request->getSession();
+            $formType = $session->get('formType');
+            // dd($formType);
+
             $today = new DateTime('now');
         
             // Pobieramy dane z formularza - ID zaznaczonych nawyków
@@ -130,15 +122,20 @@ final class HabitController extends AbstractController
         
             // Zatwierdzamy zmiany w bazie danych
             $entityManager->flush();
-        
-            return $this->redirectToRoute('app_dashboard');
+
+            if($formType == 'habits'){
+                return $this->redirectToRoute('app_habit');
+            }
+            else{
+                return $this->redirectToRoute('app_dashboard');
+            }
         }
         
 
    
 
     #[Route('/habits/add', 'app_new_habit')]
-    public function newHabit(EntityManagerInterface $entityManager, Request $request): Response
+    public function newHabit(EntityManagerInterface $entityManager, Request $request, TrackingRepository $trackings, SelectedHabitsRepository $sh): Response
     {
         $user = $this->getUser();
         $form = $this->createForm(OwnHabitType::class, null, [
@@ -161,18 +158,36 @@ final class HabitController extends AbstractController
 
             return $this->redirectToRoute('app_habit');
         }
+//ZMIENNE Z /HABITS
+        $selected = $sh->showHabits($user);
+        $trackingList = $trackings->dailyTracking($user);
 
-        return $this->render('habit/_new_habit_form.html.twig', [
+        $selected = new ArrayCollection($selected);
+
+        $currentSelected = new ArrayCollection();
+        // dd($selected);
+        foreach($selected as $s){
+            if($s->getHabit() != null){
+                $currentSelected->add($s);
+            }
+            elseif($s->getOwnHabit() != null && $s->getOwnHabit()->isDeleted() == false){
+                $currentSelected->add($s);
+            }
+        }
+
+        return $this->render('habit/index.html.twig', [
             'controller_name' => 'HabitController',
             'user' => $user->getUserIdentifier(),
             'form' => $form->createView(),
-            'form_type' => 'ownHabitAdd',
-
+            'formType' => 'ownHabitAdd',
+            'userData' => $user,
+            'habits' => $currentSelected,
+            'tracked' => $trackingList,
         ]);
     }
 
     #[Route('/habits/remove', 'app_habit_remove')]
-    public function removeHabit(Request $request, OwnHabitRepository $ownHabits, EntityManagerInterface $entityManager)
+    public function removeHabit(Request $request, OwnHabitRepository $ownHabits, EntityManagerInterface $entityManager, SelectedHabitsRepository $sh, TrackingRepository $trackings)
     {
         $user = $this->getUser();
 
@@ -199,11 +214,32 @@ final class HabitController extends AbstractController
     
             return $this->redirectToRoute('app_habit');
         }
-        return $this->render('habit/_remove_habit_form.html.twig', [
+
+
+//ZMIENNE Z /HABITS
+        $selected = $sh->showHabits($user);
+        $trackingList = $trackings->dailyTracking($user);
+
+        $selected = new ArrayCollection($selected);
+
+        $currentSelected = new ArrayCollection();
+        // dd($selected);
+        foreach($selected as $s){
+            if($s->getHabit() != null){
+                $currentSelected->add($s);
+            }
+            elseif($s->getOwnHabit() != null && $s->getOwnHabit()->isDeleted() == false){
+                $currentSelected->add($s);
+            }
+        }
+        return $this->render('habit/index.html.twig', [
             'user' => $user,
             // 'form' => $form->createView(),
-            'form_type' => 'ownHabitRemove',
+            'formType' => 'ownHabitRemove',
             'ownHabits' => $tracking,
+            'userData' => $user,
+            'habits' => $currentSelected,
+            'tracked' => $trackingList,
         ]);
     }
 

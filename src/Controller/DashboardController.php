@@ -23,6 +23,10 @@ final class DashboardController extends AbstractController
     {
         $user = $this->getUser();
 
+        $formType = 'dashboard';
+        $session = $request->getSession();
+        $session->set('formType', $formType);
+
         $today = new DateTime('now');
         $today->format('Y/m/d');
         // $todayDate = $today->format()
@@ -114,6 +118,7 @@ final class DashboardController extends AbstractController
                 'trackedCount' => $trackedCount,
                 'maxStreak' =>$maxStreak,
                 'currentStreak' => $currentStreak ?? 0,
+                'formType' => 'dashboard',
             ]);
         }
 }

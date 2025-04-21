@@ -1,8 +1,23 @@
-<form method="POST" action="{{ path('app_new_habit') }}" name="form[ownHabits][]">
-    {{ form_widget(form.name) }}
-    {{ form_widget(form.category) }}
-    
-    <input type="hidden" name="{{ form._token.vars.full_name }}" value="{{ form._token.vars.value }}">
-    <input type="submit" value="Dodaj" name="add">
-    <a href="{{ path('app_habit') }}"><button>Anuluj</button></a>
-</form>
+<div class="habits__panel-right--bottom h-full w-full flex items-center">
+    <form method="POST" action="{{ path('app_new_habit') }}" name="form[ownHabits][]" class="flex flex-col m-8 w-full h-full justify-between items-center">
+        <div class="flex w-full justify-center items-start mt-8 gap-4">
+            {{ form_widget(form.name, {'attr': {'class': 'border rounded-xl w-1/2 p-3 h-12 resize-none', 'placeholder': 'Nawyk'}}) }}
+            {{ form_widget(form.category, {'attr': {'class': 'w-1/2 p-2 rounded-xl border'}}) }}
+        
+            <input type="hidden" name="{{ form._token.vars.full_name }}" value="{{ form._token.vars.value }}">
+        </div>
+
+        <div class="btn w-full flex justify-center items-center gap-4 mb-8">
+
+            <div class="relative overflow-hidden flex w-1/2">
+                <input type="submit" value="Zapisz" name="add" class="btn--categories relative w-full bg-black text-center text-md text-white rounded-xl pt-2.5 pb-2.5 cursor-pointer flex items-center">
+                <div class="btn-dot--categories absolute bottom-1 left-0"></div>
+            </div>
+
+            <div class="relative overflow-hidden flex w-1/2">
+                <a href="{{ path('app_habit') }}" class="btn--categories w-full relative bg-black text-center text-white text-md rounded-xl pt-2.5 pb-2.5"><button>Anuluj</button></a>
+                <div class="btn-dot--categories absolute bottom-1 left-0"></div>
+            </div>
+        </div>
+    </form>
+</div>

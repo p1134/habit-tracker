@@ -501,7 +501,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.gCzKLa6"/>
+      <argument type="service" id=".service_locator.jXnjDva"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -3513,7 +3513,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.gCzKLa6"/>
+      <argument type="service" id=".service_locator.jXnjDva"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -8273,30 +8273,34 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.vgnGu7f" method="withContext"/>
     </service>
-    <service id=".service_locator.egipcEH" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.sexPfWt" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="trackings" type="service_closure" id="App\Repository\TrackingRepository"/>
+        <argument key="sh" type="service_closure" id="App\Repository\SelectedHabitsRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.egipcEH.App\Controller\HabitController::newHabit()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.sexPfWt.App\Controller\HabitController::newHabit()" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\HabitController::newHabit()"/>
       <argument>App\Controller\HabitController::newHabit()</argument>
       <argument type="service" id="service_container"/>
-      <factory service=".service_locator.egipcEH" method="withContext"/>
+      <factory service=".service_locator.sexPfWt" method="withContext"/>
     </service>
-    <service id=".service_locator.2kss0cR" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.XqcFwAo" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="ownHabits" type="service_closure" id="App\Repository\OwnHabitRepository"/>
         <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="sh" type="service_closure" id="App\Repository\SelectedHabitsRepository"/>
+        <argument key="trackings" type="service_closure" id="App\Repository\TrackingRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.2kss0cR.App\Controller\HabitController::removeHabit()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.XqcFwAo.App\Controller\HabitController::removeHabit()" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\HabitController::removeHabit()"/>
       <argument>App\Controller\HabitController::removeHabit()</argument>
       <argument type="service" id="service_container"/>
-      <factory service=".service_locator.2kss0cR" method="withContext"/>
+      <factory service=".service_locator.XqcFwAo" method="withContext"/>
     </service>
     <service id=".service_locator.2L_CK2B" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
@@ -8349,7 +8353,7 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.KHhLDTq" method="withContext"/>
     </service>
-    <service id=".service_locator.gCzKLa6" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.jXnjDva" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
@@ -8359,8 +8363,8 @@
         <argument key="App\Controller\DashboardController::Habits" type="service_closure" id=".service_locator.8g.Bsca.App\Controller\DashboardController::Habits()"/>
         <argument key="App\Controller\HabitController::Habits" type="service_closure" id=".service_locator.mMHptox.App\Controller\HabitController::Habits()"/>
         <argument key="App\Controller\HabitController::trackHabits" type="service_closure" id=".service_locator.vgnGu7f.App\Controller\HabitController::trackHabits()"/>
-        <argument key="App\Controller\HabitController::newHabit" type="service_closure" id=".service_locator.egipcEH.App\Controller\HabitController::newHabit()"/>
-        <argument key="App\Controller\HabitController::removeHabit" type="service_closure" id=".service_locator.2kss0cR.App\Controller\HabitController::removeHabit()"/>
+        <argument key="App\Controller\HabitController::newHabit" type="service_closure" id=".service_locator.sexPfWt.App\Controller\HabitController::newHabit()"/>
+        <argument key="App\Controller\HabitController::removeHabit" type="service_closure" id=".service_locator.XqcFwAo.App\Controller\HabitController::removeHabit()"/>
         <argument key="App\Controller\HabitController::selectHabit" type="service_closure" id=".service_locator.2L_CK2B.App\Controller\HabitController::selectHabit()"/>
         <argument key="App\Controller\LoginController::index" type="service_closure" id=".service_locator.wa9Zqkq.App\Controller\LoginController::index()"/>
         <argument key="App\Controller\RegistrationController::register" type="service_closure" id=".service_locator.yI4423g.App\Controller\RegistrationController::register()"/>
@@ -8370,8 +8374,8 @@
         <argument key="App\Controller\DashboardController:Habits" type="service_closure" id=".service_locator.8g.Bsca.App\Controller\DashboardController::Habits()"/>
         <argument key="App\Controller\HabitController:Habits" type="service_closure" id=".service_locator.mMHptox.App\Controller\HabitController::Habits()"/>
         <argument key="App\Controller\HabitController:trackHabits" type="service_closure" id=".service_locator.vgnGu7f.App\Controller\HabitController::trackHabits()"/>
-        <argument key="App\Controller\HabitController:newHabit" type="service_closure" id=".service_locator.egipcEH.App\Controller\HabitController::newHabit()"/>
-        <argument key="App\Controller\HabitController:removeHabit" type="service_closure" id=".service_locator.2kss0cR.App\Controller\HabitController::removeHabit()"/>
+        <argument key="App\Controller\HabitController:newHabit" type="service_closure" id=".service_locator.sexPfWt.App\Controller\HabitController::newHabit()"/>
+        <argument key="App\Controller\HabitController:removeHabit" type="service_closure" id=".service_locator.XqcFwAo.App\Controller\HabitController::removeHabit()"/>
         <argument key="App\Controller\HabitController:selectHabit" type="service_closure" id=".service_locator.2L_CK2B.App\Controller\HabitController::selectHabit()"/>
         <argument key="App\Controller\LoginController:index" type="service_closure" id=".service_locator.wa9Zqkq.App\Controller\LoginController::index()"/>
         <argument key="App\Controller\RegistrationController:register" type="service_closure" id=".service_locator.yI4423g.App\Controller\RegistrationController::register()"/>
@@ -10588,7 +10592,7 @@
     <service id="Symfony\UX\Chartjs\Builder\ChartBuilderInterface" alias="chartjs.builder"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.pRu6x_4" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.gCzKLa6"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.jXnjDva"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.BxSdgVt"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
@@ -10635,8 +10639,8 @@
     <service id=".service_locator.HjPTgXw" alias=".service_locator.8g.Bsca"/>
     <service id=".service_locator.iagi4o6" alias=".service_locator.mMHptox"/>
     <service id=".service_locator.T61aG9P" alias=".service_locator.vgnGu7f"/>
-    <service id=".service_locator.5Vd5JYV" alias=".service_locator.egipcEH"/>
-    <service id=".service_locator.NMeqdGu" alias=".service_locator.2kss0cR"/>
+    <service id=".service_locator.2d4EVIM" alias=".service_locator.sexPfWt"/>
+    <service id=".service_locator.7bpvXBq" alias=".service_locator.XqcFwAo"/>
     <service id=".service_locator.WPTulhK" alias=".service_locator.2L_CK2B"/>
     <service id=".service_locator.sqmjYUP" alias=".service_locator.wa9Zqkq"/>
     <service id=".service_locator.Us3A2SA" alias=".service_locator.yI4423g"/>

@@ -109,62 +109,71 @@ class __TwigTemplate_2814b50b2a626810ce0199c7b02a1057 extends Template
                     <p class=\"text-4xl font-bold\">HABITIF<span class=\"main-color\">Y.</span></p>
                 </div>
 
-                <div class=\"nav__tabs flex flex-col gap-5\">
+                <div class=\"flex flex-col justify-between h-3/4 items-center\">
+                    <div class=\"nav__tabs flex flex-col gap-5\">
 
                         <a class=\"w-auto h-auto\" href=\"";
-        // line 19
+        // line 20
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_dashboard");
         yield "\">
                             <div class=\"nav__dashboard  w-auto h-auto relative overflow-hidden\">
-                                <div class=\"nav__dashboard btn-active flex gap-3 justify-start items-center relative\">
+                                <div class=\"nav__dashboard btn-inactive flex gap-3 justify-start items-center relative\">
                                     <img class=\"w-5 h-5\" src=\"";
-        // line 22
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("/img/dashboard.svg"), "html", null, true);
+        // line 23
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("/img/dashboard-off.svg"), "html", null, true);
         yield "\" alt=\"\">
                                     <p>Dashboard</p>
                                 </div>
-                            <div class=\"btn__nav-dot absolute bottom-1 left-0\"></div>
                             </div>
                         </a>
 
-                    <div class=\"nav__habits btn-inactive flex gap-3 justify-left items-center gap-4\">
-                    <a href=\"";
+                        <div class=\"nav__habits flex gap-3 justify-left items-center gap-4\">
+                            <a href=\"";
         // line 30
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_habit");
-        yield "\" class=\"flex gap-3\">
-                        <img src=\"";
-        // line 31
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("img/nawyki-off.svg"), "html", null, true);
+        yield "\" class=\"flex gap-3 w-auto h-auto\">
+                                <div class=\"nav__dashboard  w-auto h-auto relative overflow-hidden\">
+                                    <div class=\"nav__dashboard btn-active flex gap-3 justify-start items-center relative\">
+                                        <img src=\"";
+        // line 33
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("img/nawyki.svg"), "html", null, true);
         yield "\" alt=\"\">
-                        <p>Nawyki</p>
-                    </a>
-                    </div>
-                    <div class=\"nav__summary btn-inactive flex gap-3 justify-left items-center gap-4\">
-                    <a href=\"\" class=\"flex gap-3\">
-                        <img src=\"";
-        // line 37
+                                        <p>Nawyki</p>
+                                    </div>
+                                <div class=\"btn__nav-dot absolute bottom-1 left-0\"></div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class=\"nav__summary btn-inactive flex gap-3 justify-left items-center gap-4\">
+                        <a href=\"\" class=\"flex gap-3\">
+                            <img src=\"";
+        // line 42
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("img/podsumowanie-off.svg"), "html", null, true);
         yield "\" alt=\"\">
-                        <p>Podsumowanie</p>
-                    </a>
-                    </div>
-                    <div class=\"nav__society btn-inactive flex gap-3 justify-left items-center gap-4\">
-                    <a href=\"\" class=\"flex gap-3\">
-                        <img src=\"";
-        // line 43
+                            <p>Podsumowanie</p>
+                        </a>
+                        </div>
+                        <div class=\"nav__society btn-inactive flex gap-3 justify-left items-center gap-4\">
+                        <a href=\"\" class=\"flex gap-3\">
+                            <img src=\"";
+        // line 48
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("img/spolecznosc-off.svg"), "html", null, true);
         yield "\" alt=\"\">
-                        <p>Społeczność</p>
-                    </a>
-                    </div>
-                    <div class=\"nav__option btn-inactive flex gap-3 justify-left items-center gap-4\">
-                    <a href=\"\" class=\"flex gap-3\">
-                        <img src=\"";
-        // line 49
+                            <p>Społeczność</p>
+                        </a>
+                        </div>
+                        <div class=\"nav__option btn-inactive flex gap-3 justify-left items-center gap-4\">
+                        <a href=\"\" class=\"flex gap-3\">
+                            <img src=\"";
+        // line 54
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("img/ustawienia-off.svg"), "html", null, true);
         yield "\" alt=\"\">
-                        <p>Ustawienia</p>
-                    </a>
+                            <p>Ustawienia</p>
+                        </a>
+                        </div>
+                    </div>
+                    <div class=\"flex gap-4 cursor-pointer items-center justify-center\">
+                        <i class=\"fa-solid fa-right-from-bracket text-3xl\"></i><span>Wyloguj</span>
                     </div>
                 </div>
             </div>
@@ -173,34 +182,34 @@ class __TwigTemplate_2814b50b2a626810ce0199c7b02a1057 extends Template
 
         <div class=\"main-container w-full h-full flex flex-col\">
             ";
-        // line 60
-        yield "            <div class=\"nav flex w-full justify-between h-20 mb-4 mt-4\">
-                <div class=\"name-page ml-8 text-xl font-medium\">
-                Dashboard
+        // line 69
+        yield "            <div class=\"nav flex w-full justify-between h-10 mb-4 mt-4\">
+                <div class=\"name-page ml-8 text-xl font-semibold\">
+                Nawyki
                 </div>
 
                 <div class=\"profile flex justify-center items-center gap-4\">
                     <div class=\"profile-text\">
                         <a href=\"";
-        // line 67
+        // line 76
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_register");
         yield "\">
                             <p>";
-        // line 68
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["userData"]) || array_key_exists("userData", $context) ? $context["userData"] : (function () { throw new RuntimeError('Variable "userData" does not exist.', 68, $this->source); })()), "firstname", [], "any", false, false, false, 68), "html", null, true);
+        // line 77
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["userData"]) || array_key_exists("userData", $context) ? $context["userData"] : (function () { throw new RuntimeError('Variable "userData" does not exist.', 77, $this->source); })()), "firstname", [], "any", false, false, false, 77), "html", null, true);
         yield " ";
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["userData"]) || array_key_exists("userData", $context) ? $context["userData"] : (function () { throw new RuntimeError('Variable "userData" does not exist.', 68, $this->source); })()), "lastname", [], "any", false, false, false, 68), "html", null, true);
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["userData"]) || array_key_exists("userData", $context) ? $context["userData"] : (function () { throw new RuntimeError('Variable "userData" does not exist.', 77, $this->source); })()), "lastname", [], "any", false, false, false, 77), "html", null, true);
         yield " </p>
                         </a>
                     </div>
 
                     <div class=\"profile-icon w-30 h-30\">
                         <a href=\"";
-        // line 73
+        // line 82
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_register");
         yield "\">
                             <img src=\"";
-        // line 74
+        // line 83
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("/img/profile.svg"), "html", null, true);
         yield "\">
                         </a>
@@ -209,125 +218,108 @@ class __TwigTemplate_2814b50b2a626810ce0199c7b02a1057 extends Template
             </div>
 
             ";
-        // line 81
+        // line 90
         yield "            <div class=\"habits__main h-full w-full main__background flex gap-4 flex-col\">
                 ";
-        // line 83
-        yield "                <div class=\"habits__panel--top w-full h-28 flex justify-between mt-6 items-center\">
-                    <div class=\"ml-8\">
-                        <p class=\"text-3xl font-semibold mb-3\">Dzisiaj</p>
-                        <p class=\"text-lg\">";
-        // line 86
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["day"]) || array_key_exists("day", $context) ? $context["day"] : (function () { throw new RuntimeError('Variable "day" does not exist.', 86, $this->source); })()), "html", null, true);
-        yield " | ";
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["today"]) || array_key_exists("today", $context) ? $context["today"] : (function () { throw new RuntimeError('Variable "today" does not exist.', 86, $this->source); })()), "html", null, true);
-        yield "</p>
-                    </div>
-                    <div class=\"mr-8 bg-white w-72 h-20 rounded-3xl flex items-center justify-between\">
-                        <p class=\"ml-4 text-xl\">Najdłuższa seria</p>
-                        <div class=\"main__background--gold w-12 h-12 rounded-xl mr-4 flex justify-center items-center\">
-
-                        </div>
-                    </div>
-                </div>
-                
+        // line 92
+        yield "                
                 <div class=\"habits__panel-main w-full h-full flex flex-row gap-8\">
 
-                    <div class=\"habits__panel--left mt-4 mb-8 ml-8 flex flex-col gap-6\">
+                    <div class=\"habits__panel--left habits__panel mt-8 mb-8 ml-8 flex flex-col gap-6\">
                         <div class=\"overflow-hidden m-8 flex flex-col gap-4\">
-                        <p class=\"text-2xl\">Nawyki</p>
+                        <p class=\"text-2xl\">Twoje nawyki</p>
                             <div class=\"habits__panel__habit overflow-y-scroll overflow-x-hidden\">
                                 <form method=\"post\" action=\"";
-        // line 102
+        // line 99
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_tracking_habit");
         yield "\">
                                     ";
-        // line 103
+        // line 100
         $context['_parent'] = $context;
-        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["habits"]) || array_key_exists("habits", $context) ? $context["habits"] : (function () { throw new RuntimeError('Variable "habits" does not exist.', 103, $this->source); })()));
+        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["habits"]) || array_key_exists("habits", $context) ? $context["habits"] : (function () { throw new RuntimeError('Variable "habits" does not exist.', 100, $this->source); })()));
         foreach ($context['_seq'] as $context["_key"] => $context["h"]) {
-            // line 104
+            // line 101
             yield "                                        <div class=\"border rounded-xl mb-5 w-full\">
                                             <label class=\"habits__row flex p-4 items-center gap-4 cursor-pointer justify-between\">
                                                 <div class=\"habits__row flex items-center gap-4\">
                                                     ";
-            // line 107
-            if ((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["h"], "habit", [], "any", false, false, false, 107), "category", [], "any", false, false, false, 107), "id", [], "any", false, false, false, 107) == 1)) {
-                // line 108
+            // line 104
+            if ((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["h"], "habit", [], "any", false, false, false, 104), "category", [], "any", false, false, false, 104), "id", [], "any", false, false, false, 104) == 1)) {
+                // line 105
                 yield "                                                    <div class=\"w-9\">
                                                         <div class=\"habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-blue-100\">
                                                             <img src=\"";
-                // line 110
+                // line 107
                 yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("img/icon-blue.svg"), "html", null, true);
                 yield "\" alt=\"\">
                                                         </div>
                                                     </div>
                                                     ";
-            } elseif ((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source,             // line 113
-$context["h"], "habit", [], "any", false, false, false, 113), "category", [], "any", false, false, false, 113), "id", [], "any", false, false, false, 113) == 2)) {
-                // line 114
+            } elseif ((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source,             // line 110
+$context["h"], "habit", [], "any", false, false, false, 110), "category", [], "any", false, false, false, 110), "id", [], "any", false, false, false, 110) == 2)) {
+                // line 111
                 yield "                                                    <div class=\"w-9\">
                                                         <div class=\"habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-green-100\">
                                                             <img src=\"";
-                // line 116
+                // line 113
                 yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("img/icon-green.svg"), "html", null, true);
                 yield "\" alt=\"\">
                                                         </div>
                                                     </div>
                                                     ";
-            } elseif ((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source,             // line 119
-$context["h"], "habit", [], "any", false, false, false, 119), "category", [], "any", false, false, false, 119), "id", [], "any", false, false, false, 119) == 3)) {
-                // line 120
+            } elseif ((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source,             // line 116
+$context["h"], "habit", [], "any", false, false, false, 116), "category", [], "any", false, false, false, 116), "id", [], "any", false, false, false, 116) == 3)) {
+                // line 117
                 yield "                                                    <div class=\"w-9\">
                                                         <div class=\"habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-orange-100\">
                                                             <img src=\"";
-                // line 122
+                // line 119
                 yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("img/icon-yellow.svg"), "html", null, true);
                 yield "\" alt=\"\">
                                                         </div>
                                                     </div>
                                                     ";
             }
-            // line 126
+            // line 123
             yield "                                                
                                                     ";
-            // line 127
-            if ( !CoreExtension::getAttribute($this->env, $this->source, $context["h"], "isDeleted", [], "any", false, false, false, 127)) {
-                // line 128
+            // line 124
+            if ( !CoreExtension::getAttribute($this->env, $this->source, $context["h"], "isDeleted", [], "any", false, false, false, 124)) {
+                // line 125
                 yield "                                                        ";
-                yield (((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["h"], "habit", [], "any", false, true, false, 128), "name", [], "any", true, true, false, 128) &&  !(null === CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["h"], "habit", [], "any", false, false, false, 128), "name", [], "any", false, false, false, 128)))) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["h"], "habit", [], "any", false, false, false, 128), "name", [], "any", false, false, false, 128), "html", null, true)) : ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["h"], "ownHabit", [], "any", false, false, false, 128), "name", [], "any", false, false, false, 128), "html", null, true)));
+                yield (((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["h"], "habit", [], "any", false, true, false, 125), "name", [], "any", true, true, false, 125) &&  !(null === CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["h"], "habit", [], "any", false, false, false, 125), "name", [], "any", false, false, false, 125)))) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["h"], "habit", [], "any", false, false, false, 125), "name", [], "any", false, false, false, 125), "html", null, true)) : ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["h"], "ownHabit", [], "any", false, false, false, 125), "name", [], "any", false, false, false, 125), "html", null, true)));
                 yield "
                                                 </div>
                                                 
                                                 <div class=\"flex items-center \">
                                                     <div class=\"habits__habit-row w-48 flex items-center\">
                                                     <input type=\"checkbox\" name=\"habits[]\" value=\"";
-                // line 133
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["h"], "id", [], "any", false, false, false, 133), "html", null, true);
+                // line 130
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["h"], "id", [], "any", false, false, false, 130), "html", null, true);
                 yield "\" class=\"habits__checkbox cursor-pointer invisible\"
                                                     ";
-                // line 134
+                // line 131
                 $context['_parent'] = $context;
-                $context['_seq'] = CoreExtension::ensureTraversable((isset($context["tracked"]) || array_key_exists("tracked", $context) ? $context["tracked"] : (function () { throw new RuntimeError('Variable "tracked" does not exist.', 134, $this->source); })()));
+                $context['_seq'] = CoreExtension::ensureTraversable((isset($context["tracked"]) || array_key_exists("tracked", $context) ? $context["tracked"] : (function () { throw new RuntimeError('Variable "tracked" does not exist.', 131, $this->source); })()));
                 foreach ($context['_seq'] as $context["_key"] => $context["t"]) {
-                    // line 135
+                    // line 132
                     yield "                                                        ";
-                    if ((((CoreExtension::getAttribute($this->env, $this->source, $context["t"], "selectedHabits", [], "any", false, false, false, 135) && (CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["t"], "selectedHabits", [], "any", false, false, false, 135), "id", [], "any", false, false, false, 135) == CoreExtension::getAttribute($this->env, $this->source, $context["h"], "id", [], "any", false, false, false, 135))) &&  !CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["t"], "selectedHabits", [], "any", false, false, false, 135), "isDeleted", [], "any", false, false, false, 135)) &&  !CoreExtension::getAttribute($this->env, $this->source, $context["t"], "isDeleted", [], "any", false, false, false, 135))) {
-                        // line 136
+                    if ((((CoreExtension::getAttribute($this->env, $this->source, $context["t"], "selectedHabits", [], "any", false, false, false, 132) && (CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["t"], "selectedHabits", [], "any", false, false, false, 132), "id", [], "any", false, false, false, 132) == CoreExtension::getAttribute($this->env, $this->source, $context["h"], "id", [], "any", false, false, false, 132))) &&  !CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["t"], "selectedHabits", [], "any", false, false, false, 132), "isDeleted", [], "any", false, false, false, 132)) &&  !CoreExtension::getAttribute($this->env, $this->source, $context["t"], "isDeleted", [], "any", false, false, false, 132))) {
+                        // line 133
                         yield "                                                            checked
                                                         ";
                     }
-                    // line 138
+                    // line 135
                     yield "                                                    ";
                 }
                 $_parent = $context['_parent'];
                 unset($context['_seq'], $context['_key'], $context['t'], $context['_parent']);
                 $context = array_intersect_key($context, $_parent) + $_parent;
-                // line 139
+                // line 136
                 yield "                                                    onchange=\"this.form.submit()\" >
                                             ";
             }
-            // line 141
+            // line 138
             yield "
 
                                                     <div class=\"habits__checkbox-progress h-2 rounded-md main__background--gold\"></div>
@@ -340,18 +332,19 @@ $context["h"], "habit", [], "any", false, false, false, 119), "category", [], "a
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_key'], $context['h'], $context['_parent']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 149
+        // line 146
         yield "                                    ";
-        // line 150
+        // line 147
         yield "                                </form>
                             </div>
-                            <div class=\"habits__select-btn w-full flex justify-end\">
-                                <div class=\"overflow-hidden relative w-auto h-auto\">
-                                    <a class=\"btn w-24 relative\" href=\"";
-        // line 154
+                            
+                            <div class=\"habits__select-btn w-full flex\">
+                                <div class=\"overflow-hidden relative w-full h-auto\">
+                                    <a class=\"btn--habits w-full relative\" href=\"";
+        // line 152
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_select_habit");
-        yield "\"><button class=\"bg-black text-white text-4xl w-24 rounded-xl mt-1\">+</button></a>
-                                    <div class=\"btn-dot absolute bottom-1 left-0\"></div>
+        yield "\"><button class=\"bg-black text-white text-md w-full rounded-xl mt-1 flex items-center justify-center gap-4 pt-1 pb-1\"><span class=\"main-color text-3xl\">+</span> Edytuj listę</button></a>
+                                    <div class=\"btn-dot--habits absolute bottom-1 left-0\"></div>
                                 </div>
                             </div>
                         </div>
@@ -359,13 +352,80 @@ $context["h"], "habit", [], "any", false, false, false, 119), "category", [], "a
 
 
                     ";
-        // line 165
+        // line 163
         yield "
                     ";
-        // line 167
-        yield "                    <div class=\"habits__panel--right mb-8 mr-8 mt-4\">
+        // line 165
+        yield "                    <div class=\"habits__panel--right mb-8 mr-8 mt-8 flex flex-col gap-6 h-auto\">
+                        <div class=\"habits__panel-right--top h-3/5 flex flex-col\">
+                            <div class=\"m-8 h-full flex flex-col\">
+                                <p class=\"text-2xl\">Kategorie</p>
+                                <div class=\"categories flex flex-col h-full justify-between\">
+                                    <div class=\"w-full h-auto flex flex-col gap-3 items-center justify-center mt-8\">
+                                        <div class=\"habits__category-row flex flex-col w-full h-auto\">
+                                            <p>Zdrowie</p>
+                                            <div class=\"habits__category-bar habits__category-bar--health rounded-md\"></div>
+                                        </div>
+                                        <div class=\"habits__category-row flex flex-col w-full h-auto\">
+                                            <p>Relaks</p>
+                                            <div class=\"habits__category-bar habits__category-bar--relax rounded-md\"></div>
+                                        </div>
+                                        <div class=\"habits__category-row flex flex-col w-full h-auto\">
+                                            <p>Aktywność społeczna</p>
+                                            <div class=\"habits__category-bar habits__category-bar--activity rounded-md\"></div>
+                                        </div>
+                                    </div>
 
-                    </div>
+                                    <div class=\"categories-buttons w-full h-auto flex gap-4\">
+                                        <a href=\"";
+        // line 186
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_new_habit");
+        yield "\" class=\"overflow-hidden w-1/2 bg-black category-btn flex justify-center rounded-xl pt-1 pb-1 relative ";
+        yield ((((isset($context["formType"]) || array_key_exists("formType", $context) ? $context["formType"] : (function () { throw new RuntimeError('Variable "formType" does not exist.', 186, $this->source); })()) == "ownHabitAdd")) ? ("hidden") : ("visible"));
+        yield " ";
+        yield ((((isset($context["formType"]) || array_key_exists("formType", $context) ? $context["formType"] : (function () { throw new RuntimeError('Variable "formType" does not exist.', 186, $this->source); })()) == "ownHabitRemove")) ? ("hidden") : ("visible"));
+        yield "\">
+                                            <button class=\"btn--categories relative text-white flex gap-4 items-center justofy-center\"><span class=\"main-color text-3xl\">+</span>Stwórz nowy nawyk</button>
+                                            <div class=\"btn-dot--categories absolute bottom-1 left-0\"></div>
+                                        </a>
+                                        <a href=\"";
+        // line 190
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_habit_remove");
+        yield "\" class=\"overflow-hidden w-1/2 bg-black category-btn flex justify-center rounded-xl pt-1 pb-1 relative ";
+        yield ((((isset($context["formType"]) || array_key_exists("formType", $context) ? $context["formType"] : (function () { throw new RuntimeError('Variable "formType" does not exist.', 190, $this->source); })()) == "ownHabitAdd")) ? ("hidden") : ("visible"));
+        yield " ";
+        yield ((((isset($context["formType"]) || array_key_exists("formType", $context) ? $context["formType"] : (function () { throw new RuntimeError('Variable "formType" does not exist.', 190, $this->source); })()) == "ownHabitRemove")) ? ("hidden") : ("visible"));
+        yield "\">
+                                            <button class=\"btn--categories relative text-white flex gap-4 items-center justofy-center\"><span class=\"main-color text-3xl\">-</span>Usuń własny nawyk</button>
+                                            <div class=\"btn-dot--categories absolute bottom-1 left-0\"></div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        ";
+        // line 197
+        if (((isset($context["formType"]) || array_key_exists("formType", $context) ? $context["formType"] : (function () { throw new RuntimeError('Variable "formType" does not exist.', 197, $this->source); })()) == "ownHabitAdd")) {
+            // line 198
+            yield "                            ";
+            yield Twig\Extension\CoreExtension::include($this->env, $context, "/habit/_new_habit_form.html.twig");
+            yield "
+                        ";
+        }
+        // line 200
+        yield "                        ";
+        if (((isset($context["formType"]) || array_key_exists("formType", $context) ? $context["formType"] : (function () { throw new RuntimeError('Variable "formType" does not exist.', 200, $this->source); })()) == "ownHabitRemove")) {
+            // line 201
+            yield "                            ";
+            yield Twig\Extension\CoreExtension::include($this->env, $context, "/habit/_remove_habit_form.html.twig");
+            yield "
+                        ";
+        }
+        // line 203
+        yield "                        </div>
+
+                        ";
+        // line 213
+        yield "                    </div>
                 </div>
             </div>
         </div>
@@ -402,7 +462,7 @@ $context["h"], "habit", [], "any", false, false, false, 119), "category", [], "a
      */
     public function getDebugInfo(): array
     {
-        return array (  366 => 167,  363 => 165,  352 => 154,  346 => 150,  344 => 149,  331 => 141,  327 => 139,  321 => 138,  317 => 136,  314 => 135,  310 => 134,  306 => 133,  297 => 128,  295 => 127,  292 => 126,  285 => 122,  281 => 120,  279 => 119,  273 => 116,  269 => 114,  267 => 113,  261 => 110,  257 => 108,  255 => 107,  250 => 104,  246 => 103,  242 => 102,  221 => 86,  216 => 83,  213 => 81,  204 => 74,  200 => 73,  190 => 68,  186 => 67,  177 => 60,  164 => 49,  155 => 43,  146 => 37,  137 => 31,  133 => 30,  122 => 22,  116 => 19,  106 => 11,  100 => 6,  87 => 5,  64 => 3,  41 => 1,);
+        return array (  428 => 213,  424 => 203,  418 => 201,  415 => 200,  409 => 198,  407 => 197,  393 => 190,  382 => 186,  359 => 165,  356 => 163,  345 => 152,  338 => 147,  336 => 146,  323 => 138,  319 => 136,  313 => 135,  309 => 133,  306 => 132,  302 => 131,  298 => 130,  289 => 125,  287 => 124,  284 => 123,  277 => 119,  273 => 117,  271 => 116,  265 => 113,  261 => 111,  259 => 110,  253 => 107,  249 => 105,  247 => 104,  242 => 101,  238 => 100,  234 => 99,  225 => 92,  222 => 90,  213 => 83,  209 => 82,  199 => 77,  195 => 76,  186 => 69,  169 => 54,  160 => 48,  151 => 42,  139 => 33,  133 => 30,  123 => 23,  117 => 20,  106 => 11,  100 => 6,  87 => 5,  64 => 3,  41 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -423,41 +483,50 @@ $context["h"], "habit", [], "any", false, false, false, 119), "category", [], "a
                     <p class=\"text-4xl font-bold\">HABITIF<span class=\"main-color\">Y.</span></p>
                 </div>
 
-                <div class=\"nav__tabs flex flex-col gap-5\">
+                <div class=\"flex flex-col justify-between h-3/4 items-center\">
+                    <div class=\"nav__tabs flex flex-col gap-5\">
 
                         <a class=\"w-auto h-auto\" href=\"{{ path('app_dashboard') }}\">
                             <div class=\"nav__dashboard  w-auto h-auto relative overflow-hidden\">
-                                <div class=\"nav__dashboard btn-active flex gap-3 justify-start items-center relative\">
-                                    <img class=\"w-5 h-5\" src=\"{{ asset('/img/dashboard.svg') }}\" alt=\"\">
+                                <div class=\"nav__dashboard btn-inactive flex gap-3 justify-start items-center relative\">
+                                    <img class=\"w-5 h-5\" src=\"{{ asset('/img/dashboard-off.svg') }}\" alt=\"\">
                                     <p>Dashboard</p>
                                 </div>
-                            <div class=\"btn__nav-dot absolute bottom-1 left-0\"></div>
                             </div>
                         </a>
 
-                    <div class=\"nav__habits btn-inactive flex gap-3 justify-left items-center gap-4\">
-                    <a href=\"{{ path('app_habit') }}\" class=\"flex gap-3\">
-                        <img src=\"{{ asset('img/nawyki-off.svg') }}\" alt=\"\">
-                        <p>Nawyki</p>
-                    </a>
+                        <div class=\"nav__habits flex gap-3 justify-left items-center gap-4\">
+                            <a href=\"{{ path('app_habit') }}\" class=\"flex gap-3 w-auto h-auto\">
+                                <div class=\"nav__dashboard  w-auto h-auto relative overflow-hidden\">
+                                    <div class=\"nav__dashboard btn-active flex gap-3 justify-start items-center relative\">
+                                        <img src=\"{{ asset('img/nawyki.svg') }}\" alt=\"\">
+                                        <p>Nawyki</p>
+                                    </div>
+                                <div class=\"btn__nav-dot absolute bottom-1 left-0\"></div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class=\"nav__summary btn-inactive flex gap-3 justify-left items-center gap-4\">
+                        <a href=\"\" class=\"flex gap-3\">
+                            <img src=\"{{ asset('img/podsumowanie-off.svg') }}\" alt=\"\">
+                            <p>Podsumowanie</p>
+                        </a>
+                        </div>
+                        <div class=\"nav__society btn-inactive flex gap-3 justify-left items-center gap-4\">
+                        <a href=\"\" class=\"flex gap-3\">
+                            <img src=\"{{ asset('img/spolecznosc-off.svg') }}\" alt=\"\">
+                            <p>Społeczność</p>
+                        </a>
+                        </div>
+                        <div class=\"nav__option btn-inactive flex gap-3 justify-left items-center gap-4\">
+                        <a href=\"\" class=\"flex gap-3\">
+                            <img src=\"{{ asset('img/ustawienia-off.svg') }}\" alt=\"\">
+                            <p>Ustawienia</p>
+                        </a>
+                        </div>
                     </div>
-                    <div class=\"nav__summary btn-inactive flex gap-3 justify-left items-center gap-4\">
-                    <a href=\"\" class=\"flex gap-3\">
-                        <img src=\"{{ asset('img/podsumowanie-off.svg') }}\" alt=\"\">
-                        <p>Podsumowanie</p>
-                    </a>
-                    </div>
-                    <div class=\"nav__society btn-inactive flex gap-3 justify-left items-center gap-4\">
-                    <a href=\"\" class=\"flex gap-3\">
-                        <img src=\"{{ asset('img/spolecznosc-off.svg') }}\" alt=\"\">
-                        <p>Społeczność</p>
-                    </a>
-                    </div>
-                    <div class=\"nav__option btn-inactive flex gap-3 justify-left items-center gap-4\">
-                    <a href=\"\" class=\"flex gap-3\">
-                        <img src=\"{{ asset('img/ustawienia-off.svg') }}\" alt=\"\">
-                        <p>Ustawienia</p>
-                    </a>
+                    <div class=\"flex gap-4 cursor-pointer items-center justify-center\">
+                        <i class=\"fa-solid fa-right-from-bracket text-3xl\"></i><span>Wyloguj</span>
                     </div>
                 </div>
             </div>
@@ -466,9 +535,9 @@ $context["h"], "habit", [], "any", false, false, false, 119), "category", [], "a
 
         <div class=\"main-container w-full h-full flex flex-col\">
             {# Górny pasek z profilem #}
-            <div class=\"nav flex w-full justify-between h-20 mb-4 mt-4\">
-                <div class=\"name-page ml-8 text-xl font-medium\">
-                Dashboard
+            <div class=\"nav flex w-full justify-between h-10 mb-4 mt-4\">
+                <div class=\"name-page ml-8 text-xl font-semibold\">
+                Nawyki
                 </div>
 
                 <div class=\"profile flex justify-center items-center gap-4\">
@@ -489,24 +558,12 @@ $context["h"], "habit", [], "any", false, false, false, 119), "category", [], "a
             {# Panel główny dashboardu #}
             <div class=\"habits__main h-full w-full main__background flex gap-4 flex-col\">
                 {# Lewy panel #}
-                <div class=\"habits__panel--top w-full h-28 flex justify-between mt-6 items-center\">
-                    <div class=\"ml-8\">
-                        <p class=\"text-3xl font-semibold mb-3\">Dzisiaj</p>
-                        <p class=\"text-lg\">{{ day }} | {{ today }}</p>
-                    </div>
-                    <div class=\"mr-8 bg-white w-72 h-20 rounded-3xl flex items-center justify-between\">
-                        <p class=\"ml-4 text-xl\">Najdłuższa seria</p>
-                        <div class=\"main__background--gold w-12 h-12 rounded-xl mr-4 flex justify-center items-center\">
-
-                        </div>
-                    </div>
-                </div>
                 
                 <div class=\"habits__panel-main w-full h-full flex flex-row gap-8\">
 
-                    <div class=\"habits__panel--left mt-4 mb-8 ml-8 flex flex-col gap-6\">
+                    <div class=\"habits__panel--left habits__panel mt-8 mb-8 ml-8 flex flex-col gap-6\">
                         <div class=\"overflow-hidden m-8 flex flex-col gap-4\">
-                        <p class=\"text-2xl\">Nawyki</p>
+                        <p class=\"text-2xl\">Twoje nawyki</p>
                             <div class=\"habits__panel__habit overflow-y-scroll overflow-x-hidden\">
                                 <form method=\"post\" action=\"{{ path('app_tracking_habit') }}\">
                                     {% for h in habits %}
@@ -558,10 +615,11 @@ $context["h"], "habit", [], "any", false, false, false, 119), "category", [], "a
                                     {# <button type=\"submit\">Zapisz</button> #}
                                 </form>
                             </div>
-                            <div class=\"habits__select-btn w-full flex justify-end\">
-                                <div class=\"overflow-hidden relative w-auto h-auto\">
-                                    <a class=\"btn w-24 relative\" href=\"{{ path('app_select_habit') }}\"><button class=\"bg-black text-white text-4xl w-24 rounded-xl mt-1\">+</button></a>
-                                    <div class=\"btn-dot absolute bottom-1 left-0\"></div>
+                            
+                            <div class=\"habits__select-btn w-full flex\">
+                                <div class=\"overflow-hidden relative w-full h-auto\">
+                                    <a class=\"btn--habits w-full relative\" href=\"{{ path('app_select_habit') }}\"><button class=\"bg-black text-white text-md w-full rounded-xl mt-1 flex items-center justify-center gap-4 pt-1 pb-1\"><span class=\"main-color text-3xl\">+</span> Edytuj listę</button></a>
+                                    <div class=\"btn-dot--habits absolute bottom-1 left-0\"></div>
                                 </div>
                             </div>
                         </div>
@@ -573,8 +631,54 @@ $context["h"], "habit", [], "any", false, false, false, 119), "category", [], "a
                     <a href=\"{{ path('app_habit_remove') }}\"><button>Usuń nawyk</button></a>  #}
 
                     {# Prawy panel #}
-                    <div class=\"habits__panel--right mb-8 mr-8 mt-4\">
+                    <div class=\"habits__panel--right mb-8 mr-8 mt-8 flex flex-col gap-6 h-auto\">
+                        <div class=\"habits__panel-right--top h-3/5 flex flex-col\">
+                            <div class=\"m-8 h-full flex flex-col\">
+                                <p class=\"text-2xl\">Kategorie</p>
+                                <div class=\"categories flex flex-col h-full justify-between\">
+                                    <div class=\"w-full h-auto flex flex-col gap-3 items-center justify-center mt-8\">
+                                        <div class=\"habits__category-row flex flex-col w-full h-auto\">
+                                            <p>Zdrowie</p>
+                                            <div class=\"habits__category-bar habits__category-bar--health rounded-md\"></div>
+                                        </div>
+                                        <div class=\"habits__category-row flex flex-col w-full h-auto\">
+                                            <p>Relaks</p>
+                                            <div class=\"habits__category-bar habits__category-bar--relax rounded-md\"></div>
+                                        </div>
+                                        <div class=\"habits__category-row flex flex-col w-full h-auto\">
+                                            <p>Aktywność społeczna</p>
+                                            <div class=\"habits__category-bar habits__category-bar--activity rounded-md\"></div>
+                                        </div>
+                                    </div>
 
+                                    <div class=\"categories-buttons w-full h-auto flex gap-4\">
+                                        <a href=\"{{ path('app_new_habit') }}\" class=\"overflow-hidden w-1/2 bg-black category-btn flex justify-center rounded-xl pt-1 pb-1 relative {{ formType == 'ownHabitAdd' ? 'hidden' : 'visible' }} {{ formType == 'ownHabitRemove' ? 'hidden' : 'visible' }}\">
+                                            <button class=\"btn--categories relative text-white flex gap-4 items-center justofy-center\"><span class=\"main-color text-3xl\">+</span>Stwórz nowy nawyk</button>
+                                            <div class=\"btn-dot--categories absolute bottom-1 left-0\"></div>
+                                        </a>
+                                        <a href=\"{{ path('app_habit_remove') }}\" class=\"overflow-hidden w-1/2 bg-black category-btn flex justify-center rounded-xl pt-1 pb-1 relative {{ formType == 'ownHabitAdd' ? 'hidden' : 'visible' }} {{ formType == 'ownHabitRemove' ? 'hidden' : 'visible' }}\">
+                                            <button class=\"btn--categories relative text-white flex gap-4 items-center justofy-center\"><span class=\"main-color text-3xl\">-</span>Usuń własny nawyk</button>
+                                            <div class=\"btn-dot--categories absolute bottom-1 left-0\"></div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% if formType == 'ownHabitAdd' %}
+                            {{ include('/habit/_new_habit_form.html.twig') }}
+                        {% endif %}
+                        {% if formType == 'ownHabitRemove' %}
+                            {{ include('/habit/_remove_habit_form.html.twig') }}
+                        {% endif %}
+                        </div>
+
+                        {# <div class=\"h-2/5 flex items-center\">
+                        {% if formType == 'ownHabitAdd' %}
+                            {{ include('/habit/_new_habit_form.html.twig') }}
+                        {% endif %}
+                        {% if formType == 'ownHabitRemove' %}
+                            {{ include('/habit/_remove_habit_form.html.twig') }}
+                        {% endif %}
+                        </div> #}
                     </div>
                 </div>
             </div>

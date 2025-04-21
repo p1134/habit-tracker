@@ -2,8 +2,38 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
+.limit-height {
+  max-height: 15em;
+}
+
 .btn:hover ~ .btn-dot {
   transform: translateX(10em);
+  transition: transform 0.6s;
+}
+
+.btn-dot--habits {
+  width: 6px;
+  height: 6px;
+  border-radius: 100%;
+  background-color: #FABB18;
+  transform: translateX(-100%);
+}
+
+.btn--habits:hover ~ .btn-dot--habits {
+  transform: translateX(32em);
+  transition: transform 0.6s;
+}
+
+.btn-dot--categories {
+  width: 6px;
+  height: 6px;
+  border-radius: 100%;
+  background-color: #FABB18;
+  transform: translateX(-100%);
+}
+
+.btn--categories:hover ~ .btn-dot--categories {
+  transform: translateX(16em);
   transition: transform 0.6s;
 }
 
@@ -135,6 +165,9 @@ body {
   height: 32em;
   width: 50%;
 }
+.habits__panel {
+  height: 39em;
+}
 .habits__panel--left, .habits__panel-right--top, .habits__panel-right--bottom {
   border-radius: 40px;
   background-color: #fff;
@@ -142,6 +175,27 @@ body {
 .habits__checkbox-progress {
   width: 0.5em;
   transition: width 0.2s;
+}
+.habits__category-bar {
+  width: 20em;
+  height: 0.5em;
+}
+.habits__category-bar--health {
+  background: #46BACE;
+}
+.habits__category-bar--relax {
+  background: #46CE56;
+}
+.habits__category-bar--activity {
+  background: #FABB18;
+}
+.habits__row:hover {
+  background-color: rgb(246, 246, 246);
+}
+
+.habit-remove:hover {
+  background-color: rgb(246, 246, 246);
+  cursor: pointer;
 }
 
 .habits__row:hover .habits__checkbox-progress {

@@ -2,8 +2,35 @@ body{
     font-family: "Poppins", sans-serif;
 }
 
+.limit-height{
+    max-height: 15em;
+}
+
 .btn:hover~.btn-dot{
     transform: translateX(10em);
+    transition: transform 0.6s;
+}
+
+.btn-dot--habits{
+    width: 6px;
+    height: 6px;
+    border-radius: 100%;
+    background-color: #FABB18;
+    transform: translateX(-100%);
+}
+.btn--habits:hover~.btn-dot--habits{
+    transform: translateX(32em);
+    transition: transform 0.6s;
+}
+.btn-dot--categories{
+    width: 6px;
+    height: 6px;
+    border-radius: 100%;
+    background-color: #FABB18;
+    transform: translateX(-100%);
+}
+.btn--categories:hover~.btn-dot--categories{
+    transform: translateX(16em);
     transition: transform 0.6s;
 }
 
@@ -148,6 +175,7 @@ transition: transform 0.6s;
         // height: 93%;
     }
     &__panel{
+        height: 39em;
         &--left, &-right--top, &-right--bottom{
             border-radius: 40px;
             background-color: #fff;
@@ -158,7 +186,30 @@ transition: transform 0.6s;
         width: 0.5em;
         transition: width 0.2s;
     }
+
+    &__category-bar{
+        width: 20em;
+        height: 0.5em;
+        &--health{
+            background: #46BACE;
+        }
+        &--relax{
+            background: #46CE56;
+        }
+        &--activity{
+            background: #FABB18;
+        }
+    }
+    &__row:hover{
+        background-color: rgb(246, 246, 246);
+    }
 }
+
+.habit-remove:hover{
+    background-color: rgb(246, 246, 246);
+    cursor: pointer;
+}
+
 .habits__row:hover .habits__checkbox-progress{
     width: 10em;
     transition: width 0.2s;

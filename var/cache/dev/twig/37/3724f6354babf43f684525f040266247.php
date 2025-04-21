@@ -348,24 +348,15 @@ $context["h"], "habit", [], "any", false, false, false, 119), "category", [], "a
         // line 150
         yield "                                </form>
                             </div>
-                            <div class=\"habits__select-btn w-full flex justify-end\">
-                                <div class=\"overflow-hidden relative w-auto h-auto\">
-                                    <a class=\"btn w-24 relative\" href=\"";
-        // line 154
-        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_select_habit");
-        yield "\"><button class=\"bg-black text-white text-4xl w-24 rounded-xl mt-1\">+</button></a>
-                                    <div class=\"btn-dot absolute bottom-1 left-0\"></div>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
 
                     ";
-        // line 165
+        // line 159
         yield "
                     ";
-        // line 167
+        // line 161
         yield "                    <div class=\"habits__panel--right mb-8 mr-8 mt-4 flex flex-col gap-6\">
                         <div class=\"habits__panel-right--top h-3/4 flex flex-col\">
                             <div class=\"m-8 overflow-hidden\">
@@ -373,34 +364,34 @@ $context["h"], "habit", [], "any", false, false, false, 119), "category", [], "a
                                 <div class=\"chart w-full h-full flex items-start justify-center\">
                                     <div class=\"w-72 relative\">
                                     ";
-        // line 173
-        yield $this->extensions['Symfony\UX\Chartjs\Twig\ChartExtension']->renderChart((isset($context["chart"]) || array_key_exists("chart", $context) ? $context["chart"] : (function () { throw new RuntimeError('Variable "chart" does not exist.', 173, $this->source); })()));
+        // line 167
+        yield $this->extensions['Symfony\UX\Chartjs\Twig\ChartExtension']->renderChart((isset($context["chart"]) || array_key_exists("chart", $context) ? $context["chart"] : (function () { throw new RuntimeError('Variable "chart" does not exist.', 167, $this->source); })()));
         yield "
                                     </div>
                                     <div class=\"chart__text absolute text-center\">
                                         <p>";
-        // line 176
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["trackedCount"]) || array_key_exists("trackedCount", $context) ? $context["trackedCount"] : (function () { throw new RuntimeError('Variable "trackedCount" does not exist.', 176, $this->source); })()), "html", null, true);
+        // line 170
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["trackedCount"]) || array_key_exists("trackedCount", $context) ? $context["trackedCount"] : (function () { throw new RuntimeError('Variable "trackedCount" does not exist.', 170, $this->source); })()), "html", null, true);
         yield " 
                                             ";
-        // line 177
-        if (((isset($context["trackedCount"]) || array_key_exists("trackedCount", $context) ? $context["trackedCount"] : (function () { throw new RuntimeError('Variable "trackedCount" does not exist.', 177, $this->source); })()) == "1")) {
+        // line 171
+        if (((isset($context["trackedCount"]) || array_key_exists("trackedCount", $context) ? $context["trackedCount"] : (function () { throw new RuntimeError('Variable "trackedCount" does not exist.', 171, $this->source); })()) == "1")) {
             yield " nawyk 
                                             ";
-        } elseif ((((        // line 178
-(isset($context["trackedCount"]) || array_key_exists("trackedCount", $context) ? $context["trackedCount"] : (function () { throw new RuntimeError('Variable "trackedCount" does not exist.', 178, $this->source); })()) == "2") || ((isset($context["trackedCount"]) || array_key_exists("trackedCount", $context) ? $context["trackedCount"] : (function () { throw new RuntimeError('Variable "trackedCount" does not exist.', 178, $this->source); })()) == "3")) || ((isset($context["trackedCount"]) || array_key_exists("trackedCount", $context) ? $context["trackedCount"] : (function () { throw new RuntimeError('Variable "trackedCount" does not exist.', 178, $this->source); })()) == "4"))) {
+        } elseif ((((        // line 172
+(isset($context["trackedCount"]) || array_key_exists("trackedCount", $context) ? $context["trackedCount"] : (function () { throw new RuntimeError('Variable "trackedCount" does not exist.', 172, $this->source); })()) == "2") || ((isset($context["trackedCount"]) || array_key_exists("trackedCount", $context) ? $context["trackedCount"] : (function () { throw new RuntimeError('Variable "trackedCount" does not exist.', 172, $this->source); })()) == "3")) || ((isset($context["trackedCount"]) || array_key_exists("trackedCount", $context) ? $context["trackedCount"] : (function () { throw new RuntimeError('Variable "trackedCount" does not exist.', 172, $this->source); })()) == "4"))) {
             yield " nawyki
                                             ";
         } else {
-            // line 180
+            // line 174
             yield "                                                 nawyków
                                             ";
         }
-        // line 181
+        // line 175
         yield "</p>
                                         <p class=\"text-gray-600 font-light\">";
-        // line 182
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["percentage"]) || array_key_exists("percentage", $context) ? $context["percentage"] : (function () { throw new RuntimeError('Variable "percentage" does not exist.', 182, $this->source); })()), "html", null, true);
+        // line 176
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["percentage"]) || array_key_exists("percentage", $context) ? $context["percentage"] : (function () { throw new RuntimeError('Variable "percentage" does not exist.', 176, $this->source); })()), "html", null, true);
         yield "%</p>
                                     </div>
                                 </div>
@@ -411,7 +402,7 @@ $context["h"], "habit", [], "any", false, false, false, 119), "category", [], "a
                                 <p class=\"ml-4 text-xl\">Dzień</p>
                                 <div class=\"main__background--gold w-12 h-12 rounded-xl mr-4 flex justify-center items-center text-2xl font-semibold\">
                                     ";
-        // line 191
+        // line 185
         yield (((array_key_exists("currentStreak", $context) &&  !(null === $context["currentStreak"]))) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($context["currentStreak"], "html", null, true)) : (0));
         yield "
                                 </div>
@@ -454,7 +445,7 @@ $context["h"], "habit", [], "any", false, false, false, 119), "category", [], "a
      */
     public function getDebugInfo(): array
     {
-        return array (  415 => 191,  403 => 182,  400 => 181,  396 => 180,  391 => 178,  387 => 177,  383 => 176,  377 => 173,  369 => 167,  366 => 165,  355 => 154,  349 => 150,  347 => 149,  334 => 141,  330 => 139,  324 => 138,  320 => 136,  317 => 135,  313 => 134,  309 => 133,  300 => 128,  298 => 127,  295 => 126,  288 => 122,  284 => 120,  282 => 119,  276 => 116,  272 => 114,  270 => 113,  264 => 110,  260 => 108,  258 => 107,  253 => 104,  249 => 103,  245 => 102,  231 => 91,  221 => 86,  216 => 83,  213 => 81,  204 => 74,  200 => 73,  190 => 68,  186 => 67,  177 => 60,  164 => 49,  155 => 43,  146 => 37,  137 => 31,  133 => 30,  122 => 22,  116 => 19,  106 => 11,  100 => 6,  87 => 5,  64 => 3,  41 => 1,);
+        return array (  406 => 185,  394 => 176,  391 => 175,  387 => 174,  382 => 172,  378 => 171,  374 => 170,  368 => 167,  360 => 161,  357 => 159,  349 => 150,  347 => 149,  334 => 141,  330 => 139,  324 => 138,  320 => 136,  317 => 135,  313 => 134,  309 => 133,  300 => 128,  298 => 127,  295 => 126,  288 => 122,  284 => 120,  282 => 119,  276 => 116,  272 => 114,  270 => 113,  264 => 110,  260 => 108,  258 => 107,  253 => 104,  249 => 103,  245 => 102,  231 => 91,  221 => 86,  216 => 83,  213 => 81,  204 => 74,  200 => 73,  190 => 68,  186 => 67,  177 => 60,  164 => 49,  155 => 43,  146 => 37,  137 => 31,  133 => 30,  122 => 22,  116 => 19,  106 => 11,  100 => 6,  87 => 5,  64 => 3,  41 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -609,12 +600,6 @@ $context["h"], "habit", [], "any", false, false, false, 119), "category", [], "a
                                     {% endfor %}
                                     {# <button type=\"submit\">Zapisz</button> #}
                                 </form>
-                            </div>
-                            <div class=\"habits__select-btn w-full flex justify-end\">
-                                <div class=\"overflow-hidden relative w-auto h-auto\">
-                                    <a class=\"btn w-24 relative\" href=\"{{ path('app_select_habit') }}\"><button class=\"bg-black text-white text-4xl w-24 rounded-xl mt-1\">+</button></a>
-                                    <div class=\"btn-dot absolute bottom-1 left-0\"></div>
-                                </div>
                             </div>
                         </div>
                     </div>

@@ -14,41 +14,50 @@
                     <p class="text-4xl font-bold">HABITIF<span class="main-color">Y.</span></p>
                 </div>
 
-                <div class="nav__tabs flex flex-col gap-5">
+                <div class="flex flex-col justify-between h-3/4 items-center">
+                    <div class="nav__tabs flex flex-col gap-5">
 
                         <a class="w-auto h-auto" href="{{ path('app_dashboard') }}">
                             <div class="nav__dashboard  w-auto h-auto relative overflow-hidden">
-                                <div class="nav__dashboard btn-active flex gap-3 justify-start items-center relative">
-                                    <img class="w-5 h-5" src="{{ asset('/img/dashboard.svg') }}" alt="">
+                                <div class="nav__dashboard btn-inactive flex gap-3 justify-start items-center relative">
+                                    <img class="w-5 h-5" src="{{ asset('/img/dashboard-off.svg') }}" alt="">
                                     <p>Dashboard</p>
                                 </div>
-                            <div class="btn__nav-dot absolute bottom-1 left-0"></div>
                             </div>
                         </a>
 
-                    <div class="nav__habits btn-inactive flex gap-3 justify-left items-center gap-4">
-                    <a href="{{ path('app_habit') }}" class="flex gap-3">
-                        <img src="{{ asset('img/nawyki-off.svg') }}" alt="">
-                        <p>Nawyki</p>
-                    </a>
+                        <div class="nav__habits flex gap-3 justify-left items-center gap-4">
+                            <a href="{{ path('app_habit') }}" class="flex gap-3 w-auto h-auto">
+                                <div class="nav__dashboard  w-auto h-auto relative overflow-hidden">
+                                    <div class="nav__dashboard btn-active flex gap-3 justify-start items-center relative">
+                                        <img src="{{ asset('img/nawyki.svg') }}" alt="">
+                                        <p>Nawyki</p>
+                                    </div>
+                                <div class="btn__nav-dot absolute bottom-1 left-0"></div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="nav__summary btn-inactive flex gap-3 justify-left items-center gap-4">
+                        <a href="" class="flex gap-3">
+                            <img src="{{ asset('img/podsumowanie-off.svg') }}" alt="">
+                            <p>Podsumowanie</p>
+                        </a>
+                        </div>
+                        <div class="nav__society btn-inactive flex gap-3 justify-left items-center gap-4">
+                        <a href="" class="flex gap-3">
+                            <img src="{{ asset('img/spolecznosc-off.svg') }}" alt="">
+                            <p>Społeczność</p>
+                        </a>
+                        </div>
+                        <div class="nav__option btn-inactive flex gap-3 justify-left items-center gap-4">
+                        <a href="" class="flex gap-3">
+                            <img src="{{ asset('img/ustawienia-off.svg') }}" alt="">
+                            <p>Ustawienia</p>
+                        </a>
+                        </div>
                     </div>
-                    <div class="nav__summary btn-inactive flex gap-3 justify-left items-center gap-4">
-                    <a href="" class="flex gap-3">
-                        <img src="{{ asset('img/podsumowanie-off.svg') }}" alt="">
-                        <p>Podsumowanie</p>
-                    </a>
-                    </div>
-                    <div class="nav__society btn-inactive flex gap-3 justify-left items-center gap-4">
-                    <a href="" class="flex gap-3">
-                        <img src="{{ asset('img/spolecznosc-off.svg') }}" alt="">
-                        <p>Społeczność</p>
-                    </a>
-                    </div>
-                    <div class="nav__option btn-inactive flex gap-3 justify-left items-center gap-4">
-                    <a href="" class="flex gap-3">
-                        <img src="{{ asset('img/ustawienia-off.svg') }}" alt="">
-                        <p>Ustawienia</p>
-                    </a>
+                    <div class="flex gap-4 cursor-pointer items-center justify-center">
+                        <i class="fa-solid fa-right-from-bracket text-3xl"></i><span>Wyloguj</span>
                     </div>
                 </div>
             </div>
@@ -57,9 +66,9 @@
 
         <div class="main-container w-full h-full flex flex-col">
             {# Górny pasek z profilem #}
-            <div class="nav flex w-full justify-between h-20 mb-4 mt-4">
-                <div class="name-page ml-8 text-xl font-medium">
-                Dashboard
+            <div class="nav flex w-full justify-between h-10 mb-4 mt-4">
+                <div class="name-page ml-8 text-xl font-semibold">
+                Nawyki
                 </div>
 
                 <div class="profile flex justify-center items-center gap-4">
@@ -80,24 +89,12 @@
             {# Panel główny dashboardu #}
             <div class="habits__main h-full w-full main__background flex gap-4 flex-col">
                 {# Lewy panel #}
-                <div class="habits__panel--top w-full h-28 flex justify-between mt-6 items-center">
-                    <div class="ml-8">
-                        <p class="text-3xl font-semibold mb-3">Dzisiaj</p>
-                        <p class="text-lg">{{ day }} | {{ today }}</p>
-                    </div>
-                    <div class="mr-8 bg-white w-72 h-20 rounded-3xl flex items-center justify-between">
-                        <p class="ml-4 text-xl">Najdłuższa seria</p>
-                        <div class="main__background--gold w-12 h-12 rounded-xl mr-4 flex justify-center items-center">
-
-                        </div>
-                    </div>
-                </div>
                 
                 <div class="habits__panel-main w-full h-full flex flex-row gap-8">
 
-                    <div class="habits__panel--left mt-4 mb-8 ml-8 flex flex-col gap-6">
+                    <div class="habits__panel--left habits__panel mt-8 mb-8 ml-8 flex flex-col gap-6">
                         <div class="overflow-hidden m-8 flex flex-col gap-4">
-                        <p class="text-2xl">Nawyki</p>
+                        <p class="text-2xl">Twoje nawyki</p>
                             <div class="habits__panel__habit overflow-y-scroll overflow-x-hidden">
                                 <form method="post" action="{{ path('app_tracking_habit') }}">
                                     {% for h in habits %}
@@ -149,10 +146,11 @@
                                     {# <button type="submit">Zapisz</button> #}
                                 </form>
                             </div>
-                            <div class="habits__select-btn w-full flex justify-end">
-                                <div class="overflow-hidden relative w-auto h-auto">
-                                    <a class="btn w-24 relative" href="{{ path('app_select_habit') }}"><button class="bg-black text-white text-4xl w-24 rounded-xl mt-1">+</button></a>
-                                    <div class="btn-dot absolute bottom-1 left-0"></div>
+                            
+                            <div class="habits__select-btn w-full flex">
+                                <div class="overflow-hidden relative w-full h-auto">
+                                    <a class="btn--habits w-full relative" href="{{ path('app_select_habit') }}"><button class="bg-black text-white text-md w-full rounded-xl mt-1 flex items-center justify-center gap-4 pt-1 pb-1"><span class="main-color text-3xl">+</span> Edytuj listę</button></a>
+                                    <div class="btn-dot--habits absolute bottom-1 left-0"></div>
                                 </div>
                             </div>
                         </div>
@@ -164,8 +162,54 @@
                     <a href="{{ path('app_habit_remove') }}"><button>Usuń nawyk</button></a>  #}
 
                     {# Prawy panel #}
-                    <div class="habits__panel--right mb-8 mr-8 mt-4">
+                    <div class="habits__panel--right mb-8 mr-8 mt-8 flex flex-col gap-6 h-auto">
+                        <div class="habits__panel-right--top h-3/5 flex flex-col">
+                            <div class="m-8 h-full flex flex-col">
+                                <p class="text-2xl">Kategorie</p>
+                                <div class="categories flex flex-col h-full justify-between">
+                                    <div class="w-full h-auto flex flex-col gap-3 items-center justify-center mt-8">
+                                        <div class="habits__category-row flex flex-col w-full h-auto">
+                                            <p>Zdrowie</p>
+                                            <div class="habits__category-bar habits__category-bar--health rounded-md"></div>
+                                        </div>
+                                        <div class="habits__category-row flex flex-col w-full h-auto">
+                                            <p>Relaks</p>
+                                            <div class="habits__category-bar habits__category-bar--relax rounded-md"></div>
+                                        </div>
+                                        <div class="habits__category-row flex flex-col w-full h-auto">
+                                            <p>Aktywność społeczna</p>
+                                            <div class="habits__category-bar habits__category-bar--activity rounded-md"></div>
+                                        </div>
+                                    </div>
 
+                                    <div class="categories-buttons w-full h-auto flex gap-4">
+                                        <a href="{{ path('app_new_habit') }}" class="overflow-hidden w-1/2 bg-black category-btn flex justify-center rounded-xl pt-1 pb-1 relative {{ formType == 'ownHabitAdd' ? 'hidden' : 'visible' }} {{ formType == 'ownHabitRemove' ? 'hidden' : 'visible' }}">
+                                            <button class="btn--categories relative text-white flex gap-4 items-center justofy-center"><span class="main-color text-3xl">+</span>Stwórz nowy nawyk</button>
+                                            <div class="btn-dot--categories absolute bottom-1 left-0"></div>
+                                        </a>
+                                        <a href="{{ path('app_habit_remove') }}" class="overflow-hidden w-1/2 bg-black category-btn flex justify-center rounded-xl pt-1 pb-1 relative {{ formType == 'ownHabitAdd' ? 'hidden' : 'visible' }} {{ formType == 'ownHabitRemove' ? 'hidden' : 'visible' }}">
+                                            <button class="btn--categories relative text-white flex gap-4 items-center justofy-center"><span class="main-color text-3xl">-</span>Usuń własny nawyk</button>
+                                            <div class="btn-dot--categories absolute bottom-1 left-0"></div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% if formType == 'ownHabitAdd' %}
+                            {{ include('/habit/_new_habit_form.html.twig') }}
+                        {% endif %}
+                        {% if formType == 'ownHabitRemove' %}
+                            {{ include('/habit/_remove_habit_form.html.twig') }}
+                        {% endif %}
+                        </div>
+
+                        {# <div class="h-2/5 flex items-center">
+                        {% if formType == 'ownHabitAdd' %}
+                            {{ include('/habit/_new_habit_form.html.twig') }}
+                        {% endif %}
+                        {% if formType == 'ownHabitRemove' %}
+                            {{ include('/habit/_remove_habit_form.html.twig') }}
+                        {% endif %}
+                        </div> #}
                     </div>
                 </div>
             </div>

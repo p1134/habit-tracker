@@ -57,7 +57,9 @@
                         </div>
                     </div>
                     <div class="flex gap-4 cursor-pointer items-center justify-center">
-                        <i class="fa-solid fa-right-from-bracket text-3xl"></i><span>Wyloguj</span>
+                        <a href="{{ path('app_logout') }}" class="btn-logout flex gap-4 items-center justify-center">
+                            <i class="logout-icon fa-solid fa-right-from-bracket text-3xl"></i><span>Wyloguj</span>
+                        </a>
                     </div>
                 </div>
             </div>

@@ -14,45 +14,51 @@
                     <p class="text-4xl font-bold">HABITIF<span class="main-color">Y.</span></p>
                 </div>
 
-                <div class="nav__tabs flex flex-col gap-5">
+                <div class="flex flex-col justify-between h-3/4 items-center">
+                    <div class="nav__tabs flex flex-col gap-5">
 
-                        <a class="w-auto h-auto" href="{{ path('app_dashboard') }}">
-                            <div class="nav__dashboard  w-auto h-auto relative overflow-hidden">
-                                <div class="nav__dashboard btn-active flex gap-3 justify-start items-center relative">
-                                    <img class="w-5 h-5" src="{{ asset('/img/dashboard.svg') }}" alt="">
-                                    <p>Dashboard</p>
+                            <a class="w-auto h-auto" href="{{ path('app_dashboard') }}">
+                                <div class="nav__dashboard  w-auto h-auto relative overflow-hidden">
+                                    <div class="nav__dashboard btn-active flex gap-3 justify-start items-center relative">
+                                        <img class="w-5 h-5" src="{{ asset('/img/dashboard.svg') }}" alt="">
+                                        <p>Dashboard</p>
+                                    </div>
+                                <div class="btn__nav-dot absolute bottom-1 left-0"></div>
                                 </div>
-                            <div class="btn__nav-dot absolute bottom-1 left-0"></div>
-                            </div>
-                        </a>
+                            </a>
 
-                    <div class="nav__habits btn-inactive flex gap-3 justify-left items-center gap-4">
-                    <a href="{{ path('app_habit') }}" class="flex gap-3">
-                        <img src="{{ asset('img/nawyki-off.svg') }}" alt="">
-                        <p>Nawyki</p>
-                    </a>
-                    </div>
-                    <div class="nav__summary btn-inactive flex gap-3 justify-left items-center gap-4">
-                    <a href="" class="flex gap-3">
-                        <img src="{{ asset('img/podsumowanie-off.svg') }}" alt="">
-                        <p>Podsumowanie</p>
-                    </a>
-                    </div>
-                    <div class="nav__society btn-inactive flex gap-3 justify-left items-center gap-4">
-                    <a href="" class="flex gap-3">
-                        <img src="{{ asset('img/spolecznosc-off.svg') }}" alt="">
-                        <p>Społeczność</p>
-                    </a>
-                    </div>
-                    <div class="nav__option btn-inactive flex gap-3 justify-left items-center gap-4">
-                    <a href="" class="flex gap-3">
-                        <img src="{{ asset('img/ustawienia-off.svg') }}" alt="">
-                        <p>Ustawienia</p>
-                    </a>
+                        <div class="nav__habits btn-inactive flex gap-3 justify-left items-center gap-4">
+                        <a href="{{ path('app_habit') }}" class="flex gap-3">
+                            <img src="{{ asset('img/nawyki-off.svg') }}" alt="">
+                            <p>Nawyki</p>
+                        </a>
+                        </div>
+                        <div class="nav__summary btn-inactive flex gap-3 justify-left items-center gap-4">
+                        <a href="" class="flex gap-3">
+                            <img src="{{ asset('img/podsumowanie-off.svg') }}" alt="">
+                            <p>Podsumowanie</p>
+                        </a>
+                        </div>
+                        <div class="nav__society btn-inactive flex gap-3 justify-left items-center gap-4">
+                        <a href="" class="flex gap-3">
+                            <img src="{{ asset('img/spolecznosc-off.svg') }}" alt="">
+                            <p>Społeczność</p>
+                        </a>
+                        </div>
+                        <div class="nav__option btn-inactive flex gap-3 justify-left items-center gap-4">
+                        <a href="" class="flex gap-3">
+                            <img src="{{ asset('img/ustawienia-off.svg') }}" alt="">
+                            <p>Ustawienia</p>
+                        </a>
+                        </div>
                     </div>
                 </div>
+                    <div class="flex gap-4 cursor-pointer items-center justify-center">
+                        <a href="{{ path('app_logout') }}" class="btn-logout flex gap-4 items-center justify-center">
+                            <i class="logout-icon fa-solid fa-right-from-bracket text-3xl"></i><span>Wyloguj</span>
+                        </a>
+                    </div>
             </div>
-
         </div>
 
         <div class="main-container w-full h-full flex flex-col">
@@ -181,8 +187,8 @@
                         <div class="habits__panel-right--bottom h-1/4 flex items-center">
                             <div class="day_streak flex gap-6 items-center ml-4">
                                 <p class="ml-4 text-xl">Dzień</p>
-                                <div class="main__background--gold w-12 h-12 rounded-xl mr-4 flex justify-center items-center text-2xl font-semibold">
-                                    {{ currentStreak ?? 0 }}
+                                <div class="main__background--gold w-12 h-12 rounded-xl mr-4 flex justify-center items-center text-3xl font-semibold">
+                                    {{ currentStreak ?? currentStreak + 1 }}
                                 </div>
                             </div>
                         </div>

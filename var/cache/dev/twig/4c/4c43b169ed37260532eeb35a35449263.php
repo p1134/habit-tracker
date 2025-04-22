@@ -57,7 +57,7 @@ class __TwigTemplate_33dced6bde36488c680c472dbf13e47d extends Template
         yield "
             ";
         // line 5
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 5, $this->source); })()), "category", [], "any", false, false, false, 5), 'widget', ["attr" => ["class" => "w-1/2 p-2 rounded-xl border"]]);
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 5, $this->source); })()), "category", [], "any", false, false, false, 5), 'widget', ["attr" => ["class" => "w-1/2 p-3 rounded-xl border"]]);
         yield "
         
             <input type=\"hidden\" name=\"";
@@ -124,7 +124,7 @@ class __TwigTemplate_33dced6bde36488c680c472dbf13e47d extends Template
     <form method=\"POST\" action=\"{{ path('app_new_habit') }}\" name=\"form[ownHabits][]\" class=\"flex flex-col m-8 w-full h-full justify-between items-center\">
         <div class=\"flex w-full justify-center items-start mt-8 gap-4\">
             {{ form_widget(form.name, {'attr': {'class': 'border rounded-xl w-1/2 p-3 h-12 resize-none', 'placeholder': 'Nawyk'}}) }}
-            {{ form_widget(form.category, {'attr': {'class': 'w-1/2 p-2 rounded-xl border'}}) }}
+            {{ form_widget(form.category, {'attr': {'class': 'w-1/2 p-3 rounded-xl border'}}) }}
         
             <input type=\"hidden\" name=\"{{ form._token.vars.full_name }}\" value=\"{{ form._token.vars.value }}\">
         </div>

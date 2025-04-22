@@ -2,7 +2,7 @@
     <form method="POST" action="{{ path('app_new_habit') }}" name="form[ownHabits][]" class="flex flex-col m-8 w-full h-full justify-between items-center">
         <div class="flex w-full justify-center items-start mt-8 gap-4">
             {{ form_widget(form.name, {'attr': {'class': 'border rounded-xl w-1/2 p-3 h-12 resize-none', 'placeholder': 'Nawyk'}}) }}
-            {{ form_widget(form.category, {'attr': {'class': 'w-1/2 p-2 rounded-xl border'}}) }}
+            {{ form_widget(form.category, {'attr': {'class': 'w-1/2 p-3 rounded-xl border'}}) }}
         
             <input type="hidden" name="{{ form._token.vars.full_name }}" value="{{ form._token.vars.value }}">
         </div>

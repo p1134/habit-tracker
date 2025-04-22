@@ -6,6 +6,11 @@ body{
     max-height: 15em;
 }
 
+.btn-logout:hover .logout-icon{
+    color: #FABB18;
+    transition: color 0.1s ease-in-out;
+}
+
 .btn:hover~.btn-dot{
     transform: translateX(10em);
     transition: transform 0.6s;

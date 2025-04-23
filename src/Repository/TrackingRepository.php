@@ -73,6 +73,17 @@ class TrackingRepository extends ServiceEntityRepository
             return $result->fetchAllAssociative();
        }
 
+       public function getProgress($user){
+        $query = $this->createQueryBuilder('t')
+        ->where('t.user = :user')
+        ->setParameter('user', $user)
+        ->innerJoin('t.selected_habit_id', 'sh')
+        ->addSelect('sh')
+        ->getQuery()
+        ->getResult();
+        return $query;
+       }
+
     //    public function findOneBySomeField($value): ?Tracking
     //    {
     //        return $this->createQueryBuilder('t')

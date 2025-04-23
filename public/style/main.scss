@@ -230,4 +230,53 @@ transition: transform 0.6s;
     // transform: translateY(-50%);
 }
 
+/* Ukrycie samego checkboxa */
+.checkbox-hidden {
+    display: none;
+}
+
+/* Styl ikony, która będzie interaktywna */
+.panel-select__icon--health {
+    cursor: pointer;  /* Wskaźnik kursora, aby użytkownik wiedział, że jest to element interaktywny */
+}
+.panel-select__row{
+    &--health:hover {
+        background-color: rgb(246, 246, 246);
+        cursor: pointer; 
+    }
+    &--relax:hover {
+        background-color: rgb(246, 246, 246);
+        cursor: pointer; 
+    }
+    &--activity:hover {
+        background-color: rgb(246, 246, 246);
+        cursor: pointer; 
+    }
+}
+
+/* Zmieniony wygląd ikony po zaznaczeniu checkboxa */
+.checkbox-hidden:checked ~ .panel-select__icon > .panel-select__icon--health {
+    background-color: rgb(222, 233, 252);
+}
+.checkbox-hidden:checked ~ .panel-select__icon > .panel-select__icon--relax {
+    background-color: rgb(220, 252, 231);
+}
+.checkbox-hidden:checked ~ .panel-select__icon > .panel-select__icon--activity {
+    background-color: rgb(255, 237, 213);
+}
+
+// /* Dodatkowy efekt, gdy checkbox jest zaznaczony */
+// .checkbox-hidden:checked + .panel-select__icon--health::after {
+//     content: "✔"; /* Ikona zaznaczenia */
+//     color: green;
+//     font-size: 20px;
+//     position: absolute;
+//     left: 10px;
+//     top: 10px;
+// }
+
+// .panel-select__row--health:hover{
+//     background-color: rgb(246, 246, 246);
+//     cursor: pointer;
+// }
 

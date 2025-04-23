@@ -28,36 +28,36 @@
                             </a>
 
                         <div class="nav__habits btn-inactive flex gap-3 justify-left items-center gap-4">
-                        <a href="{{ path('app_habit') }}" class="flex gap-3">
-                            <img src="{{ asset('img/nawyki-off.svg') }}" alt="">
-                            <p>Nawyki</p>
-                        </a>
+                            <a href="{{ path('app_habit') }}" class="flex gap-3">
+                                <img src="{{ asset('img/nawyki-off.svg') }}" alt="">
+                                <p>Nawyki</p>
+                            </a>
                         </div>
                         <div class="nav__summary btn-inactive flex gap-3 justify-left items-center gap-4">
-                        <a href="" class="flex gap-3">
-                            <img src="{{ asset('img/podsumowanie-off.svg') }}" alt="">
-                            <p>Podsumowanie</p>
-                        </a>
+                            <a href="" class="flex gap-3">
+                                <img src="{{ asset('img/podsumowanie-off.svg') }}" alt="">
+                                <p>Podsumowanie</p>
+                            </a>
                         </div>
                         <div class="nav__society btn-inactive flex gap-3 justify-left items-center gap-4">
-                        <a href="" class="flex gap-3">
-                            <img src="{{ asset('img/spolecznosc-off.svg') }}" alt="">
-                            <p>Społeczność</p>
-                        </a>
+                            <a href="" class="flex gap-3">
+                                <img src="{{ asset('img/spolecznosc-off.svg') }}" alt="">
+                                <p>Społeczność</p>
+                            </a>
                         </div>
                         <div class="nav__option btn-inactive flex gap-3 justify-left items-center gap-4">
-                        <a href="" class="flex gap-3">
-                            <img src="{{ asset('img/ustawienia-off.svg') }}" alt="">
-                            <p>Ustawienia</p>
-                        </a>
+                            <a href="" class="flex gap-3">
+                                <img src="{{ asset('img/ustawienia-off.svg') }}" alt="">
+                                <p>Ustawienia</p>
+                            </a>
                         </div>
                     </div>
-                </div>
                     <div class="flex gap-4 cursor-pointer items-center justify-center">
                         <a href="{{ path('app_logout') }}" class="btn-logout flex gap-4 items-center justify-center">
                             <i class="logout-icon fa-solid fa-right-from-bracket text-3xl"></i><span>Wyloguj</span>
                         </a>
                     </div>
+                </div>
             </div>
         </div>
 
@@ -110,19 +110,19 @@
                                         <div class="border rounded-xl mb-5 w-full">
                                             <label class="habits__row flex p-4 items-center gap-4 cursor-pointer justify-between">
                                                 <div class="habits__row flex items-center gap-4">
-                                                    {% if h.habit.category.id == 1 %}
+                                                    {% if h.habit is not null and h.habit.category.id == 1 or h.ownHabit is not null and h.ownHabit.category.id == 1 %}
                                                     <div class="w-9">
                                                         <div class="habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-blue-100">
                                                             <img src="{{ asset('img/icon-blue.svg') }}" alt="">
                                                         </div>
                                                     </div>
-                                                    {% elseif h.habit.category.id == 2 %}
+                                                    {% elseif h.habit is not null and h.habit.category.id == 2 or h.ownHabit is not null and h.ownHabit.category.id == 2 %}
                                                     <div class="w-9">
                                                         <div class="habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-green-100">
                                                             <img src="{{ asset('img/icon-green.svg') }}" alt="">
                                                         </div>
                                                     </div>
-                                                    {% elseif h.habit.category.id == 3 %}
+                                                    {% elseif h.habit is not null and h.habit.category.id == 3 or h.ownHabit is not null and h.ownHabit.category.id == 3 %}
                                                     <div class="w-9">
                                                         <div class="habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-orange-100">
                                                             <img src="{{ asset('img/icon-yellow.svg') }}" alt="">
@@ -188,7 +188,7 @@
                             <div class="day_streak flex gap-6 items-center ml-4">
                                 <p class="ml-4 text-xl">Dzień</p>
                                 <div class="main__background--gold w-12 h-12 rounded-xl mr-4 flex justify-center items-center text-3xl font-semibold">
-                                    {{ currentStreak ?? currentStreak + 1 }}
+                                    {{ currentStreak != 0 ? currentStreak:currentStreak +1 }}
                                 </div>
                             </div>
                         </div>

@@ -103,19 +103,19 @@
                                         <div class="border rounded-xl mb-5 w-full">
                                             <label class="habits__row flex p-4 items-center gap-4 cursor-pointer justify-between">
                                                 <div class="habits__row flex items-center gap-4">
-                                                    {% if h.habit.category.id == 1 %}
+                                                    {% if h.habit is not null and h.habit.category.id == 1 or h.ownHabit is not null and h.ownHabit.category.id == 1 %}
                                                     <div class="w-9">
                                                         <div class="habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-blue-100">
                                                             <img src="{{ asset('img/icon-blue.svg') }}" alt="">
                                                         </div>
                                                     </div>
-                                                    {% elseif h.habit.category.id == 2 %}
+                                                    {% elseif h.habit is not null and h.habit.category.id == 2 or h.ownHabit is not null and h.ownHabit.category.id == 2 %}
                                                     <div class="w-9">
                                                         <div class="habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-green-100">
                                                             <img src="{{ asset('img/icon-green.svg') }}" alt="">
                                                         </div>
                                                     </div>
-                                                    {% elseif h.habit.category.id == 3 %}
+                                                    {% elseif h.habit is not null and h.habit.category.id == 3 or h.ownHabit is not null and h.ownHabit.category.id == 3 %}
                                                     <div class="w-9">
                                                         <div class="habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-orange-100">
                                                             <img src="{{ asset('img/icon-yellow.svg') }}" alt="">

@@ -129,54 +129,54 @@ class __TwigTemplate_c5dc4a9ea28bd986f46083f238c0abe3 extends Template
                             </a>
 
                         <div class=\"nav__habits btn-inactive flex gap-3 justify-left items-center gap-4\">
-                        <a href=\"";
+                            <a href=\"";
         // line 31
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_habit");
         yield "\" class=\"flex gap-3\">
-                            <img src=\"";
+                                <img src=\"";
         // line 32
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("img/nawyki-off.svg"), "html", null, true);
         yield "\" alt=\"\">
-                            <p>Nawyki</p>
-                        </a>
+                                <p>Nawyki</p>
+                            </a>
                         </div>
                         <div class=\"nav__summary btn-inactive flex gap-3 justify-left items-center gap-4\">
-                        <a href=\"\" class=\"flex gap-3\">
-                            <img src=\"";
+                            <a href=\"\" class=\"flex gap-3\">
+                                <img src=\"";
         // line 38
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("img/podsumowanie-off.svg"), "html", null, true);
         yield "\" alt=\"\">
-                            <p>Podsumowanie</p>
-                        </a>
+                                <p>Podsumowanie</p>
+                            </a>
                         </div>
                         <div class=\"nav__society btn-inactive flex gap-3 justify-left items-center gap-4\">
-                        <a href=\"\" class=\"flex gap-3\">
-                            <img src=\"";
+                            <a href=\"\" class=\"flex gap-3\">
+                                <img src=\"";
         // line 44
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("img/spolecznosc-off.svg"), "html", null, true);
         yield "\" alt=\"\">
-                            <p>Społeczność</p>
-                        </a>
+                                <p>Społeczność</p>
+                            </a>
                         </div>
                         <div class=\"nav__option btn-inactive flex gap-3 justify-left items-center gap-4\">
-                        <a href=\"\" class=\"flex gap-3\">
-                            <img src=\"";
+                            <a href=\"\" class=\"flex gap-3\">
+                                <img src=\"";
         // line 50
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("img/ustawienia-off.svg"), "html", null, true);
         yield "\" alt=\"\">
-                            <p>Ustawienia</p>
-                        </a>
+                                <p>Ustawienia</p>
+                            </a>
                         </div>
                     </div>
-                </div>
                     <div class=\"flex gap-4 cursor-pointer items-center justify-center\">
                         <a href=\"";
-        // line 57
+        // line 56
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_logout");
         yield "\" class=\"btn-logout flex gap-4 items-center justify-center\">
                             <i class=\"logout-icon fa-solid fa-right-from-bracket text-3xl\"></i><span>Wyloguj</span>
                         </a>
                     </div>
+                </div>
             </div>
         </div>
 
@@ -264,7 +264,7 @@ class __TwigTemplate_c5dc4a9ea28bd986f46083f238c0abe3 extends Template
                                                 <div class=\"habits__row flex items-center gap-4\">
                                                     ";
             // line 113
-            if ((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["h"], "habit", [], "any", false, false, false, 113), "category", [], "any", false, false, false, 113), "id", [], "any", false, false, false, 113) == 1)) {
+            if ((( !(null === CoreExtension::getAttribute($this->env, $this->source, $context["h"], "habit", [], "any", false, false, false, 113)) && (CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["h"], "habit", [], "any", false, false, false, 113), "category", [], "any", false, false, false, 113), "id", [], "any", false, false, false, 113) == 1)) || ( !(null === CoreExtension::getAttribute($this->env, $this->source, $context["h"], "ownHabit", [], "any", false, false, false, 113)) && (CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["h"], "ownHabit", [], "any", false, false, false, 113), "category", [], "any", false, false, false, 113), "id", [], "any", false, false, false, 113) == 1)))) {
                 // line 114
                 yield "                                                    <div class=\"w-9\">
                                                         <div class=\"habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-blue-100\">
@@ -275,8 +275,8 @@ class __TwigTemplate_c5dc4a9ea28bd986f46083f238c0abe3 extends Template
                                                         </div>
                                                     </div>
                                                     ";
-            } elseif ((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source,             // line 119
-$context["h"], "habit", [], "any", false, false, false, 119), "category", [], "any", false, false, false, 119), "id", [], "any", false, false, false, 119) == 2)) {
+            } elseif ((( !(null === CoreExtension::getAttribute($this->env, $this->source,             // line 119
+$context["h"], "habit", [], "any", false, false, false, 119)) && (CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["h"], "habit", [], "any", false, false, false, 119), "category", [], "any", false, false, false, 119), "id", [], "any", false, false, false, 119) == 2)) || ( !(null === CoreExtension::getAttribute($this->env, $this->source, $context["h"], "ownHabit", [], "any", false, false, false, 119)) && (CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["h"], "ownHabit", [], "any", false, false, false, 119), "category", [], "any", false, false, false, 119), "id", [], "any", false, false, false, 119) == 2)))) {
                 // line 120
                 yield "                                                    <div class=\"w-9\">
                                                         <div class=\"habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-green-100\">
@@ -287,8 +287,8 @@ $context["h"], "habit", [], "any", false, false, false, 119), "category", [], "a
                                                         </div>
                                                     </div>
                                                     ";
-            } elseif ((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source,             // line 125
-$context["h"], "habit", [], "any", false, false, false, 125), "category", [], "any", false, false, false, 125), "id", [], "any", false, false, false, 125) == 3)) {
+            } elseif ((( !(null === CoreExtension::getAttribute($this->env, $this->source,             // line 125
+$context["h"], "habit", [], "any", false, false, false, 125)) && (CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["h"], "habit", [], "any", false, false, false, 125), "category", [], "any", false, false, false, 125), "id", [], "any", false, false, false, 125) == 3)) || ( !(null === CoreExtension::getAttribute($this->env, $this->source, $context["h"], "ownHabit", [], "any", false, false, false, 125)) && (CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["h"], "ownHabit", [], "any", false, false, false, 125), "category", [], "any", false, false, false, 125), "id", [], "any", false, false, false, 125) == 3)))) {
                 // line 126
                 yield "                                                    <div class=\"w-9\">
                                                         <div class=\"habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-orange-100\">
@@ -412,7 +412,7 @@ $context["h"], "habit", [], "any", false, false, false, 125), "category", [], "a
                                 <div class=\"main__background--gold w-12 h-12 rounded-xl mr-4 flex justify-center items-center text-3xl font-semibold\">
                                     ";
         // line 191
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(((((array_key_exists("currentStreak", $context) &&  !(null === $context["currentStreak"]))) ? ($context["currentStreak"]) : ((isset($context["currentStreak"]) || array_key_exists("currentStreak", $context) ? $context["currentStreak"] : (function () { throw new RuntimeError('Variable "currentStreak" does not exist.', 191, $this->source); })()))) + 1), "html", null, true);
+        yield ((((isset($context["currentStreak"]) || array_key_exists("currentStreak", $context) ? $context["currentStreak"] : (function () { throw new RuntimeError('Variable "currentStreak" does not exist.', 191, $this->source); })()) != 0)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["currentStreak"]) || array_key_exists("currentStreak", $context) ? $context["currentStreak"] : (function () { throw new RuntimeError('Variable "currentStreak" does not exist.', 191, $this->source); })()), "html", null, true)) : ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(((isset($context["currentStreak"]) || array_key_exists("currentStreak", $context) ? $context["currentStreak"] : (function () { throw new RuntimeError('Variable "currentStreak" does not exist.', 191, $this->source); })()) + 1), "html", null, true)));
         yield "
                                 </div>
                             </div>
@@ -454,7 +454,7 @@ $context["h"], "habit", [], "any", false, false, false, 125), "category", [], "a
      */
     public function getDebugInfo(): array
     {
-        return array (  415 => 191,  403 => 182,  400 => 181,  396 => 180,  391 => 178,  387 => 177,  383 => 176,  377 => 173,  369 => 167,  366 => 165,  358 => 156,  356 => 155,  343 => 147,  339 => 145,  333 => 144,  329 => 142,  326 => 141,  322 => 140,  318 => 139,  309 => 134,  307 => 133,  304 => 132,  297 => 128,  293 => 126,  291 => 125,  285 => 122,  281 => 120,  279 => 119,  273 => 116,  269 => 114,  267 => 113,  262 => 110,  258 => 109,  254 => 108,  240 => 97,  230 => 92,  225 => 89,  222 => 87,  213 => 80,  209 => 79,  199 => 74,  195 => 73,  186 => 66,  175 => 57,  165 => 50,  156 => 44,  147 => 38,  138 => 32,  134 => 31,  123 => 23,  117 => 20,  106 => 11,  100 => 6,  87 => 5,  64 => 3,  41 => 1,);
+        return array (  415 => 191,  403 => 182,  400 => 181,  396 => 180,  391 => 178,  387 => 177,  383 => 176,  377 => 173,  369 => 167,  366 => 165,  358 => 156,  356 => 155,  343 => 147,  339 => 145,  333 => 144,  329 => 142,  326 => 141,  322 => 140,  318 => 139,  309 => 134,  307 => 133,  304 => 132,  297 => 128,  293 => 126,  291 => 125,  285 => 122,  281 => 120,  279 => 119,  273 => 116,  269 => 114,  267 => 113,  262 => 110,  258 => 109,  254 => 108,  240 => 97,  230 => 92,  225 => 89,  222 => 87,  213 => 80,  209 => 79,  199 => 74,  195 => 73,  186 => 66,  174 => 56,  165 => 50,  156 => 44,  147 => 38,  138 => 32,  134 => 31,  123 => 23,  117 => 20,  106 => 11,  100 => 6,  87 => 5,  64 => 3,  41 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -489,36 +489,36 @@ $context["h"], "habit", [], "any", false, false, false, 125), "category", [], "a
                             </a>
 
                         <div class=\"nav__habits btn-inactive flex gap-3 justify-left items-center gap-4\">
-                        <a href=\"{{ path('app_habit') }}\" class=\"flex gap-3\">
-                            <img src=\"{{ asset('img/nawyki-off.svg') }}\" alt=\"\">
-                            <p>Nawyki</p>
-                        </a>
+                            <a href=\"{{ path('app_habit') }}\" class=\"flex gap-3\">
+                                <img src=\"{{ asset('img/nawyki-off.svg') }}\" alt=\"\">
+                                <p>Nawyki</p>
+                            </a>
                         </div>
                         <div class=\"nav__summary btn-inactive flex gap-3 justify-left items-center gap-4\">
-                        <a href=\"\" class=\"flex gap-3\">
-                            <img src=\"{{ asset('img/podsumowanie-off.svg') }}\" alt=\"\">
-                            <p>Podsumowanie</p>
-                        </a>
+                            <a href=\"\" class=\"flex gap-3\">
+                                <img src=\"{{ asset('img/podsumowanie-off.svg') }}\" alt=\"\">
+                                <p>Podsumowanie</p>
+                            </a>
                         </div>
                         <div class=\"nav__society btn-inactive flex gap-3 justify-left items-center gap-4\">
-                        <a href=\"\" class=\"flex gap-3\">
-                            <img src=\"{{ asset('img/spolecznosc-off.svg') }}\" alt=\"\">
-                            <p>Społeczność</p>
-                        </a>
+                            <a href=\"\" class=\"flex gap-3\">
+                                <img src=\"{{ asset('img/spolecznosc-off.svg') }}\" alt=\"\">
+                                <p>Społeczność</p>
+                            </a>
                         </div>
                         <div class=\"nav__option btn-inactive flex gap-3 justify-left items-center gap-4\">
-                        <a href=\"\" class=\"flex gap-3\">
-                            <img src=\"{{ asset('img/ustawienia-off.svg') }}\" alt=\"\">
-                            <p>Ustawienia</p>
-                        </a>
+                            <a href=\"\" class=\"flex gap-3\">
+                                <img src=\"{{ asset('img/ustawienia-off.svg') }}\" alt=\"\">
+                                <p>Ustawienia</p>
+                            </a>
                         </div>
                     </div>
-                </div>
                     <div class=\"flex gap-4 cursor-pointer items-center justify-center\">
                         <a href=\"{{ path('app_logout') }}\" class=\"btn-logout flex gap-4 items-center justify-center\">
                             <i class=\"logout-icon fa-solid fa-right-from-bracket text-3xl\"></i><span>Wyloguj</span>
                         </a>
                     </div>
+                </div>
             </div>
         </div>
 
@@ -571,19 +571,19 @@ $context["h"], "habit", [], "any", false, false, false, 125), "category", [], "a
                                         <div class=\"border rounded-xl mb-5 w-full\">
                                             <label class=\"habits__row flex p-4 items-center gap-4 cursor-pointer justify-between\">
                                                 <div class=\"habits__row flex items-center gap-4\">
-                                                    {% if h.habit.category.id == 1 %}
+                                                    {% if h.habit is not null and h.habit.category.id == 1 or h.ownHabit is not null and h.ownHabit.category.id == 1 %}
                                                     <div class=\"w-9\">
                                                         <div class=\"habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-blue-100\">
                                                             <img src=\"{{ asset('img/icon-blue.svg') }}\" alt=\"\">
                                                         </div>
                                                     </div>
-                                                    {% elseif h.habit.category.id == 2 %}
+                                                    {% elseif h.habit is not null and h.habit.category.id == 2 or h.ownHabit is not null and h.ownHabit.category.id == 2 %}
                                                     <div class=\"w-9\">
                                                         <div class=\"habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-green-100\">
                                                             <img src=\"{{ asset('img/icon-green.svg') }}\" alt=\"\">
                                                         </div>
                                                     </div>
-                                                    {% elseif h.habit.category.id == 3 %}
+                                                    {% elseif h.habit is not null and h.habit.category.id == 3 or h.ownHabit is not null and h.ownHabit.category.id == 3 %}
                                                     <div class=\"w-9\">
                                                         <div class=\"habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-orange-100\">
                                                             <img src=\"{{ asset('img/icon-yellow.svg') }}\" alt=\"\">
@@ -649,7 +649,7 @@ $context["h"], "habit", [], "any", false, false, false, 125), "category", [], "a
                             <div class=\"day_streak flex gap-6 items-center ml-4\">
                                 <p class=\"ml-4 text-xl\">Dzień</p>
                                 <div class=\"main__background--gold w-12 h-12 rounded-xl mr-4 flex justify-center items-center text-3xl font-semibold\">
-                                    {{ currentStreak ?? currentStreak + 1 }}
+                                    {{ currentStreak != 0 ? currentStreak:currentStreak +1 }}
                                 </div>
                             </div>
                         </div>

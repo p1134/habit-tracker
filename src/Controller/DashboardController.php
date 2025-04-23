@@ -58,7 +58,12 @@ final class DashboardController extends AbstractController
 
         $trackedCount = count($trackingList);
         $selectedCount = (count($selected)-count($trackingList));
-        $donePercentage = number_format($trackedCount/count($selected)*100, 2);
+        if(count($selected) != 0){
+            $donePercentage = number_format($trackedCount/count($selected)*100, 2);
+        }
+        else{
+            $donePercentage = 0;
+        }
 
         $chart->setData([
             'datasets' => [
@@ -85,7 +90,13 @@ final class DashboardController extends AbstractController
         foreach($streaksArray as $key => $value){
             $streaksLength[$key] = $value['streak_length'];
         }
-        $maxStreak = max($streaksLength);
+
+        if($streaksLength != null){
+            $maxStreak = max($streaksLength);
+        }
+        else{
+            $maxStreak = 0;
+        }
 
 
 //OBECNA SERIA
@@ -96,7 +107,7 @@ final class DashboardController extends AbstractController
             if($value['end_date'] == $today->format('Y-m-d'))
             $streaksDate[$key] = $value['start_date'];
         }
-        if($streaksDate != null){
+        if(isset($streaksDate[1])){
             $startDate = new DateTime($streaksDate[1]);
             // dd($date1); 
             

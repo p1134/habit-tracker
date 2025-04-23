@@ -57,6 +57,7 @@ final class HabitController extends AbstractController
                 $currentSelected->add($s);
             }
         }
+        // dd($currentSelected);
 
             return $this->render('habit/index.html.twig', [
                 'controller_name' => 'HabitController',
@@ -267,7 +268,7 @@ final class HabitController extends AbstractController
         // dd($form->getData());
 
         $form->handleRequest($request);
-        
+        // dd($form->isSubmitted(), $form->isValid());
         if($form->isSubmitted() && $form->isValid()){
             $today = new DateTime('now');
 
@@ -330,6 +331,7 @@ final class HabitController extends AbstractController
         return $this->render('habit/_select_habit_form.html.twig', [
             'user' => $user->getUserIdentifier(),
             'form' => $form->createView(),
+            'userData' => $user,
         ]);
     }
 }

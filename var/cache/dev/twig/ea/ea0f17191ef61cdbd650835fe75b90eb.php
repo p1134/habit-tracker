@@ -249,7 +249,7 @@ class __TwigTemplate_2814b50b2a626810ce0199c7b02a1057 extends Template
                                                 <div class=\"habits__row flex items-center gap-4\">
                                                     ";
             // line 106
-            if ((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["h"], "habit", [], "any", false, false, false, 106), "category", [], "any", false, false, false, 106), "id", [], "any", false, false, false, 106) == 1)) {
+            if ((( !(null === CoreExtension::getAttribute($this->env, $this->source, $context["h"], "habit", [], "any", false, false, false, 106)) && (CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["h"], "habit", [], "any", false, false, false, 106), "category", [], "any", false, false, false, 106), "id", [], "any", false, false, false, 106) == 1)) || ( !(null === CoreExtension::getAttribute($this->env, $this->source, $context["h"], "ownHabit", [], "any", false, false, false, 106)) && (CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["h"], "ownHabit", [], "any", false, false, false, 106), "category", [], "any", false, false, false, 106), "id", [], "any", false, false, false, 106) == 1)))) {
                 // line 107
                 yield "                                                    <div class=\"w-9\">
                                                         <div class=\"habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-blue-100\">
@@ -260,8 +260,8 @@ class __TwigTemplate_2814b50b2a626810ce0199c7b02a1057 extends Template
                                                         </div>
                                                     </div>
                                                     ";
-            } elseif ((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source,             // line 112
-$context["h"], "habit", [], "any", false, false, false, 112), "category", [], "any", false, false, false, 112), "id", [], "any", false, false, false, 112) == 2)) {
+            } elseif ((( !(null === CoreExtension::getAttribute($this->env, $this->source,             // line 112
+$context["h"], "habit", [], "any", false, false, false, 112)) && (CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["h"], "habit", [], "any", false, false, false, 112), "category", [], "any", false, false, false, 112), "id", [], "any", false, false, false, 112) == 2)) || ( !(null === CoreExtension::getAttribute($this->env, $this->source, $context["h"], "ownHabit", [], "any", false, false, false, 112)) && (CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["h"], "ownHabit", [], "any", false, false, false, 112), "category", [], "any", false, false, false, 112), "id", [], "any", false, false, false, 112) == 2)))) {
                 // line 113
                 yield "                                                    <div class=\"w-9\">
                                                         <div class=\"habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-green-100\">
@@ -272,8 +272,8 @@ $context["h"], "habit", [], "any", false, false, false, 112), "category", [], "a
                                                         </div>
                                                     </div>
                                                     ";
-            } elseif ((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source,             // line 118
-$context["h"], "habit", [], "any", false, false, false, 118), "category", [], "any", false, false, false, 118), "id", [], "any", false, false, false, 118) == 3)) {
+            } elseif ((( !(null === CoreExtension::getAttribute($this->env, $this->source,             // line 118
+$context["h"], "habit", [], "any", false, false, false, 118)) && (CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["h"], "habit", [], "any", false, false, false, 118), "category", [], "any", false, false, false, 118), "id", [], "any", false, false, false, 118) == 3)) || ( !(null === CoreExtension::getAttribute($this->env, $this->source, $context["h"], "ownHabit", [], "any", false, false, false, 118)) && (CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["h"], "ownHabit", [], "any", false, false, false, 118), "category", [], "any", false, false, false, 118), "id", [], "any", false, false, false, 118) == 3)))) {
                 // line 119
                 yield "                                                    <div class=\"w-9\">
                                                         <div class=\"habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-orange-100\">
@@ -577,19 +577,19 @@ $context["h"], "habit", [], "any", false, false, false, 118), "category", [], "a
                                         <div class=\"border rounded-xl mb-5 w-full\">
                                             <label class=\"habits__row flex p-4 items-center gap-4 cursor-pointer justify-between\">
                                                 <div class=\"habits__row flex items-center gap-4\">
-                                                    {% if h.habit.category.id == 1 %}
+                                                    {% if h.habit is not null and h.habit.category.id == 1 or h.ownHabit is not null and h.ownHabit.category.id == 1 %}
                                                     <div class=\"w-9\">
                                                         <div class=\"habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-blue-100\">
                                                             <img src=\"{{ asset('img/icon-blue.svg') }}\" alt=\"\">
                                                         </div>
                                                     </div>
-                                                    {% elseif h.habit.category.id == 2 %}
+                                                    {% elseif h.habit is not null and h.habit.category.id == 2 or h.ownHabit is not null and h.ownHabit.category.id == 2 %}
                                                     <div class=\"w-9\">
                                                         <div class=\"habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-green-100\">
                                                             <img src=\"{{ asset('img/icon-green.svg') }}\" alt=\"\">
                                                         </div>
                                                     </div>
-                                                    {% elseif h.habit.category.id == 3 %}
+                                                    {% elseif h.habit is not null and h.habit.category.id == 3 or h.ownHabit is not null and h.ownHabit.category.id == 3 %}
                                                     <div class=\"w-9\">
                                                         <div class=\"habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-orange-100\">
                                                             <img src=\"{{ asset('img/icon-yellow.svg') }}\" alt=\"\">

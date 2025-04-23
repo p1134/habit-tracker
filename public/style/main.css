@@ -1,3 +1,4 @@
+@charset "UTF-8";
 body {
   font-family: "Poppins", sans-serif;
 }
@@ -215,4 +216,40 @@ body {
 
 .chart__text {
   top: 54%;
+}
+
+/* Ukrycie samego checkboxa */
+.checkbox-hidden {
+  display: none;
+}
+
+/* Styl ikony, która będzie interaktywna */
+.panel-select__icon--health {
+  cursor: pointer; /* Wskaźnik kursora, aby użytkownik wiedział, że jest to element interaktywny */
+}
+
+.panel-select__row--health:hover {
+  background-color: rgb(246, 246, 246);
+  cursor: pointer;
+}
+.panel-select__row--relax:hover {
+  background-color: rgb(246, 246, 246);
+  cursor: pointer;
+}
+.panel-select__row--activity:hover {
+  background-color: rgb(246, 246, 246);
+  cursor: pointer;
+}
+
+/* Zmieniony wygląd ikony po zaznaczeniu checkboxa */
+.checkbox-hidden:checked ~ .panel-select__icon > .panel-select__icon--health {
+  background-color: rgb(222, 233, 252);
+}
+
+.checkbox-hidden:checked ~ .panel-select__icon > .panel-select__icon--relax {
+  background-color: rgb(220, 252, 231);
+}
+
+.checkbox-hidden:checked ~ .panel-select__icon > .panel-select__icon--activity {
+  background-color: rgb(255, 237, 213);
 }/*# sourceMappingURL=main.css.map */

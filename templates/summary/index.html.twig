@@ -1,20 +1,164 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SummaryController!{% endblock %}
+{% block title %}Habitify - Podsumowanie{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<div class="habits__container w-full h-screen flex flex-col">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/Users/paulina/Desktop/habit-tracker/src/Controller/SummaryController.php</code></li>
-        <li>Your template at <code>/Users/paulina/Desktop/habit-tracker/templates/summary/index.html.twig</code></li>
-    </ul>
+    <div class="flex flex w-full h-full">
+        {# Nawigacja #}
+        <div class="nav__container h-full mt-5 flex justify-center">
+            <div class="nav__container h-full flex flex-col items-center">
+                <div class="nav__name mb-16">
+                    <p class="text-4xl font-bold">HABITIF<span class="main-color">Y.</span></p>
+                </div>
+
+                <div class="flex flex-col justify-between h-3/4 items-center">
+                    <div class="nav__tabs flex flex-col gap-5">
+
+                        <a class="w-auto h-auto" href="{{ path('app_dashboard') }}">
+                            <div class="nav__dashboard  w-auto h-auto relative overflow-hidden">
+                                <div class="nav__dashboard btn-inactive flex gap-3 justify-start items-center relative">
+                                    <img class="w-5 h-5" src="{{ asset('/img/dashboard-off.svg') }}" alt="">
+                                    <p>Dashboard</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <div class="nav__habits flex gap-3 justify-left items-center gap-4">
+                            <a href="{{ path('app_habit') }}" class="flex gap-3 w-auto h-auto">
+                                <div class="nav__dashboard  w-auto h-auto relative overflow-hidden">
+                                    <div class="nav__dashboard btn-inactive flex gap-3 justify-start items-center relative">
+                                        <img src="{{ asset('img/nawyki-off.svg') }}" alt="">
+                                        <p>Podsumowanie</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="nav__summary flex gap-3 justify-left items-center gap-4">
+                            <a href="{{ path('app_summary') }}" class="flex gap-3">
+                                <div class="nav__dashboard  w-auto h-auto relative overflow-hidden">
+                                    <div class="nav__dashboard btn-active flex gap-3 justify-start items-center relative">
+                                        <img src="{{ asset('img/podsumowanie.svg') }}" alt="">
+                                        <p>Podsumowanie</p>
+                                    </div>
+                                    <div class="btn__nav-dot absolute bottom-1 left-0"></div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="nav__society btn-inactive flex gap-3 justify-left items-center gap-4">
+                        <a href="" class="flex gap-3">
+                            <img src="{{ asset('img/spolecznosc-off.svg') }}" alt="">
+                            <p>Społeczność</p>
+                        </a>
+                        </div>
+                        <div class="nav__option btn-inactive flex gap-3 justify-left items-center gap-4">
+                        <a href="" class="flex gap-3">
+                            <img src="{{ asset('img/ustawienia-off.svg') }}" alt="">
+                            <p>Ustawienia</p>
+                        </a>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 cursor-pointer items-center justify-center">
+                        <a href="{{ path('app_logout') }}" class="btn-logout flex gap-4 items-center justify-center">
+                            <i class="logout-icon fa-solid fa-right-from-bracket text-3xl"></i><span>Wyloguj</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="main-container w-full h-full flex flex-col">
+            {# Górny pasek z profilem #}
+            <div class="nav flex w-full justify-between h-10 mb-4 mt-4">
+                <div class="name-page ml-8 text-xl font-semibold">
+                Podsumowanie
+                </div>
+
+                <div class="profile flex justify-center items-center gap-4">
+                    <div class="profile-text">
+                        <a href="{{ path('app_register') }}">
+                            <p>{{ userData.firstname }} {{ userData.lastname }} </p>
+                        </a>
+                    </div>
+
+                    <div class="profile-icon w-30 h-30">
+                        <a href="{{ path('app_register') }}">
+                            <img src="{{ asset('/img/profile.svg') }}">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            {# Panel główny dashboardu #}
+            <div class="habits__main h-full w-full main__background flex gap-4 flex-col">
+
+                 <div class="habits__panel--top w-full h-28 flex justify-between mt-6 items-center">
+                    <div class="ml-8">
+                        <p class="text-3xl font-semibold mb-3">Tydzień</p>
+                        <p class="text-lg">
+                            {{ startOfWeek }} - {{ endOfWeek }}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="habits__table bg-white w-auto h-full m-8 mt-6 flex justify-center items-center">
+                    
+
+                    
+<pre>
+    {{ dump(habitsGrouped) }}
+    {{ dump(doneHabits) }}
+</pre>
+
+<table>
+    <thead>
+    <tr class="dni_tygodnia">
+        <th>Nawyk</th>
+        {% set days = [1, 2, 3, 4, 5, 6, 0] %}
+        {% for day in days %}
+            <th>{{ ['Niedziela','Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota'][day] }}</th>
+        {% endfor %}
+    </tr>
+</thead>
+<tbody>
+    {% for habit in habitsGrouped %}
+        <tr class="nawyk">
+            <td>{{ habit.name }} (ID: {{ habit.id }})</td>
+
+            {% for i, day in days %}
+                <td>
+                    {% set found = false %}
+                    {% set targetDate = startOfWeek|date_modify('+' ~ i ~ ' days')|date('Y-m-d') %}
+                    
+                    {% for track in doneHabits %}
+                        {% if (track.h_id == habit.id or track.oh_id == habit.id)
+                            and track.date|date('Y-m-d') == targetDate and track.is_deleted == 0 %}
+                            TAK
+                            {% set found = true %}
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if not found and today|date('Y-m-d') > targetDate %}
+                        nie
+                    {% endif %}
+                </td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</tbody>
+
+
+</table>
+
+
+                </div>
+
+            </div>  
+               
+        </div>
+    </div>
 </div>
 {% endblock %}

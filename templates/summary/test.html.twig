@@ -1,0 +1,44 @@
+<pre>
+    {{ dump(habitsGrouped) }}
+    {{ dump(doneHabits) }}
+</pre>
+
+<table>
+    <thead>
+    <tr class="dni_tygodnia">
+        <th>Nawyk</th>
+        {% set days = [1, 2, 3, 4, 5, 6, 0] %}
+        {% for day in days %}
+            <th>{{ ['Niedziela','Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota'][day] }}</th>
+        {% endfor %}
+    </tr>
+</thead>
+<tbody>
+    {% for habit in habitsGrouped %}
+        <tr class="nawyk">
+            <td>{{ habit.name }} (ID: {{ habit.id }})</td>
+
+            {% for i, day in days %}
+                <td>
+                    {% set found = false %}
+                    {% set targetDate = startOfWeek|date_modify('+' ~ i ~ ' days')|date('Y-m-d') %}
+                    
+                    {% for track in doneHabits %}
+                        {% if (track.h_id == habit.id or track.oh_id == habit.id)
+                            and track.date|date('Y-m-d') == targetDate %}
+                            TAK
+                            {% set found = true %}
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if not found and today|date('Y-m-d') > targetDate %}
+                        nie
+                    {% endif %}
+                </td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</tbody>
+
+
+</table>

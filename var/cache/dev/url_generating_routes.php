@@ -29,6 +29,8 @@ return [
     'app_main_page' => [[], ['_controller' => 'App\\Controller\\MainPageController::index'], [], [['text', '/']], [], [], []],
     'app_register' => [[], ['_controller' => 'App\\Controller\\RegistrationController::register'], [], [['text', '/register']], [], [], []],
     'app_verify_email' => [[], ['_controller' => 'App\\Controller\\RegistrationController::verifyUserEmail'], [], [['text', '/verify/email']], [], [], []],
+    'app_summary' => [[], ['_controller' => 'App\\Controller\\SummaryController::index'], [], [['text', '/habits/summary']], [], [], []],
+    'app_test' => [[], ['_controller' => 'App\\Controller\\SummaryController::test'], [], [['text', '/habits/test']], [], [], []],
     'App\Controller\DashboardController::Habits' => [[], ['_controller' => 'App\\Controller\\DashboardController::Habits'], [], [['text', '/dashboard']], [], [], []],
     'App\Controller\HabitController::Habits' => [[], ['_controller' => 'App\\Controller\\HabitController::Habits'], [], [['text', '/habits']], [], [], []],
     'App\Controller\HabitController::trackHabits' => [[], ['_controller' => 'App\\Controller\\HabitController::trackHabits'], [], [['text', '/habits/tracking']], [], [], []],
@@ -40,4 +42,6 @@ return [
     'App\Controller\MainPageController::index' => [[], ['_controller' => 'App\\Controller\\MainPageController::index'], [], [['text', '/']], [], [], []],
     'App\Controller\RegistrationController::register' => [[], ['_controller' => 'App\\Controller\\RegistrationController::register'], [], [['text', '/register']], [], [], []],
     'App\Controller\RegistrationController::verifyUserEmail' => [[], ['_controller' => 'App\\Controller\\RegistrationController::verifyUserEmail'], [], [['text', '/verify/email']], [], [], []],
+    'App\Controller\SummaryController::index' => [[], ['_controller' => 'App\\Controller\\SummaryController::index'], [], [['text', '/habits/summary']], [], [], []],
+    'App\Controller\SummaryController::test' => [[], ['_controller' => 'App\\Controller\\SummaryController::test'], [], [['text', '/habits/test']], [], [], []],
 ];

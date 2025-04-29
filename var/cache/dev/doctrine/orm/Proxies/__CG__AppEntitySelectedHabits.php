@@ -22,6 +22,7 @@ class SelectedHabits extends \App\Entity\SelectedHabits implements \Doctrine\ORM
     
 
     private const LAZY_OBJECT_PROPERTY_SCOPES = [
+        "\0".parent::class."\0".'DeleteDate' => [parent::class, 'DeleteDate', null, 16],
         "\0".parent::class."\0".'date' => [parent::class, 'date', null, 16],
         "\0".parent::class."\0".'habit' => [parent::class, 'habit', null, 16],
         "\0".parent::class."\0".'id' => [parent::class, 'id', null, 16],
@@ -29,6 +30,7 @@ class SelectedHabits extends \App\Entity\SelectedHabits implements \Doctrine\ORM
         "\0".parent::class."\0".'ownHabit' => [parent::class, 'ownHabit', null, 16],
         "\0".parent::class."\0".'tracking' => [parent::class, 'tracking', null, 16],
         "\0".parent::class."\0".'user' => [parent::class, 'user', null, 16],
+        'DeleteDate' => [parent::class, 'DeleteDate', null, 16],
         'date' => [parent::class, 'date', null, 16],
         'habit' => [parent::class, 'habit', null, 16],
         'id' => [parent::class, 'id', null, 16],

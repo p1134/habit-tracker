@@ -43,6 +43,9 @@ class SelectedHabits
     #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private ?bool $isDeleted = null;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $DeleteDate = null;
+
     public function __construct()
     {
         $this->tracking = new ArrayCollection();
@@ -192,6 +195,18 @@ class SelectedHabits
     public function setIsDeleted(?bool $isDeleted): static
     {
         $this->isDeleted = $isDeleted;
+
+        return $this;
+    }
+
+    public function getDeleteDate(): ?\DateTimeInterface
+    {
+        return $this->DeleteDate;
+    }
+
+    public function setDeleteDate(?\DateTimeInterface $DeleteDate): static
+    {
+        $this->DeleteDate = $DeleteDate;
 
         return $this;
     }

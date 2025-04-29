@@ -423,6 +423,13 @@
         <argument type="service" id=".service_locator.ZyP9f7K.App\Controller\RegistrationController"/>
       </call>
     </service>
+    <service id="App\Controller\SummaryController" class="App\Controller\SummaryController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.ZyP9f7K.App\Controller\SummaryController"/>
+      </call>
+    </service>
     <service id="App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" autoconfigure="true">
       <tag name="doctrine.fixture.orm"/>
     </service>
@@ -501,7 +508,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.jXnjDva"/>
+      <argument type="service" id=".service_locator.kgOozTz"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -3513,7 +3520,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.jXnjDva"/>
+      <argument type="service" id=".service_locator.kgOozTz"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -7671,6 +7678,9 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\RegistrationController" class="App\Controller\RegistrationController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\RegistrationController" class="App\Controller\RegistrationController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\RegistrationController" class="App\Controller\RegistrationController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\SummaryController" class="App\Controller\SummaryController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\SummaryController" class="App\Controller\SummaryController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\SummaryController" class="App\Controller\SummaryController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\HabitType" class="App\Form\HabitType" autowire="true" abstract="true"/>
@@ -8353,7 +8363,26 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.KHhLDTq" method="withContext"/>
     </service>
-    <service id=".service_locator.jXnjDva" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.pNW4hlj" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="trackings" type="service_closure" id="App\Repository\TrackingRepository"/>
+        <argument key="selectedHabits" type="service_closure" id="App\Repository\SelectedHabitsRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.pNW4hlj.App\Controller\SummaryController::index()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\SummaryController::index()"/>
+      <argument>App\Controller\SummaryController::index()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.pNW4hlj" method="withContext"/>
+    </service>
+    <service id=".service_locator.pNW4hlj.App\Controller\SummaryController::test()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\SummaryController::test()"/>
+      <argument>App\Controller\SummaryController::test()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.pNW4hlj" method="withContext"/>
+    </service>
+    <service id=".service_locator.kgOozTz" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
@@ -8369,6 +8398,8 @@
         <argument key="App\Controller\LoginController::index" type="service_closure" id=".service_locator.wa9Zqkq.App\Controller\LoginController::index()"/>
         <argument key="App\Controller\RegistrationController::register" type="service_closure" id=".service_locator.yI4423g.App\Controller\RegistrationController::register()"/>
         <argument key="App\Controller\RegistrationController::verifyUserEmail" type="service_closure" id=".service_locator.KHhLDTq.App\Controller\RegistrationController::verifyUserEmail()"/>
+        <argument key="App\Controller\SummaryController::index" type="service_closure" id=".service_locator.pNW4hlj.App\Controller\SummaryController::index()"/>
+        <argument key="App\Controller\SummaryController::test" type="service_closure" id=".service_locator.pNW4hlj.App\Controller\SummaryController::test()"/>
         <argument key="kernel:registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
         <argument key="kernel:loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
         <argument key="App\Controller\DashboardController:Habits" type="service_closure" id=".service_locator.8g.Bsca.App\Controller\DashboardController::Habits()"/>
@@ -8380,6 +8411,8 @@
         <argument key="App\Controller\LoginController:index" type="service_closure" id=".service_locator.wa9Zqkq.App\Controller\LoginController::index()"/>
         <argument key="App\Controller\RegistrationController:register" type="service_closure" id=".service_locator.yI4423g.App\Controller\RegistrationController::register()"/>
         <argument key="App\Controller\RegistrationController:verifyUserEmail" type="service_closure" id=".service_locator.KHhLDTq.App\Controller\RegistrationController::verifyUserEmail()"/>
+        <argument key="App\Controller\SummaryController:index" type="service_closure" id=".service_locator.pNW4hlj.App\Controller\SummaryController::index()"/>
+        <argument key="App\Controller\SummaryController:test" type="service_closure" id=".service_locator.pNW4hlj.App\Controller\SummaryController::test()"/>
       </argument>
     </service>
     <service id=".service_locator.ea.H0ae" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -8991,6 +9024,12 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.ZyP9f7K" method="withContext"/>
     </service>
+    <service id=".service_locator.ZyP9f7K.App\Controller\SummaryController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\SummaryController"/>
+      <argument>App\Controller\SummaryController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.ZyP9f7K" method="withContext"/>
+    </service>
     <service id=".service_locator.7jukgan" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -9181,6 +9220,7 @@
           <argument>App\Controller\LoginController</argument>
           <argument>App\Controller\MainPageController</argument>
           <argument>App\Controller\RegistrationController</argument>
+          <argument>App\Controller\SummaryController</argument>
           <argument>Doctrine\Bundle\DoctrineBundle\Controller\ProfilerController</argument>
         </argument>
       </call>
@@ -10592,7 +10632,7 @@
     <service id="Symfony\UX\Chartjs\Builder\ChartBuilderInterface" alias="chartjs.builder"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.pRu6x_4" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.jXnjDva"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.kgOozTz"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.BxSdgVt"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
@@ -10645,6 +10685,7 @@
     <service id=".service_locator.sqmjYUP" alias=".service_locator.wa9Zqkq"/>
     <service id=".service_locator.Us3A2SA" alias=".service_locator.yI4423g"/>
     <service id=".service_locator.l6GrDWv" alias=".service_locator.KHhLDTq"/>
+    <service id=".service_locator.08t2rw8" alias=".service_locator.pNW4hlj"/>
     <service id=".service_locator.9nvaCmp" alias=".service_locator.ZyP9f7K"/>
   </services>
 </container>

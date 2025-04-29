@@ -84,8 +84,7 @@ class __TwigTemplate_b9e12bba86128d56e79f5b95ff44f372 extends Template
         yield from $this->unwrap()->yieldBlock('body', $context, $blocks);
         // line 24
         yield "    </body>
-</html>
-";
+</html>";
         
         $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
 
@@ -238,7 +237,7 @@ class __TwigTemplate_b9e12bba86128d56e79f5b95ff44f372 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  199 => 23,  176 => 15,  165 => 18,  162 => 16,  159 => 15,  146 => 14,  135 => 12,  122 => 11,  99 => 5,  86 => 24,  84 => 23,  78 => 19,  76 => 14,  73 => 13,  71 => 11,  64 => 7,  59 => 5,  53 => 1,);
+        return array (  198 => 23,  175 => 15,  164 => 18,  161 => 16,  158 => 15,  145 => 14,  134 => 12,  121 => 11,  98 => 5,  86 => 24,  84 => 23,  78 => 19,  76 => 14,  73 => 13,  71 => 11,  64 => 7,  59 => 5,  53 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -267,7 +266,6 @@ class __TwigTemplate_b9e12bba86128d56e79f5b95ff44f372 extends Template
     <body class=\"h-full w-full m-0\">
         {% block body %}{% endblock %}
     </body>
-</html>
-", "base.html.twig", "/Users/paulina/Desktop/habit-tracker/templates/base.html.twig");
+</html>", "base.html.twig", "/Users/paulina/Desktop/habit-tracker/templates/base.html.twig");
     }
 }

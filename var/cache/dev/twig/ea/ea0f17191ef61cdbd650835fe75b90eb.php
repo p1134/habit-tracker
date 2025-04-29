@@ -145,7 +145,10 @@ class __TwigTemplate_2814b50b2a626810ce0199c7b02a1057 extends Template
                             </a>
                         </div>
                         <div class=\"nav__summary btn-inactive flex gap-3 justify-left items-center gap-4\">
-                        <a href=\"\" class=\"flex gap-3\">
+                        <a href=\"";
+        // line 41
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_summary");
+        yield "\" class=\"flex gap-3\">
                             <img src=\"";
         // line 42
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("img/podsumowanie-off.svg"), "html", null, true);
@@ -467,7 +470,7 @@ $context["h"], "habit", [], "any", false, false, false, 118)) && (CoreExtension:
      */
     public function getDebugInfo(): array
     {
-        return array (  433 => 215,  429 => 205,  423 => 203,  420 => 202,  414 => 200,  412 => 199,  398 => 192,  387 => 188,  364 => 167,  361 => 165,  350 => 154,  343 => 149,  341 => 148,  328 => 140,  324 => 138,  318 => 137,  314 => 135,  311 => 134,  307 => 133,  303 => 132,  294 => 127,  292 => 126,  289 => 125,  282 => 121,  278 => 119,  276 => 118,  270 => 115,  266 => 113,  264 => 112,  258 => 109,  254 => 107,  252 => 106,  247 => 103,  243 => 102,  239 => 101,  230 => 94,  227 => 92,  218 => 85,  214 => 84,  204 => 79,  200 => 78,  191 => 71,  178 => 60,  169 => 54,  160 => 48,  151 => 42,  139 => 33,  133 => 30,  123 => 23,  117 => 20,  106 => 11,  100 => 6,  87 => 5,  64 => 3,  41 => 1,);
+        return array (  436 => 215,  432 => 205,  426 => 203,  423 => 202,  417 => 200,  415 => 199,  401 => 192,  390 => 188,  367 => 167,  364 => 165,  353 => 154,  346 => 149,  344 => 148,  331 => 140,  327 => 138,  321 => 137,  317 => 135,  314 => 134,  310 => 133,  306 => 132,  297 => 127,  295 => 126,  292 => 125,  285 => 121,  281 => 119,  279 => 118,  273 => 115,  269 => 113,  267 => 112,  261 => 109,  257 => 107,  255 => 106,  250 => 103,  246 => 102,  242 => 101,  233 => 94,  230 => 92,  221 => 85,  217 => 84,  207 => 79,  203 => 78,  194 => 71,  181 => 60,  172 => 54,  163 => 48,  154 => 42,  150 => 41,  139 => 33,  133 => 30,  123 => 23,  117 => 20,  106 => 11,  100 => 6,  87 => 5,  64 => 3,  41 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -512,7 +515,7 @@ $context["h"], "habit", [], "any", false, false, false, 118)) && (CoreExtension:
                             </a>
                         </div>
                         <div class=\"nav__summary btn-inactive flex gap-3 justify-left items-center gap-4\">
-                        <a href=\"\" class=\"flex gap-3\">
+                        <a href=\"{{ path('app_summary') }}\" class=\"flex gap-3\">
                             <img src=\"{{ asset('img/podsumowanie-off.svg') }}\" alt=\"\">
                             <p>Podsumowanie</p>
                         </a>

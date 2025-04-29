@@ -39,7 +39,7 @@ class AppFixtures extends Fixture
         $habit13 = new Habit();
         $habit14 = new Habit();
         $habit15 = new Habit();
-        $habit->setName('Kontrola cinienia');
+        $habit->setName('Kontrola ciśnienia');
         $habit->setCategory($category);
         $habit2->setName('Spacer');
         $habit2->setCategory($category);

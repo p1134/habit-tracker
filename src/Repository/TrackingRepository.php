@@ -31,7 +31,7 @@ class TrackingRepository extends ServiceEntityRepository
                ->setParameter('user', $user)
                ->andWhere('t.date = :today')
                ->setParameter('today', $today)
-            //    ->andWhere('t.isDeleted = false')
+               ->andWhere('t.isDeleted = false')
                ->orderBy('t.id', 'ASC')
                ->getQuery()
                ->getResult()
@@ -43,7 +43,7 @@ class TrackingRepository extends ServiceEntityRepository
         $sql = 'WITH habit_check AS (
                 SELECT DISTINCT t.date
                 FROM tracking t
-                WHERE t.user_id = :user AND t.selected = 1
+                WHERE t.user_id = :user AND t.selected = 1 AND t.is_deleted = 0
                 ),
                 ranked_dates AS (
                 SELECT
@@ -73,16 +73,42 @@ class TrackingRepository extends ServiceEntityRepository
             return $result->fetchAllAssociative();
        }
 
-       public function getProgress($user){
-        $query = $this->createQueryBuilder('t')
-        ->where('t.user = :user')
-        ->setParameter('user', $user)
-        ->innerJoin('t.selected_habit_id', 'sh')
-        ->addSelect('sh')
-        ->getQuery()
-        ->getResult();
-        return $query;
+       public function getWeekDoneHabits($user, $startOfWeek, $endOfWeek)
+       {
+
+            $conn = $this->getEntityManager()->getConnection();
+            $sql = "SELECT 
+                t.date AS date, h.name AS h_name, h.id AS h_id, oh.name AS oh_name, oh.id AS oh_id, t.is_deleted AS is_deleted
+                FROM tracking t
+                LEFT JOIN selected_habits sh ON t.selected_habits_id = sh.id
+                LEFT JOIN habit h ON  sh.habit_id = h.id
+                LEFT JOIN own_habit oh ON sh.own_habit_id = oh.id
+                WHERE DATE(t.date) BETWEEN :startOfWeek AND :endOfWeek
+                AND t.user_id = :user
+                ORDER BY t.date";
+
+            $stmt = $conn->prepare($sql);
+            $result = $stmt->executeQuery(['user' => $user->getId(), 'startOfWeek' => $startOfWeek->format('Y-m-d'), 'endOfWeek' => $endOfWeek->format('Y-m-d')]);
+            return $result->fetchAllAssociative();
        }
+
+       public function getWeekSelectedHabits($user){
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = "SELECT 
+                ELT(DAYOFWEEK(t.date), 'Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota') AS dzien, t.date AS data,
+                COUNT(*) AS liczba
+            FROM tracking t
+            WHERE DATE(t.date) BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND CURDATE()
+            AND t.user_id = :user
+            GROUP BY DAYOFWEEK(t.date), t.date
+            ORDER BY t.date";
+
+        $stmt = $conn->prepare($sql);
+        $result = $stmt->executeQuery(["user"=> $user->getId()]);
+        return $result->fetchAllAssociative();
+       }
+    
+       
 
     //    public function findOneBySomeField($value): ?Tracking
     //    {

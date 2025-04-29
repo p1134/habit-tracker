@@ -92,7 +92,7 @@ final class DashboardController extends AbstractController
         }
 
         if($streaksLength != null){
-            $maxStreak = max($streaksLength);
+            $maxStreak = max($streaksLength)-1;
         }
         else{
             $maxStreak = 0;
@@ -106,6 +106,7 @@ final class DashboardController extends AbstractController
 
             if($value['end_date'] == $today->format('Y-m-d'))
             $streaksDate[$key] = $value['start_date'];
+        // dd($streaksDate);
         }
         if(isset($streaksDate[1])){
             $startDate = new DateTime($streaksDate[1]);

@@ -141,7 +141,10 @@ class __TwigTemplate_c5dc4a9ea28bd986f46083f238c0abe3 extends Template
                             </a>
                         </div>
                         <div class=\"nav__summary btn-inactive flex gap-3 justify-left items-center gap-4\">
-                            <a href=\"\" class=\"flex gap-3\">
+                            <a href=\"";
+        // line 37
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_summary");
+        yield "\" class=\"flex gap-3\">
                                 <img src=\"";
         // line 38
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("img/podsumowanie-off.svg"), "html", null, true);
@@ -323,23 +326,25 @@ $context["h"], "habit", [], "any", false, false, false, 125)) && (CoreExtension:
                 $context['_seq'] = CoreExtension::ensureTraversable((isset($context["tracked"]) || array_key_exists("tracked", $context) ? $context["tracked"] : (function () { throw new RuntimeError('Variable "tracked" does not exist.', 140, $this->source); })()));
                 foreach ($context['_seq'] as $context["_key"] => $context["t"]) {
                     // line 141
+                    yield "                                                    ";
+                    // line 144
                     yield "                                                        ";
-                    if ((((CoreExtension::getAttribute($this->env, $this->source, $context["t"], "selectedHabits", [], "any", false, false, false, 141) && (CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["t"], "selectedHabits", [], "any", false, false, false, 141), "id", [], "any", false, false, false, 141) == CoreExtension::getAttribute($this->env, $this->source, $context["h"], "id", [], "any", false, false, false, 141))) &&  !CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["t"], "selectedHabits", [], "any", false, false, false, 141), "isDeleted", [], "any", false, false, false, 141)) &&  !CoreExtension::getAttribute($this->env, $this->source, $context["t"], "isDeleted", [], "any", false, false, false, 141))) {
-                        // line 142
+                    if ((((CoreExtension::getAttribute($this->env, $this->source, $context["t"], "selectedHabits", [], "any", false, false, false, 144) && (CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["t"], "selectedHabits", [], "any", false, false, false, 144), "id", [], "any", false, false, false, 144) == CoreExtension::getAttribute($this->env, $this->source, $context["h"], "id", [], "any", false, false, false, 144))) &&  !CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["t"], "selectedHabits", [], "any", false, false, false, 144), "isDeleted", [], "any", false, false, false, 144)) &&  !CoreExtension::getAttribute($this->env, $this->source, $context["t"], "isDeleted", [], "any", false, false, false, 144))) {
+                        // line 145
                         yield "                                                            checked
                                                         ";
                     }
-                    // line 144
+                    // line 147
                     yield "                                                    ";
                 }
                 $_parent = $context['_parent'];
                 unset($context['_seq'], $context['_key'], $context['t'], $context['_parent']);
                 $context = array_intersect_key($context, $_parent) + $_parent;
-                // line 145
+                // line 148
                 yield "                                                    onchange=\"this.form.submit()\" >
                                             ";
             }
-            // line 147
+            // line 150
             yield "
 
                                                     <div class=\"habits__checkbox-progress h-2 rounded-md main__background--gold\"></div>
@@ -352,9 +357,9 @@ $context["h"], "habit", [], "any", false, false, false, 125)) && (CoreExtension:
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_key'], $context['h'], $context['_parent']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 155
+        // line 158
         yield "                                    ";
-        // line 156
+        // line 159
         yield "                                </form>
                             </div>
                         </div>
@@ -362,10 +367,10 @@ $context["h"], "habit", [], "any", false, false, false, 125)) && (CoreExtension:
 
 
                     ";
-        // line 165
+        // line 168
         yield "
                     ";
-        // line 167
+        // line 170
         yield "                    <div class=\"habits__panel--right mb-8 mr-8 mt-4 flex flex-col gap-6\">
                         <div class=\"habits__panel-right--top h-3/4 flex flex-col\">
                             <div class=\"m-8 overflow-hidden\">
@@ -373,34 +378,34 @@ $context["h"], "habit", [], "any", false, false, false, 125)) && (CoreExtension:
                                 <div class=\"chart w-full h-full flex items-start justify-center\">
                                     <div class=\"w-72 relative\">
                                     ";
-        // line 173
-        yield $this->extensions['Symfony\UX\Chartjs\Twig\ChartExtension']->renderChart((isset($context["chart"]) || array_key_exists("chart", $context) ? $context["chart"] : (function () { throw new RuntimeError('Variable "chart" does not exist.', 173, $this->source); })()));
+        // line 176
+        yield $this->extensions['Symfony\UX\Chartjs\Twig\ChartExtension']->renderChart((isset($context["chart"]) || array_key_exists("chart", $context) ? $context["chart"] : (function () { throw new RuntimeError('Variable "chart" does not exist.', 176, $this->source); })()));
         yield "
                                     </div>
                                     <div class=\"chart__text absolute text-center\">
                                         <p>";
-        // line 176
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["trackedCount"]) || array_key_exists("trackedCount", $context) ? $context["trackedCount"] : (function () { throw new RuntimeError('Variable "trackedCount" does not exist.', 176, $this->source); })()), "html", null, true);
+        // line 179
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["trackedCount"]) || array_key_exists("trackedCount", $context) ? $context["trackedCount"] : (function () { throw new RuntimeError('Variable "trackedCount" does not exist.', 179, $this->source); })()), "html", null, true);
         yield " 
                                             ";
-        // line 177
-        if (((isset($context["trackedCount"]) || array_key_exists("trackedCount", $context) ? $context["trackedCount"] : (function () { throw new RuntimeError('Variable "trackedCount" does not exist.', 177, $this->source); })()) == "1")) {
+        // line 180
+        if (((isset($context["trackedCount"]) || array_key_exists("trackedCount", $context) ? $context["trackedCount"] : (function () { throw new RuntimeError('Variable "trackedCount" does not exist.', 180, $this->source); })()) == "1")) {
             yield " nawyk 
                                             ";
-        } elseif ((((        // line 178
-(isset($context["trackedCount"]) || array_key_exists("trackedCount", $context) ? $context["trackedCount"] : (function () { throw new RuntimeError('Variable "trackedCount" does not exist.', 178, $this->source); })()) == "2") || ((isset($context["trackedCount"]) || array_key_exists("trackedCount", $context) ? $context["trackedCount"] : (function () { throw new RuntimeError('Variable "trackedCount" does not exist.', 178, $this->source); })()) == "3")) || ((isset($context["trackedCount"]) || array_key_exists("trackedCount", $context) ? $context["trackedCount"] : (function () { throw new RuntimeError('Variable "trackedCount" does not exist.', 178, $this->source); })()) == "4"))) {
+        } elseif ((((        // line 181
+(isset($context["trackedCount"]) || array_key_exists("trackedCount", $context) ? $context["trackedCount"] : (function () { throw new RuntimeError('Variable "trackedCount" does not exist.', 181, $this->source); })()) == "2") || ((isset($context["trackedCount"]) || array_key_exists("trackedCount", $context) ? $context["trackedCount"] : (function () { throw new RuntimeError('Variable "trackedCount" does not exist.', 181, $this->source); })()) == "3")) || ((isset($context["trackedCount"]) || array_key_exists("trackedCount", $context) ? $context["trackedCount"] : (function () { throw new RuntimeError('Variable "trackedCount" does not exist.', 181, $this->source); })()) == "4"))) {
             yield " nawyki
                                             ";
         } else {
-            // line 180
+            // line 183
             yield "                                                 nawyków
                                             ";
         }
-        // line 181
+        // line 184
         yield "</p>
                                         <p class=\"text-gray-600 font-light\">";
-        // line 182
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["percentage"]) || array_key_exists("percentage", $context) ? $context["percentage"] : (function () { throw new RuntimeError('Variable "percentage" does not exist.', 182, $this->source); })()), "html", null, true);
+        // line 185
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["percentage"]) || array_key_exists("percentage", $context) ? $context["percentage"] : (function () { throw new RuntimeError('Variable "percentage" does not exist.', 185, $this->source); })()), "html", null, true);
         yield "%</p>
                                     </div>
                                 </div>
@@ -411,8 +416,8 @@ $context["h"], "habit", [], "any", false, false, false, 125)) && (CoreExtension:
                                 <p class=\"ml-4 text-xl\">Dzień</p>
                                 <div class=\"main__background--gold w-12 h-12 rounded-xl mr-4 flex justify-center items-center text-3xl font-semibold\">
                                     ";
-        // line 191
-        yield ((((isset($context["currentStreak"]) || array_key_exists("currentStreak", $context) ? $context["currentStreak"] : (function () { throw new RuntimeError('Variable "currentStreak" does not exist.', 191, $this->source); })()) != 0)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["currentStreak"]) || array_key_exists("currentStreak", $context) ? $context["currentStreak"] : (function () { throw new RuntimeError('Variable "currentStreak" does not exist.', 191, $this->source); })()), "html", null, true)) : ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(((isset($context["currentStreak"]) || array_key_exists("currentStreak", $context) ? $context["currentStreak"] : (function () { throw new RuntimeError('Variable "currentStreak" does not exist.', 191, $this->source); })()) + 1), "html", null, true)));
+        // line 194
+        yield ((((isset($context["currentStreak"]) || array_key_exists("currentStreak", $context) ? $context["currentStreak"] : (function () { throw new RuntimeError('Variable "currentStreak" does not exist.', 194, $this->source); })()) != 0)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["currentStreak"]) || array_key_exists("currentStreak", $context) ? $context["currentStreak"] : (function () { throw new RuntimeError('Variable "currentStreak" does not exist.', 194, $this->source); })()), "html", null, true)) : ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(((isset($context["currentStreak"]) || array_key_exists("currentStreak", $context) ? $context["currentStreak"] : (function () { throw new RuntimeError('Variable "currentStreak" does not exist.', 194, $this->source); })()) + 1), "html", null, true)));
         yield "
                                 </div>
                             </div>
@@ -454,7 +459,7 @@ $context["h"], "habit", [], "any", false, false, false, 125)) && (CoreExtension:
      */
     public function getDebugInfo(): array
     {
-        return array (  415 => 191,  403 => 182,  400 => 181,  396 => 180,  391 => 178,  387 => 177,  383 => 176,  377 => 173,  369 => 167,  366 => 165,  358 => 156,  356 => 155,  343 => 147,  339 => 145,  333 => 144,  329 => 142,  326 => 141,  322 => 140,  318 => 139,  309 => 134,  307 => 133,  304 => 132,  297 => 128,  293 => 126,  291 => 125,  285 => 122,  281 => 120,  279 => 119,  273 => 116,  269 => 114,  267 => 113,  262 => 110,  258 => 109,  254 => 108,  240 => 97,  230 => 92,  225 => 89,  222 => 87,  213 => 80,  209 => 79,  199 => 74,  195 => 73,  186 => 66,  174 => 56,  165 => 50,  156 => 44,  147 => 38,  138 => 32,  134 => 31,  123 => 23,  117 => 20,  106 => 11,  100 => 6,  87 => 5,  64 => 3,  41 => 1,);
+        return array (  420 => 194,  408 => 185,  405 => 184,  401 => 183,  396 => 181,  392 => 180,  388 => 179,  382 => 176,  374 => 170,  371 => 168,  363 => 159,  361 => 158,  348 => 150,  344 => 148,  338 => 147,  334 => 145,  331 => 144,  329 => 141,  325 => 140,  321 => 139,  312 => 134,  310 => 133,  307 => 132,  300 => 128,  296 => 126,  294 => 125,  288 => 122,  284 => 120,  282 => 119,  276 => 116,  272 => 114,  270 => 113,  265 => 110,  261 => 109,  257 => 108,  243 => 97,  233 => 92,  228 => 89,  225 => 87,  216 => 80,  212 => 79,  202 => 74,  198 => 73,  189 => 66,  177 => 56,  168 => 50,  159 => 44,  150 => 38,  146 => 37,  138 => 32,  134 => 31,  123 => 23,  117 => 20,  106 => 11,  100 => 6,  87 => 5,  64 => 3,  41 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -495,7 +500,7 @@ $context["h"], "habit", [], "any", false, false, false, 125)) && (CoreExtension:
                             </a>
                         </div>
                         <div class=\"nav__summary btn-inactive flex gap-3 justify-left items-center gap-4\">
-                            <a href=\"\" class=\"flex gap-3\">
+                            <a href=\"{{ path('app_summary') }}\" class=\"flex gap-3\">
                                 <img src=\"{{ asset('img/podsumowanie-off.svg') }}\" alt=\"\">
                                 <p>Podsumowanie</p>
                             </a>
@@ -599,6 +604,9 @@ $context["h"], "habit", [], "any", false, false, false, 125)) && (CoreExtension:
                                                     <div class=\"habits__habit-row w-48 flex items-center\">
                                                     <input type=\"checkbox\" name=\"habits[]\" value=\"{{ h.id }}\" class=\"habits__checkbox cursor-pointer invisible\"
                                                     {% for t in tracked %}
+                                                    {# <pre>
+                                                        {{ dump(t) }}
+                                                    </pre> #}
                                                         {% if t.selectedHabits and t.selectedHabits.id == h.id and not t.selectedHabits.isDeleted and not t.isDeleted %}
                                                             checked
                                                         {% endif %}

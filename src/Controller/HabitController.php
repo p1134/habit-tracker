@@ -86,39 +86,62 @@ final class HabitController extends AbstractController
             $habitsId = $request->get('habits', []);
         
             // Iterujemy po wszystkich zaznaczonych nawykach
+            // 
+            
             foreach ($habitsId as $selected) {
                 $toTrack = $sh->selectById($user, $selected);
-                
+            
                 if ($toTrack) {
-                    // Sprawdzamy, czy nawyk jest już śledzony tego dnia
-                    $alreadyTracked = $toTrack->getTracking()->exists(function($key, $tracking) use ($today) {
-                        return $tracking->getDate()->format('Y/m/d') === $today->format('Y/m/d');
-                    });
-        
-                    // Jeśli nie jest śledzony, dodajemy nowe śledzenie
-                    if (!$alreadyTracked) {
+                    // Sprawdzamy, czy tracking istnieje na dziś
+                    $trackingToday = $trackings->findOneBy([
+                        'user' => $user,
+                        'selectedHabits' => $toTrack,
+                        'date' => $today
+                    ]);
+            
+                    if ($trackingToday) {
+                        // Jeśli istnieje ale był usunięty -> reaktywuj
+                        if ($trackingToday->isDeleted()) {
+                            $trackingToday->setIsDeleted(false);
+                            $trackingToday->setSelected(true);
+                            $entityManager->persist($trackingToday);
+                        }
+                    } else {
+                        // Jeśli nie istnieje w ogóle -> utwórz nowe
                         $tracking = new Tracking();
                         $tracking->setUser($user);
                         $tracking->setDate($today);
                         $tracking->setSelectedHabits($toTrack);
-                        $tracking->setSelected(true); // Nawyki są zaznaczone
+                        $tracking->setSelected(true);
                         $tracking->setIsDeleted(false);
-        
+            
                         $entityManager->persist($tracking);
                     }
                 }
             }
+            
+
         
             // Teraz usuwamy śledzenia, które nie zostały zaznaczone
             $allTrackedHabits = $trackings->findBy(['user' => $user, 'date' => $today]);
         
+            // foreach ($allTrackedHabits as $trackedHabit) {
+            //     // Jeśli nawyk nie znajduje się w liście zaznaczonych, usuwamy go
+            //     if (!in_array($trackedHabit->getSelectedHabits()->getId(), $habitsId) && !$trackedHabit->isDeleted()) {
+            //         $entityManager->remove($trackedHabit);
+            //         $trackedHabit->setIsDeleted(true);
+            //         $entityManager->persist($trackedHabit);
+            //         // dd($trackedHabit);
+            //     }
+            //     // $entityManager->persist($trackedHabit); // Usuwamy śledzenie
+            // }
+
             foreach ($allTrackedHabits as $trackedHabit) {
-                // Jeśli nawyk nie znajduje się w liście zaznaczonych, usuwamy go
                 if (!in_array($trackedHabit->getSelectedHabits()->getId(), $habitsId) && !$trackedHabit->isDeleted()) {
-                    $entityManager->remove($trackedHabit);
-                    // dd($trackedHabit);
+                    $trackedHabit->setSelected(false);
+                    $trackedHabit->setIsDeleted(true);
+                    $entityManager->persist($trackedHabit);
                 }
-                // $entityManager->persist($trackedHabit); // Usuwamy śledzenie
             }
         
             // Zatwierdzamy zmiany w bazie danych
@@ -318,6 +341,7 @@ final class HabitController extends AbstractController
             
                 if (!in_array($current, $selectedAll, true)) {
                     $th->setIsDeleted(true);
+                    $th->setDeleteDate($today);
                     $entityManager->persist($th);
                 }
             }

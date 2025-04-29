@@ -34,7 +34,7 @@
                             </a>
                         </div>
                         <div class="nav__summary btn-inactive flex gap-3 justify-left items-center gap-4">
-                            <a href="" class="flex gap-3">
+                            <a href="{{ path('app_summary') }}" class="flex gap-3">
                                 <img src="{{ asset('img/podsumowanie-off.svg') }}" alt="">
                                 <p>Podsumowanie</p>
                             </a>
@@ -138,6 +138,9 @@
                                                     <div class="habits__habit-row w-48 flex items-center">
                                                     <input type="checkbox" name="habits[]" value="{{ h.id }}" class="habits__checkbox cursor-pointer invisible"
                                                     {% for t in tracked %}
+                                                    {# <pre>
+                                                        {{ dump(t) }}
+                                                    </pre> #}
                                                         {% if t.selectedHabits and t.selectedHabits.id == h.id and not t.selectedHabits.isDeleted and not t.isDeleted %}
                                                             checked
                                                         {% endif %}

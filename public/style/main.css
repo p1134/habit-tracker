@@ -71,6 +71,16 @@ body {
   transition: transform 0.8s;
 }
 
+.rounded-table {
+  border-top-left-radius: 2em;
+  border-top-right-radius: 2em;
+}
+
+.table-scroll {
+  border-bottom-left-radius: 2em;
+  border-bottom-right-radius: 2em;
+}
+
 .main__content {
   padding: 0 6em 0 6em;
 }

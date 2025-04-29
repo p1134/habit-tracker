@@ -5,7 +5,10 @@
 {% block body %}
 
 <div class="habits__container w-full h-screen flex flex-col">
-
+{# <pre>
+    {{ dump(doneHabits) }}
+    {{ dump(habitsGrouped) }}
+</pre> #}
     <div class="flex flex w-full h-full">
         {# Nawigacja #}
         <div class="nav__container h-full mt-5 flex justify-center">
@@ -31,7 +34,7 @@
                                 <div class="nav__dashboard  w-auto h-auto relative overflow-hidden">
                                     <div class="nav__dashboard btn-inactive flex gap-3 justify-start items-center relative">
                                         <img src="{{ asset('img/nawyki-off.svg') }}" alt="">
-                                        <p>Podsumowanie</p>
+                                        <p>Nawyki</p>
                                     </div>
                                 </div>
                             </a>
@@ -104,54 +107,54 @@
                     </div>
                 </div>
 
-                <div class="habits__table bg-white w-auto h-full m-8 mt-6 flex justify-center items-center">
-                    
+                <div class="habits__table bg-white w-auto m-8 mt-0 flex flex-col justify-center items-center">
 
-                    
-<pre>
-    {{ dump(habitsGrouped) }}
-    {{ dump(doneHabits) }}
-</pre>
+                    <div class="rounded-table w-full h-auto bg-black pl-8 pr-8 pt-4 pb-4">
+                    <table class="bg-white rounded-table w-full">
+                        <thead class="">
+                            <tr class="dni_tygodnia bg-black text-white">
+                                    <th class="p-1 w-[23%] tracking-widest text-md main-color text-start">Nawyki</th>
+                                {% set days = [1, 2, 3, 4, 5, 6, 0] %}
+                                {% for day in days %}
+                                    <th class="p-1 w-[11%] font-normal tracking-widest text-md">{{ ['Niedziela','Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota'][day] }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                    </table>
+                    </div>
 
-<table>
-    <thead>
-    <tr class="dni_tygodnia">
-        <th>Nawyk</th>
-        {% set days = [1, 2, 3, 4, 5, 6, 0] %}
-        {% for day in days %}
-            <th>{{ ['Niedziela','Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota'][day] }}</th>
-        {% endfor %}
-    </tr>
-</thead>
-<tbody>
-    {% for habit in habitsGrouped %}
-        <tr class="nawyk">
-            <td>{{ habit.name }} (ID: {{ habit.id }})</td>
+                    <div class="table-scroll w-full h-[26em] overflow-y-auto mb-8">
+                    <table class="m-8 mt-0">
+                        <tbody class="overflow-y-auto w-full">
+                            {% for habit in habitsGrouped %}
+                                <tr class="nawyk">
+                                    <td class="p-1 w-[23%] border-t border-r">{{ habit.name }}</td>
 
-            {% for i, day in days %}
-                <td>
-                    {% set found = false %}
-                    {% set targetDate = startOfWeek|date_modify('+' ~ i ~ ' days')|date('Y-m-d') %}
-                    
-                    {% for track in doneHabits %}
-                        {% if (track.h_id == habit.id or track.oh_id == habit.id)
-                            and track.date|date('Y-m-d') == targetDate and track.is_deleted == 0 %}
-                            TAK
-                            {% set found = true %}
-                        {% endif %}
-                    {% endfor %}
+                                    {% for i, day in days %}
+                                        <td class="border-l border-t w-[11%] h-2 text-center">
+                                            {% set found = false %}
+                                            {% set targetDate = startOfWeek|date_modify('+' ~ i ~ ' days')|date('Y-m-d') %}
+                                            
+                                            {% for track in doneHabits %}
+                                                {% if (track.h_id == habit.id or track.oh_id == habit.id)
+                                                    and track.date|date('Y-m-d') == targetDate and track.is_deleted == 0 %}
+                                                    <div class="bg-green-300 w-full h-full"></div>
+                                                    {% set found = true %}
+                                                {% endif %}
+                                            {% endfor %}
 
-                    {% if not found and today|date('Y-m-d') > targetDate %}
-                        nie
-                    {% endif %}
-                </td>
-            {% endfor %}
-        </tr>
-    {% endfor %}
-</tbody>
-
-
-</table>
+                                            {% if not found and today|date('Y-m-d') > targetDate %}
+                                                    <div class="bg-red-300 w-full h-full"></div>
+                                            {% elseif not found and habit.delete_date != null and today|date('Y-m-d') >= targetDate %}
+                                                X
+                                            {% endif %}
+                                        </td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
 
 
                 </div>

@@ -35,7 +35,7 @@ final class SummaryController extends AbstractController
             $groupedHabits[$id]['id'] = $sh->getHabit() ? $sh->getHabit()->getId() : $sh->getOwnHabit()->getId(); // Możesz tu wrzucać też trackingi z danym nawykiem i datą
             $groupedHabits[$id]['data'][] = $sh; // Możesz tu wrzucać też trackingi z danym nawykiem i datą
             $groupedHabits[$id]['deleted'] = $sh->isDeleted(); // Możesz tu wrzucać też trackingi z danym nawykiem i datą
-            $groupedHabits[$id]['delet_date'] = $sh->getDeleteDate();
+            $groupedHabits[$id]['delete_date'] = $sh->getDeleteDate();
         }
         }
 

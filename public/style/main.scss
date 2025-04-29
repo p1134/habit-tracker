@@ -66,6 +66,19 @@ body{
     transition: transform 0.8s;
 }
 
+.rounded-table{
+    // border-collapse: separate;
+    border-top-left-radius:2em;
+    border-top-right-radius:2em;
+    // border-spacing: 0;
+    // table-layout: fixed;
+    // overflow: hidden;
+}
+
+.table-scroll{
+    border-bottom-left-radius: 2em;
+    border-bottom-right-radius: 2em;
+}
 
 .main{
     &__content{

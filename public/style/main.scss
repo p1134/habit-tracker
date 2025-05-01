@@ -80,6 +80,14 @@ body{
     border-bottom-right-radius: 2em;
 }
 
+.day-indicator{
+    left: 50%;
+    bottom: -0.3em;
+    transform: translateX(-50%);
+    width: 1em;
+    height: 0.4em;
+}
+
 .main{
     &__content{
         padding: 0 6em 0 6em;

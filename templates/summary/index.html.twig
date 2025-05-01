@@ -24,7 +24,7 @@
                             <div class="nav__dashboard  w-auto h-auto relative overflow-hidden">
                                 <div class="nav__dashboard btn-inactive flex gap-3 justify-start items-center relative">
                                     <img class="w-5 h-5" src="{{ asset('/img/dashboard-off.svg') }}" alt="">
-                                    <p>Dashboard</p>
+                                    <p>Pulpit</p>
                                 </div>
                             </div>
                         </a>
@@ -95,7 +95,7 @@
                 </div>
             </div>
 
-            {# Panel główny dashboardu #}
+            {# Panel główny podsumowania #}
             <div class="habits__main h-full w-full main__background flex gap-4 flex-col">
 
                  <div class="habits__panel--top w-full h-28 flex justify-between mt-6 items-center">
@@ -105,18 +105,39 @@
                             {{ startOfWeek }} - {{ endOfWeek }}
                         </p>
                     </div>
+                    
+                    <div class="mr-8 flex gap-4">
+                        <div class="flex items-center gap-2">
+                            <div class="bg-green-300 w-12 h-6 rounded-sm"></div>
+                            <span>Wykonany</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="bg-red-300 w-12 h-6 rounded-sm"></div>
+                            <span>Niewykonany</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class=" font-semibold text-xl">X</div>
+                            <span>Nieaktualny</span>
+                        </div>
+                    </div>
                 </div>
 
+                {# Tabela z tygoniem #}
                 <div class="habits__table bg-white w-auto m-8 mt-0 flex flex-col justify-center items-center">
 
                     <div class="rounded-table w-full h-auto bg-black pl-8 pr-8 pt-4 pb-4">
                     <table class="bg-white rounded-table w-full">
                         <thead class="">
                             <tr class="dni_tygodnia bg-black text-white">
-                                    <th class="p-1 w-[23%] tracking-widest text-md main-color text-start">Nawyki</th>
+                                    <th class="p-1 w-[23%] tracking-widest font-semibold text-md main-color text-start pl-[3.5em]">Nawyki</th>
                                 {% set days = [1, 2, 3, 4, 5, 6, 0] %}
                                 {% for day in days %}
-                                    <th class="p-1 w-[11%] font-normal tracking-widest text-md">{{ ['Niedziela','Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota'][day] }}</th>
+                                    <th class="p-1 w-[11%] font-normal tracking-widest text-md relative">
+                                    {{ ['Niedziela','Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota'][day] }}
+                                    {% if day == today|date('w') %}
+                                    <div class="day-indicator absolute main__background--gold rounded-xl"></div>
+                                    {% endif %}
+                                    </th>
                                 {% endfor %}
                             </tr>
                         </thead>
@@ -127,8 +148,33 @@
                     <table class="m-8 mt-0">
                         <tbody class="overflow-y-auto w-full">
                             {% for habit in habitsGrouped %}
+                            {# <pre>
+                                {{ dump(habitsGrouped) }}
+                            </pre> #}
                                 <tr class="nawyk">
-                                    <td class="p-1 w-[23%] border-t border-r">{{ habit.name }}</td>
+                                    <td class="p-1 pt-2 pb-2 w-[23%] border-t border-r">
+                                        <div class="flex gap-4 items-center">
+                                            <span class="w-[2em]">
+                                            {% if habit.category == 1 %}
+                                                <span class="w-8 h-8 bg-blue-100 rounded-2xl flex justify-center items-center">
+                                                    <img class="w-4 h-4" src="{{ asset('img/icon-blue.svg') }}" alt="">
+                                                </span>
+                                            {% elseif habit.category == 2 %}
+                                                <span class="w-8 h-8 bg-green-100 rounded-2xl flex justify-center items-center">
+                                                    <img class="w-4 h-4" src="{{ asset('img/icon-green.svg') }}" alt="">
+                                                </span>
+                                            {% elseif habit.category == 3 %}
+                                                <span class="w-8 h-8 bg-orange-100 rounded-2xl flex justify-center items-center">
+                                                    <img class="w-4 h-4" src="{{ asset('img/icon-yellow.svg') }}" alt="">
+                                                </span>
+                                            {% endif %}
+                                            </span>
+
+                                            <span class="break-words whitespace-normal">
+                                                {{ habit.name }}
+                                            </span>
+                                        </div>
+                                    </td>
 
                                     {% for i, day in days %}
                                         <td class="border-l border-t w-[11%] h-2 text-center">
@@ -136,14 +182,15 @@
                                             {% set targetDate = startOfWeek|date_modify('+' ~ i ~ ' days')|date('Y-m-d') %}
                                             
                                             {% for track in doneHabits %}
+                                            {# data zaznaczenia nawyku taka jak data danego dnia tygodnia #}
                                                 {% if (track.h_id == habit.id or track.oh_id == habit.id)
-                                                    and track.date|date('Y-m-d') == targetDate and track.is_deleted == 0 %}
+                                                    and track.date|date('Y-m-d') == targetDate and (track.is_deleted == 0 or (track.is_deleted == 1 and targetDate <= habit.delete_date))  %}
                                                     <div class="bg-green-300 w-full h-full"></div>
                                                     {% set found = true %}
                                                 {% endif %}
                                             {% endfor %}
 
-                                            {% if not found and today|date('Y-m-d') > targetDate %}
+                                            {% if not found and today|date('Y-m-d') > targetDate and (habit.delete_date == null or habit.delete_date <= targetDate )  %}
                                                     <div class="bg-red-300 w-full h-full"></div>
                                             {% elseif not found and habit.delete_date != null and today|date('Y-m-d') >= targetDate %}
                                                 X

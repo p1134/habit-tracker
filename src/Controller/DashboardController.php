@@ -79,7 +79,6 @@ final class DashboardController extends AbstractController
 
         $chart->setOptions([
             'responsive' => true,
-            // 'cutout' => '70%',  // Wycięcie w środku, tworzy efekt pierścienia
         ]);
 
 //NAJDŁUŻSZA SERIA
@@ -92,7 +91,7 @@ final class DashboardController extends AbstractController
         }
 
         if($streaksLength != null){
-            $maxStreak = max($streaksLength)-1;
+            $maxStreak = max($streaksLength);
         }
         else{
             $maxStreak = 0;
@@ -106,15 +105,16 @@ final class DashboardController extends AbstractController
 
             if($value['end_date'] == $today->format('Y-m-d'))
             $streaksDate[$key] = $value['start_date'];
-        // dd($streaksDate);
-        }
-        if(isset($streaksDate[1])){
-            $startDate = new DateTime($streaksDate[1]);
-            // dd($date1); 
-            
-            $currentStreak = date_diff($today, $startDate)->days + 1;
-            // dd($currentStreak);
-        }
+    }
+    // dd($streaksDate);
+    if(!empty($streaksDate)){
+        $startDate = new DateTime($streaksDate[array_key_last($streaksDate)]);
+        // dd($date1); 
+        
+        $currentStreak = date_diff($today, $startDate)->days + 1;
+        // dd($currentStreak);
+    }
+    // dd($streaksDate);
         
 
             return $this->render('dashboard/index.html.twig', [

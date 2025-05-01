@@ -994,6 +994,7 @@ Symfony\Component\DependencyInjection\Compiler\InlineServiceDefinitionsPass: Inl
 Symfony\Component\DependencyInjection\Compiler\InlineServiceDefinitionsPass: Inlined service ".service_locator.wa9Zqkq" to ".service_locator.wa9Zqkq.App\Controller\LoginController::index()".
 Symfony\Component\DependencyInjection\Compiler\InlineServiceDefinitionsPass: Inlined service ".service_locator.yI4423g" to ".service_locator.yI4423g.App\Controller\RegistrationController::register()".
 Symfony\Component\DependencyInjection\Compiler\InlineServiceDefinitionsPass: Inlined service ".service_locator.KHhLDTq" to ".service_locator.KHhLDTq.App\Controller\RegistrationController::verifyUserEmail()".
+Symfony\Component\DependencyInjection\Compiler\InlineServiceDefinitionsPass: Inlined service ".service_locator.pNW4hlj" to ".service_locator.pNW4hlj.App\Controller\SummaryController::index()".
 Symfony\Component\DependencyInjection\Compiler\InlineServiceDefinitionsPass: Inlined service "security.user_value_resolver" to ".debug.value_resolver.security.user_value_resolver".
 Symfony\Component\DependencyInjection\Compiler\InlineServiceDefinitionsPass: Inlined service "security.security_token_value_resolver" to ".debug.value_resolver.security.security_token_value_resolver".
 Symfony\Component\DependencyInjection\Compiler\InlineServiceDefinitionsPass: Inlined service "doctrine.orm.entity_value_resolver" to ".debug.value_resolver.doctrine.orm.entity_value_resolver".

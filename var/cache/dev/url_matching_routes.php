@@ -27,7 +27,6 @@ return [
         '/register' => [[['_route' => 'app_register', '_controller' => 'App\\Controller\\RegistrationController::register'], null, null, null, false, false, null]],
         '/verify/email' => [[['_route' => 'app_verify_email', '_controller' => 'App\\Controller\\RegistrationController::verifyUserEmail'], null, null, null, false, false, null]],
         '/habits/summary' => [[['_route' => 'app_summary', '_controller' => 'App\\Controller\\SummaryController::index'], null, null, null, false, false, null]],
-        '/habits/test' => [[['_route' => 'app_test', '_controller' => 'App\\Controller\\SummaryController::test'], null, null, null, false, false, null]],
     ],
     [ // $regexpList
         0 => '{^(?'

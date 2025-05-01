@@ -73,7 +73,7 @@ class __TwigTemplate_c5dc4a9ea28bd986f46083f238c0abe3 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "title"));
 
-        yield "Habitify - Dashboard";
+        yield "Habitify - Pulpit";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
@@ -122,7 +122,7 @@ class __TwigTemplate_c5dc4a9ea28bd986f46083f238c0abe3 extends Template
         // line 23
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("/img/dashboard.svg"), "html", null, true);
         yield "\" alt=\"\">
-                                        <p>Dashboard</p>
+                                        <p>Pulpit</p>
                                     </div>
                                 <div class=\"btn__nav-dot absolute bottom-1 left-0\"></div>
                                 </div>
@@ -188,7 +188,7 @@ class __TwigTemplate_c5dc4a9ea28bd986f46083f238c0abe3 extends Template
         // line 66
         yield "            <div class=\"nav flex w-full justify-between h-20 mb-4 mt-4\">
                 <div class=\"name-page ml-8 text-xl font-semibold\">
-                Dashboard
+                Pulpit
                 </div>
 
                 <div class=\"profile flex justify-center items-center gap-4\">
@@ -466,7 +466,7 @@ $context["h"], "habit", [], "any", false, false, false, 125)) && (CoreExtension:
     {
         return new Source("{% extends 'base.html.twig' %}
 
-{% block title %}Habitify - Dashboard{% endblock %}
+{% block title %}Habitify - Pulpit{% endblock %}
 
 {% block body %}
 
@@ -487,7 +487,7 @@ $context["h"], "habit", [], "any", false, false, false, 125)) && (CoreExtension:
                                 <div class=\"nav__dashboard  w-auto h-auto relative overflow-hidden\">
                                     <div class=\"nav__dashboard btn-active flex gap-3 justify-start items-center relative\">
                                         <img class=\"w-5 h-5\" src=\"{{ asset('/img/dashboard.svg') }}\" alt=\"\">
-                                        <p>Dashboard</p>
+                                        <p>Pulpit</p>
                                     </div>
                                 <div class=\"btn__nav-dot absolute bottom-1 left-0\"></div>
                                 </div>
@@ -531,7 +531,7 @@ $context["h"], "habit", [], "any", false, false, false, 125)) && (CoreExtension:
             {# Górny pasek z profilem #}
             <div class=\"nav flex w-full justify-between h-20 mb-4 mt-4\">
                 <div class=\"name-page ml-8 text-xl font-semibold\">
-                Dashboard
+                Pulpit
                 </div>
 
                 <div class=\"profile flex justify-center items-center gap-4\">

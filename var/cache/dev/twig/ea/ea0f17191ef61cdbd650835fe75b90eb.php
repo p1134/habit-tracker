@@ -122,7 +122,7 @@ class __TwigTemplate_2814b50b2a626810ce0199c7b02a1057 extends Template
         // line 23
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("/img/dashboard-off.svg"), "html", null, true);
         yield "\" alt=\"\">
-                                    <p>Dashboard</p>
+                                    <p>Pulpit</p>
                                 </div>
                             </div>
                         </a>
@@ -498,7 +498,7 @@ $context["h"], "habit", [], "any", false, false, false, 118)) && (CoreExtension:
                             <div class=\"nav__dashboard  w-auto h-auto relative overflow-hidden\">
                                 <div class=\"nav__dashboard btn-inactive flex gap-3 justify-start items-center relative\">
                                     <img class=\"w-5 h-5\" src=\"{{ asset('/img/dashboard-off.svg') }}\" alt=\"\">
-                                    <p>Dashboard</p>
+                                    <p>Pulpit</p>
                                 </div>
                             </div>
                         </a>

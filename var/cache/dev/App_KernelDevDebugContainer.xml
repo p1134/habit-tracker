@@ -508,7 +508,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.kgOozTz"/>
+      <argument type="service" id=".service_locator.Xb7wXeW"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -3520,7 +3520,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.kgOozTz"/>
+      <argument type="service" id=".service_locator.Xb7wXeW"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -8376,13 +8376,7 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.pNW4hlj" method="withContext"/>
     </service>
-    <service id=".service_locator.pNW4hlj.App\Controller\SummaryController::test()" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator_context" id="App\Controller\SummaryController::test()"/>
-      <argument>App\Controller\SummaryController::test()</argument>
-      <argument type="service" id="service_container"/>
-      <factory service=".service_locator.pNW4hlj" method="withContext"/>
-    </service>
-    <service id=".service_locator.kgOozTz" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.Xb7wXeW" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
@@ -8399,7 +8393,6 @@
         <argument key="App\Controller\RegistrationController::register" type="service_closure" id=".service_locator.yI4423g.App\Controller\RegistrationController::register()"/>
         <argument key="App\Controller\RegistrationController::verifyUserEmail" type="service_closure" id=".service_locator.KHhLDTq.App\Controller\RegistrationController::verifyUserEmail()"/>
         <argument key="App\Controller\SummaryController::index" type="service_closure" id=".service_locator.pNW4hlj.App\Controller\SummaryController::index()"/>
-        <argument key="App\Controller\SummaryController::test" type="service_closure" id=".service_locator.pNW4hlj.App\Controller\SummaryController::test()"/>
         <argument key="kernel:registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
         <argument key="kernel:loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
         <argument key="App\Controller\DashboardController:Habits" type="service_closure" id=".service_locator.8g.Bsca.App\Controller\DashboardController::Habits()"/>
@@ -8412,7 +8405,6 @@
         <argument key="App\Controller\RegistrationController:register" type="service_closure" id=".service_locator.yI4423g.App\Controller\RegistrationController::register()"/>
         <argument key="App\Controller\RegistrationController:verifyUserEmail" type="service_closure" id=".service_locator.KHhLDTq.App\Controller\RegistrationController::verifyUserEmail()"/>
         <argument key="App\Controller\SummaryController:index" type="service_closure" id=".service_locator.pNW4hlj.App\Controller\SummaryController::index()"/>
-        <argument key="App\Controller\SummaryController:test" type="service_closure" id=".service_locator.pNW4hlj.App\Controller\SummaryController::test()"/>
       </argument>
     </service>
     <service id=".service_locator.ea.H0ae" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -10632,7 +10624,7 @@
     <service id="Symfony\UX\Chartjs\Builder\ChartBuilderInterface" alias="chartjs.builder"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.pRu6x_4" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.kgOozTz"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.Xb7wXeW"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.BxSdgVt"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>

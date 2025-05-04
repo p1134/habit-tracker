@@ -1,0 +1,289 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Habitify - Profil{% endblock %}
+
+{% block body %}
+
+<div class="habits__container w-full h-screen flex flex-col">
+
+    <div class="flex flex w-full h-full">
+        {# Nawigacja #}
+        <div class="nav__container h-full mt-5 flex justify-center">
+            <div class="nav__container h-full flex flex-col items-center">
+                <div class="nav__name mb-16">
+                    <p class="text-4xl font-bold">HABITIF<span class="main-color">Y.</span></p>
+                </div>
+
+                <div class="flex flex-col justify-between h-3/4 items-center">
+                    <div class="nav__tabs flex flex-col gap-5">
+
+                        <a class="w-auto h-auto" href="{{ path('app_dashboard') }}">
+                            <div class="nav__dashboard  w-auto h-auto relative overflow-hidden">
+                                <div class="nav__dashboard btn-inactive flex gap-3 justify-start items-center relative">
+                                    <img class="w-5 h-5" src="{{ asset('/img/dashboard-off.svg') }}" alt="">
+                                    <p>Pulpit</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <div class="nav__habits btn-inactive flex gap-3 justify-left items-center gap-4">
+                            <a href="{{ path('app_habit') }}" class="flex gap-3 w-auto h-auto">
+                                        <img src="{{ asset('img/nawyki-off.svg') }}" alt="">
+                                        <p>Nawyki</p>
+                            </a>
+                        </div>
+                        <div class="nav__summary btn-inactive flex gap-3 justify-left items-center gap-4">
+                            <a href="{{ path('app_summary') }}" class="flex gap-3">
+                                        <img src="{{ asset('img/podsumowanie-off.svg') }}" alt="">
+                                        <p>Podsumowanie</p>
+                            </a>
+                        </div>
+                        <div class="nav__society btn-inactive flex gap-3 justify-left items-center gap-4">
+                            <a href="{{ path('app_community') }}" class="flex gap-3">
+                                        <img src="{{ asset('img/spolecznosc-off.svg') }}" alt="">
+                                        <p>Społeczność</p>
+                            </a>
+                        </div>
+                        <div class="nav__profile flex gap-3 justify-left items-center gap-4">
+                            <a href="{{ path('app_profile') }}" class="flex gap-3">
+                                <div class="nav__dashboard  w-auto h-auto relative overflow-hidden">
+                                    <div class="nav__dashboard btn-active flex gap-3 justify-start items-center relative">
+                                        <img src="{{ asset('img/profil.svg') }}" alt="">
+                                        <p>Mój profil</p>
+                                    </div>
+                                    <div class="btn__nav-dot absolute bottom-1 left-0"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 cursor-pointer items-center justify-center">
+                        <a href="{{ path('app_logout') }}" class="btn-logout flex gap-4 items-center justify-center">
+                            <i class="logout-icon fa-solid fa-right-from-bracket text-3xl"></i><span>Wyloguj</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="main-container w-full h-full flex flex-col">
+            {# Górny pasek z profilem #}
+            <div class="nav flex w-full justify-between h-10 mb-4 mt-4">
+                <div class="name-page ml-8 text-xl font-semibold">
+                Mój profil
+                </div>
+
+                <div class="profile flex justify-center items-center gap-4">
+                    <div class="profile-text">
+                        <a href="{{ path('app_profile') }}">
+                            <p>{{ userData.firstname }} {{ userData.lastname }} </p>
+                        </a>
+                    </div>
+
+                    <div class="profile-icon w-30 h-30">
+                        <a href="{{ path('app_profile') }}">
+                            {% if userData.gender == 'M' %}
+                                <img src="{{ asset('/img/profile.svg') }}">
+                            {% else %}
+                                <img src="{{ asset('/img/profilek.svg') }}">
+                            {% endif %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            {# Panel główny podsumowania #}
+            <div class="habits__main h-full w-full main__background flex gap-4">
+                <div class="habits__panel flex gap-8 m-8 w-full h-auto">
+
+                    <div class="habits__panel-l w-1/3 h-full flex flex-col gap-8">
+                        <div class="panel__left--top bg-white rounded-[40px] w-full h-1/4 flex flex-col">
+                            <div class="profile flex m-6 mb-0 items-center gap-2 w-auto">
+                                <div class="img flex w-[110px]">
+                                {% if userData.gender == 'M' %}
+                                    <img class="w-full" src="{{ asset('/img/profile.svg') }}">
+                                {% else %}
+                                    <img class="w-full" src="{{ asset('/img/profilek.svg') }}">
+                                {% endif %}
+                                </div>
+                                <div class="profile-text flex w-full justify-between">
+                                    <div class="profile-data">
+                                        <p class="font-semibold">{{ userData.firstname }} {{ userData.lastname }}</p>
+                                        <p class="font-light text-sm">{{ userData.email }}</p>
+                                    </div>
+                                    <div class="profile-date">
+                                        <p class="font-light text-sm mt-1">{{ userData.joinDate|date('d/m/Y') }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="level w-auto h-auto flex items-end mr-6 ml-6 mb-6 flex-col">
+                                <p class="text-sm">Poziom 1</p>
+                                <div class="exp-bar main__background--gold w-3/4 h-1.5 rounded-md"></div>
+                            </div>
+                        </div>
+                        <div class="panel__left--bottom bg-white rounded-[40px] wfull h-3/4 flex items-center justify-center">
+                        
+                        {{ render_chart(chart) }}
+
+                        </div>
+                    </div>
+                    <div class="habits__panel-r w-2/3 h-full bg-white rounded-[40px]">
+                        <div class="m-8 flex flex-col w-auto h-[35em] overflow-hidden">
+                            <div class="overflow-y-scroll w-full h-full">
+
+                                <div class="regularity w-full h-auto mb-1 border-b">
+                                    <div class="achievement__header flex">
+                                        <div class="flex items-center gap-4 text-[1.2rem] font-semibold">
+                                            <img class="w-10" src="{{ asset('/img/regularnosc.svg') }}" alt="">
+                                            <h1>Regularność</h1>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="achivement__box flex flex-wrap w-full h-full text-[0.9rem]">
+
+                                        <div class="achivement__item w-1/3 h-full flex flex-col justify-center items-center text-center p-2">
+                                            <div class="h-11">
+                                                {% if firstStep is not null %}
+                                                <img class="h-full" src="{{ asset('/img/firststep.png') }}" alt="">
+                                                {% else %}
+                                                <img class="h-full" src="{{ asset('/img/mystery.svg') }}" alt="">
+                                                {% endif %}
+                                            </div>
+                                            <h2 class="font-semibold">Pierwszy krok</h2>
+                                            <p>Ukończono pierwszy dzień dobrych nawyków</p>
+                                        </div>
+                                        
+                                        <div class="achivement__item w-1/3 h-full flex flex-col justify-center items-center text-center p-2">
+                                            <div class="h-11">
+                                                {% if goldLife is not null %}
+                                                <img class="h-full" src="{{ asset('/img/jesien.png') }}" alt="">
+                                                {% else %}
+                                                <img class="h-full" src="{{ asset('/img/mystery.svg') }}" alt="">
+                                                {% endif %}
+                                            </div>
+                                            <h2 class="font-semibold">Złota jesień życia</h2>
+                                            <p>Utrzymanie dowolnego nawyku przez 90 dni</p>
+                                        </div>
+
+                                        <div class="achivement__item w-1/3 h-full flex flex-col justify-center items-center text-center p-2">
+                                            <div class="h-11">
+                                                {% if warrior == true %}
+                                                <img class="h-full" src="{{ asset('/img/weekend.png') }}" alt="">
+                                                {% else %}
+                                                <img class="h-full" src="{{ asset('/img/mystery.svg') }}" alt="">
+                                                {% endif %}
+                                            </div>
+                                            <h2 class="font-semibold">Weekendowy wojownik</h2>
+                                            <p>Wykonywanie nawyków przez miesiąc tylko w weekendy</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="self-development w-full h-auto mb-4">
+                                    <div class="achievement__header flex">
+                                        <div class="flex items-center gap-4 text-[1.2rem] font-semibold">
+                                            <img class="w-10" src="{{ asset('/img/rozwoj.svg') }}" alt="">
+                                            <h1>Rozwój osobisty</h1>
+                                        </div>
+                                    </div>
+                                    
+
+                                    <div class="achivement__box flex flex-wrap w-full h-full text-[0.9rem]">
+
+                                        <div class="achivement__item w-1/3 h-full flex flex-col justify-center items-center text-center p-2">
+                                            <div class="h-11">
+                                                {% if break == true %}
+                                                <img class="h-full" src="{{ asset('/img/marnotrawny.png') }}" alt="">
+                                                {% else %}
+                                                <img class="h-full" src="{{ asset('/img/mystery.svg') }}" alt="">
+                                                {% endif %}
+                                            </div>
+                                            <h2 class="font-semibold">Syn marnotrawny</h2>
+                                            <p>Powrót po przerwie do dobrej rutyny</p>
+                                        </div>
+                                        
+                                        <div class="achivement__item w-1/3 h-full flex flex-col justify-center items-center text-center p-2">
+                                            <div class="h-11">
+                                                {% if newRoutine == true %}
+                                                <img class="h-full" src="{{ asset('/img/rutyna.png') }}" alt="">
+                                                {% else %}
+                                                <img class="h-full" src="{{ asset('/img/mystery.svg') }}" alt="">
+                                                {% endif %}
+                                            </div>
+                                            <h2 class="font-semibold">Nowa rutyna</h2>
+                                            <p>Dodaj nowy nawyk po 30 dniach</p>
+                                        </div>
+
+                                        <div class="achivement__item w-1/3 h-full flex flex-col justify-center items-center text-center p-2">
+                                            <div class="h-11">
+                                                {% if ownHabit == true %}
+                                                <img class="h-full" src="{{ asset('/img/kreator.png') }}" alt="">
+                                                {% else %}
+                                                <img class="h-full" src="{{ asset('/img/mystery.svg') }}" alt="">
+                                                {% endif %}
+                                            </div>
+                                            <h2 class="font-semibold">Kreator rzeczywistości</h2>
+                                            <p>Stwórz własny nawyk do śledzenia</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="quantity w-full h-auto border-t">
+                                    <div class="achievement__header flex mt-3">
+                                        <div class="flex items-center gap-4 text-[1.2rem] font-semibold">
+                                            <img class="w-8" src="{{ asset('/img/liczba.svg') }}" alt="">
+                                            <h1>Liczba nawyków</h1>
+                                        </div>
+                                    </div>
+                                    
+
+                                    <div class="achivement__box flex flex-wrap w-full h-full text-[0.9rem]">
+
+                                        <div class="achivement__item w-1/3 h-full flex flex-col justify-center items-center text-center p-2">
+                                            <div class="h-11">
+                                                {% if multi == true %}
+                                                <img class="h-full" src="{{ asset('/img/multi.png') }}" alt="">
+                                                {% else %}
+                                                <img class="h-full" src="{{ asset('/img/mystery.svg') }}" alt="">
+                                                {% endif %}
+                                            </div>
+                                            <h2 class="font-semibold">Multizadaniowiec</h2>
+                                            <p>Śledzenie +3 nawyków</p>
+                                        </div>
+                                        
+                                        <div class="achivement__item w-1/3 h-full flex flex-col justify-center items-center text-center p-2">
+                                            <div class="h-11">
+                                                {% if ninja == true %}
+                                                <img class="h-full" src="{{ asset('/img/ninja.png') }}" alt="">
+                                                {% else %}
+                                                <img class="h-full" src="{{ asset('/img/mystery.svg') }}" alt="">
+                                                {% endif %}
+                                            </div>
+                                            <h2 class="font-semibold">Nawykowy Ninja</h2>
+                                            <p>Śledzenie +6 nawyków</p>
+                                        </div>
+
+                                        <div class="achivement__item w-1/3 h-full flex flex-col justify-center items-center text-center p-2">
+                                            <div class="h-11">
+                                                {% if master == true %}
+                                                <img class="h-full" src="{{ asset('/img/mistrz.png') }}" alt="">
+                                                {% else %}
+                                                <img class="h-full" src="{{ asset('/img/mystery.svg') }}" alt="">
+                                                {% endif %}
+                                            </div>
+                                            <h2 class="font-semibold">Mistrz rutyny</h2>
+                                            <p>Śledzenie +10 nawyków</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>  
+               
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -174,14 +174,19 @@ class __TwigTemplate_8f61685a6f253b31f629279fdbb7fe02 extends Template
         yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["registrationForm"]) || array_key_exists("registrationForm", $context) ? $context["registrationForm"] : (function () { throw new RuntimeError('Variable "registrationForm" does not exist.', 52, $this->source); })()), "plainPassword", [], "any", false, false, false, 52), 'widget', ["attr" => ["class" => "form__widget", "placeholder" => "Hasło"]]);
         // line 57
         yield "
-            <a href=\"";
+            ";
         // line 58
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["registrationForm"]) || array_key_exists("registrationForm", $context) ? $context["registrationForm"] : (function () { throw new RuntimeError('Variable "registrationForm" does not exist.', 58, $this->source); })()), "gender", [], "any", false, false, false, 58), 'widget', ["attr" => ["class" => "flex gap-2", "placeholder" => "Płeć"]]);
+        // line 63
+        yield "
+            <a href=\"";
+        // line 64
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_login");
         yield "\" class=\"text-sm text-gray-500\">Mam już konto</a>
             <div class=\"flex gap-3\">
             ";
-        // line 60
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["registrationForm"]) || array_key_exists("registrationForm", $context) ? $context["registrationForm"] : (function () { throw new RuntimeError('Variable "registrationForm" does not exist.', 60, $this->source); })()), "agreeTerms", [], "any", false, false, false, 60), 'widget');
+        // line 66
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["registrationForm"]) || array_key_exists("registrationForm", $context) ? $context["registrationForm"] : (function () { throw new RuntimeError('Variable "registrationForm" does not exist.', 66, $this->source); })()), "agreeTerms", [], "any", false, false, false, 66), 'widget');
         yield "
             <p>Akceptuję regulamin</p>
             </div>
@@ -189,23 +194,23 @@ class __TwigTemplate_8f61685a6f253b31f629279fdbb7fe02 extends Template
             <div class=\"mt-10\">
                 <div class=\" form-submit absolute overflow-hidden\">
                     ";
-        // line 67
+        // line 73
         yield "                        <button type=\"submit\" class=\"form__btn rounded-xl text-xl relative flex gap-3\"><span><img src=\"";
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("/img/register.svg"), "html", null, true);
         yield "\" class=\"main__btn-dashboard w-4/5\"></span>Zarejestruj</button>
                         <div class=\"btn-dot absolute bottom-2\"></div>
                     ";
-        // line 70
+        // line 76
         yield "                </div>
             </div>
 
             </div>
         ";
-        // line 74
-        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["registrationForm"]) || array_key_exists("registrationForm", $context) ? $context["registrationForm"] : (function () { throw new RuntimeError('Variable "registrationForm" does not exist.', 74, $this->source); })()), 'form_end');
+        // line 80
+        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["registrationForm"]) || array_key_exists("registrationForm", $context) ? $context["registrationForm"] : (function () { throw new RuntimeError('Variable "registrationForm" does not exist.', 80, $this->source); })()), 'form_end');
         yield "
         ";
-        // line 76
+        // line 82
         yield "    </div>
 
 </div>
@@ -241,7 +246,7 @@ class __TwigTemplate_8f61685a6f253b31f629279fdbb7fe02 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  209 => 76,  205 => 74,  199 => 70,  193 => 67,  184 => 60,  179 => 58,  176 => 57,  174 => 52,  171 => 51,  169 => 47,  166 => 46,  164 => 42,  161 => 41,  159 => 37,  154 => 35,  148 => 33,  133 => 20,  129 => 19,  120 => 13,  114 => 9,  105 => 7,  100 => 6,  87 => 5,  64 => 3,  41 => 1,);
+        return array (  214 => 82,  210 => 80,  204 => 76,  198 => 73,  189 => 66,  184 => 64,  181 => 63,  179 => 58,  176 => 57,  174 => 52,  171 => 51,  169 => 47,  166 => 46,  164 => 42,  161 => 41,  159 => 37,  154 => 35,  148 => 33,  133 => 20,  129 => 19,  120 => 13,  114 => 9,  105 => 7,  100 => 6,  87 => 5,  64 => 3,  41 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -301,6 +306,12 @@ class __TwigTemplate_8f61685a6f253b31f629279fdbb7fe02 extends Template
                 'attr': {
                     'class': 'form__widget',
                     'placeholder': 'Hasło'
+                }
+            }) }}
+            {{ form_widget(registrationForm.gender, {
+                'attr': {
+                    'class': 'flex gap-2',
+                    'placeholder': 'Płeć'
                 }
             }) }}
             <a href=\"{{ path('app_login') }}\" class=\"text-sm text-gray-500\">Mam już konto</a>

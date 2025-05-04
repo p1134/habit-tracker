@@ -113,6 +113,17 @@ class SelectedHabitsRepository extends ServiceEntityRepository
         ->getOneOrNullResult()
         ;
     }
+
+    public function getDate($user){
+        return $this->createQueryBuilder('sh')
+        ->select('sh.date')
+        ->andWhere('sh.isDeleted = false')
+        ->andWhere('sh.user = :user')
+        ->setParameter('user', $user)
+        ->orderBy('sh.date', 'DESC')
+        ->getQuery()
+        ->getResult();   
+    }
     
 
     //    public function findOneBySomeField($value): ?SelectedHabits

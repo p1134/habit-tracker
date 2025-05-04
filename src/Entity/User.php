@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -67,6 +68,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\OneToMany(targetEntity: Tracking::class, mappedBy: 'user')]
     private Collection $trackings;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $joinDate = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $gender = null;
 
     // #[ORM\ManyToOne(inversedBy: 'user')]
     // #[ORM\JoinColumn(nullable: false)]
@@ -323,6 +330,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $tracking->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getJoinDate(): ?\DateTimeInterface
+    {
+        return $this->joinDate;
+    }
+
+    public function setJoinDate(\DateTimeInterface $joinDate): static
+    {
+        $this->joinDate = $joinDate;
+
+        return $this;
+    }
+
+    public function getGender(): ?string
+    {
+        return $this->gender;
+    }
+
+    public function setGender(string $gender): static
+    {
+        $this->gender = $gender;
 
         return $this;
     }

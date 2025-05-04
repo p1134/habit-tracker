@@ -55,6 +55,12 @@
                     'placeholder': 'Hasło'
                 }
             }) }}
+            {{ form_widget(registrationForm.gender, {
+                'attr': {
+                    'class': 'flex gap-2',
+                    'placeholder': 'Płeć'
+                }
+            }) }}
             <a href="{{ path('app_login') }}" class="text-sm text-gray-500">Mam już konto</a>
             <div class="flex gap-3">
             {{ form_widget(registrationForm.agreeTerms) }}

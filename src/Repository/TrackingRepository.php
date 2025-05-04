@@ -107,6 +107,22 @@ class TrackingRepository extends ServiceEntityRepository
         $result = $stmt->executeQuery(["user"=> $user->getId()]);
         return $result->fetchAllAssociative();
        }
+
+       public function getAllTracks($user){
+            $query = $this->createQueryBuilder('t')
+            ->select('t.date', 'ch.name AS habitCategory', 'ohc.name AS ownHabitCategory')
+            ->leftJoin('t.selectedHabits', 'sh')
+            ->leftJoin('sh.habit', 'h')
+            ->leftJoin('sh.ownHabit', 'oh')
+            ->leftJoin('h.category', 'ch')
+            ->leftJoin('oh.category', 'ohc')
+            ->andWhere('t.user = :user')
+            ->setParameter('user', $user)
+            ->andWhere('t.selected = 1')
+            ->orderBy('t.date','ASC')
+            ->getQuery();
+        return $query->getResult();
+       }
     
        
 

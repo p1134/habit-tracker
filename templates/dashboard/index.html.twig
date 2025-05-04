@@ -40,15 +40,15 @@
                             </a>
                         </div>
                         <div class="nav__society btn-inactive flex gap-3 justify-left items-center gap-4">
-                            <a href="" class="flex gap-3">
+                            <a href="{{ path('app_community') }}" class="flex gap-3">
                                 <img src="{{ asset('img/spolecznosc-off.svg') }}" alt="">
                                 <p>Społeczność</p>
                             </a>
                         </div>
                         <div class="nav__option btn-inactive flex gap-3 justify-left items-center gap-4">
-                            <a href="" class="flex gap-3">
-                                <img src="{{ asset('img/ustawienia-off.svg') }}" alt="">
-                                <p>Ustawienia</p>
+                            <a href="{{ path('app_profile') }}" class="flex gap-3">
+                                <img src="{{ asset('img/profil-off.svg') }}" alt="">
+                                <p>Mój profil</p>
                             </a>
                         </div>
                     </div>
@@ -70,14 +70,18 @@
 
                 <div class="profile flex justify-center items-center gap-4">
                     <div class="profile-text">
-                        <a href="{{ path('app_register') }}">
+                        <a href="{{ path('app_profile') }}">
                             <p>{{ userData.firstname }} {{ userData.lastname }} </p>
                         </a>
                     </div>
 
                     <div class="profile-icon w-30 h-30">
-                        <a href="{{ path('app_register') }}">
-                            <img src="{{ asset('/img/profile.svg') }}">
+                        <a href="{{ path('app_profile') }}">
+                            {% if userData.gender == 'M' %}
+                                <img src="{{ asset('/img/profile.svg') }}">
+                            {% else %}
+                                <img src="{{ asset('/img/profilek.svg') }}">
+                            {% endif %}
                         </a>
                     </div>
                 </div>
@@ -191,7 +195,7 @@
                             <div class="day_streak flex gap-6 items-center ml-4">
                                 <p class="ml-4 text-xl">Dzień</p>
                                 <div class="main__background--gold w-12 h-12 rounded-xl mr-4 flex justify-center items-center text-3xl font-semibold">
-                                    {{ currentStreak != 0 ? currentStreak:currentStreak +1 }}
+                                    {{ currentStreak != 0 ? currentStreak:'?' }}
                                 </div>
                             </div>
                         </div>

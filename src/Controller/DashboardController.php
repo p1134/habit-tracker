@@ -111,11 +111,10 @@ final class DashboardController extends AbstractController
         $startDate = new DateTime($streaksDate[array_key_last($streaksDate)]);
         // dd($date1); 
         
-        $currentStreak = date_diff($today, $startDate)->days + 1;
+        $currentStreak = date_diff($today, $startDate)->days+1;
         // dd($currentStreak);
     }
     // dd($streaksDate);
-        
 
             return $this->render('dashboard/index.html.twig', [
                 'controller_name' => 'HabitController',
@@ -129,7 +128,7 @@ final class DashboardController extends AbstractController
                 'percentage' => $donePercentage,
                 'trackedCount' => $trackedCount,
                 'maxStreak' =>$maxStreak,
-                'currentStreak' => $currentStreak ?? 0,
+                'currentStreak' => $currentStreak  ?? 0,
                 'formType' => 'dashboard',
             ]);
         }

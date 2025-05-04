@@ -11,7 +11,11 @@
 
         <div class="profile-icon w-30 h-30">
             <a href="{{ path('app_login') }}">
-                <img src="{{ asset('/img/profile.svg') }}">
+                            {% if userData.gender == 'M' %}
+                                <img src="{{ asset('/img/profile.svg') }}">
+                            {% else %}
+                                <img src="{{ asset('/img/profilek.svg') }}">
+                            {% endif %}
             </a>
         </div>
     </div>

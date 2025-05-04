@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -36,11 +37,14 @@ class RegistrationController extends AbstractController
             $data = $form->getData();
             $firstname = $data->getFirstname();
             $lastname = $data->getLastname();
+            $gender = $data->getGender();
 
             // encode the plain password
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
             $user->setFirstname($firstname);
             $user->setLastname($lastname);
+            $user->setJoinDate(new DateTime('now'));
+            $user->setGender($gender);
 
             $entityManager->persist($user);
             $entityManager->flush();

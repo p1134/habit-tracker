@@ -1,0 +1,123 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Habitify - Społeczność{% endblock %}
+
+{% block body %}
+
+<div class="habits__container w-full h-screen flex flex-col">
+
+    <div class="flex flex w-full h-full">
+        {# Nawigacja #}
+        <div class="nav__container h-full mt-5 flex justify-center">
+            <div class="nav__container h-full flex flex-col items-center">
+                <div class="nav__name mb-16">
+                    <p class="text-4xl font-bold">HABITIF<span class="main-color">Y.</span></p>
+                </div>
+
+                <div class="flex flex-col justify-between h-3/4 items-center">
+
+                    <div class="nav__tabs flex flex-col gap-5">
+                        <a class="w-auto h-auto" href="{{ path('app_dashboard') }}">
+                            <div class="nav__dashboard  w-auto h-auto relative overflow-hidden">
+                                <div class="nav__dashboard btn-inactive flex gap-3 justify-start items-center relative">
+                                    <img class="w-5 h-5" src="{{ asset('/img/dashboard-off.svg') }}" alt="">
+                                    <p>Pulpit</p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <div class="nav__habits flex gap-3 justify-left items-center gap-4">
+                            <a href="{{ path('app_habit') }}" class="flex gap-3 w-auto h-auto">
+                                <div class="nav__dashboard  w-auto h-auto relative overflow-hidden">
+                                    <div class="nav__dashboard btn-inactive flex gap-3 justify-start items-center relative">
+                                        <img src="{{ asset('img/nawyki-off.svg') }}" alt="">
+                                        <p>Nawyki</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="nav__summary flex gap-3 justify-left items-center gap-4">
+                            <a href="{{ path('app_summary') }}" class="flex gap-3">
+                                <div class="nav__dashboard  w-auto h-auto relative overflow-hidden">
+                                    <div class="nav__dashboard btn-inactive flex gap-3 justify-start items-center relative">
+                                        <img src="{{ asset('img/podsumowanie-off.svg') }}" alt="">
+                                        <p>Podsumowanie</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="nav__society flex gap-3 justify-left items-center gap-4">
+                            <a href="{{ path('app_community') }}" class="flex gap-3">
+                                <div class="nav__dashboard  w-auto h-auto relative overflow-hidden">
+                                    <div class="nav__dashboard btn-active flex gap-3 justify-start items-center relative">
+                                        <img src="{{ asset('img/spolecznosc.svg') }}" alt="">
+                                        <p>Społeczność</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="nav__profile flex gap-3 justify-left items-center gap-4">
+                            <a href="{{ path('app_profile') }}" class="flex gap-3">
+                                <div class="nav__dashboard  w-auto h-auto relative overflow-hidden">
+                                    <div class="nav__dashboard btn-inactive flex gap-3 justify-start items-center relative">
+                                        <img src="{{ asset('img/profil-off.svg') }}" alt="">
+                                        <p>Mój profil</p>
+                                    </div>
+                                    <div class="btn__nav-dot absolute bottom-1 left-0"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 cursor-pointer items-center justify-center">
+                        <a href="{{ path('app_logout') }}" class="btn-logout flex gap-4 items-center justify-center">
+                            <i class="logout-icon fa-solid fa-right-from-bracket text-3xl"></i><span>Wyloguj</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="main-container w-full h-full flex flex-col">
+            {# Górny pasek z profilem #}
+            <div class="nav flex w-full justify-between h-10 mb-4 mt-4">
+                <div class="name-page ml-8 text-xl font-semibold">
+                Społeczność
+                </div>
+
+                <div class="profile flex justify-center items-center gap-4">
+                    <div class="profile-text">
+                        <a href="{{ path('app_profile') }}">
+                            <p>{{ userData.firstname }} {{ userData.lastname }} </p>
+                        </a>
+                    </div>
+
+                    <div class="profile-icon w-30 h-30">
+                        <a href="{{ path('app_profile') }}">
+                            {% if userData.gender == 'M' %}
+                                <img src="{{ asset('/img/profile.svg') }}">
+                            {% else %}
+                                <img src="{{ asset('/img/profilek.svg') }}">
+                            {% endif %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            {# Panel główny podsumowania #}
+            <div class="habits__main h-full w-full main__background flex gap-4 flex-col">
+
+                {# Tabela z tygoniem #}
+                <div class="habits__table bg-white w-auto m-8 mt-0 flex flex-col justify-center items-center">
+
+                    
+
+
+                </div>
+
+            </div>  
+               
+        </div>
+    </div>
+</div>
+{% endblock %}

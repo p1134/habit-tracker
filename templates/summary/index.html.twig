@@ -50,17 +50,25 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="nav__society btn-inactive flex gap-3 justify-left items-center gap-4">
-                        <a href="" class="flex gap-3">
-                            <img src="{{ asset('img/spolecznosc-off.svg') }}" alt="">
-                            <p>Społeczność</p>
-                        </a>
+                        <div class="nav__society flex gap-3 justify-left items-center gap-4">
+                            <a href="{{ path('app_community') }}" class="flex gap-3">
+                                <div class="nav__dashboard  w-auto h-auto relative overflow-hidden">
+                                    <div class="nav__dashboard btn-inactive flex gap-3 justify-start items-center relative">
+                                        <img src="{{ asset('img/spolecznosc-off.svg') }}" alt="">
+                                        <p>Społeczność</p>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
-                        <div class="nav__option btn-inactive flex gap-3 justify-left items-center gap-4">
-                        <a href="" class="flex gap-3">
-                            <img src="{{ asset('img/ustawienia-off.svg') }}" alt="">
-                            <p>Ustawienia</p>
-                        </a>
+                        <div class="nav__option flex gap-3 justify-left items-center gap-4">
+                            <a href="{{ path('app_profile') }}" class="flex gap-3">
+                                <div class="nav__dashboard  w-auto h-auto relative overflow-hidden">
+                                    <div class="nav__dashboard btn-inactive flex gap-3 justify-start items-center relative">
+                                        <img src="{{ asset('img/profil-off.svg') }}" alt="">
+                                        <p>Mój profil</p>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                     </div>
                     <div class="flex gap-4 cursor-pointer items-center justify-center">
@@ -82,14 +90,18 @@
 
                 <div class="profile flex justify-center items-center gap-4">
                     <div class="profile-text">
-                        <a href="{{ path('app_register') }}">
+                        <a href="{{ path('app_profile') }}">
                             <p>{{ userData.firstname }} {{ userData.lastname }} </p>
                         </a>
                     </div>
 
                     <div class="profile-icon w-30 h-30">
-                        <a href="{{ path('app_register') }}">
-                            <img src="{{ asset('/img/profile.svg') }}">
+                        <a href="{{ path('app_profile') }}">
+                            {% if userData.gender == 'M' %}
+                                <img src="{{ asset('/img/profile.svg') }}">
+                            {% else %}
+                                <img src="{{ asset('/img/profilek.svg') }}">
+                            {% endif %}
                         </a>
                     </div>
                 </div>
@@ -184,13 +196,13 @@
                                             {% for track in doneHabits %}
                                             {# data zaznaczenia nawyku taka jak data danego dnia tygodnia #}
                                                 {% if (track.h_id == habit.id or track.oh_id == habit.id)
-                                                    and track.date|date('Y-m-d') == targetDate and (track.is_deleted == 0 or (track.is_deleted == 1 and targetDate <= habit.delete_date))  %}
+                                                    and track.date|date('Y-m-d') == targetDate and (track.is_deleted == 0 or (track.is_deleted == 1 and (targetDate <= habit.delete_date or targetDate >= habit.delete_date)))  %}
                                                     <div class="bg-green-300 w-full h-full"></div>
                                                     {% set found = true %}
                                                 {% endif %}
                                             {% endfor %}
 
-                                            {% if not found and today|date('Y-m-d') > targetDate and (habit.delete_date == null or habit.delete_date <= targetDate )  %}
+                                            {% if not found and today|date('Y-m-d') > targetDate and (habit.delete_date == null or habit.delete_date < targetDate )  %}
                                                     <div class="bg-red-300 w-full h-full"></div>
                                             {% elseif not found and habit.delete_date != null and today|date('Y-m-d') >= targetDate %}
                                                 X

@@ -184,7 +184,7 @@ $chart->setOptions([
         ],
         'title' => [
             'display' => true,
-            'text' => 'Nawyki według kategorii',
+            'text' => 'Wykonane nawyki według kategorii',
             'font' => [
                 'family' => 'Poppins',    // czcionka
                 'size' => 19,           // rozmiar w px

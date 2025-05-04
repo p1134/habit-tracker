@@ -16991,3 +16991,15 @@ aef1b4,127.0.0.1,GET,http://127.0.0.1:8000/habits,1746372921,,200,request
 0ce8f2,127.0.0.1,GET,http://127.0.0.1:8000/profile,1746372924,,200,request
 f43b7a,127.0.0.1,GET,http://127.0.0.1:8000/profile,1746372939,,200,request
 bb1a9c,127.0.0.1,GET,http://127.0.0.1:8000/habits/summary,1746389814,,200,request
+2aea63,127.0.0.1,GET,http://127.0.0.1:8000/community,1746389874,,200,request
+2505c1,127.0.0.1,GET,http://127.0.0.1:8000/profile,1746389875,,200,request
+7181ca,127.0.0.1,GET,http://127.0.0.1:8000/dashboard,1746389908,,200,request
+53d841,127.0.0.1,GET,http://127.0.0.1:8000/habits,1746389910,,200,request
+0ef7c9,127.0.0.1,GET,http://127.0.0.1:8000/habits/summary,1746389914,,200,request
+4cdd6f,127.0.0.1,GET,http://127.0.0.1:8000/community,1746389918,,200,request
+5daea1,127.0.0.1,GET,http://127.0.0.1:8000/profile,1746389921,,200,request
+eaeb14,127.0.0.1,GET,http://127.0.0.1:8000/profile,1746389963,,200,request
+19ef2f,127.0.0.1,GET,http://127.0.0.1:8000/profile,1746389965,,200,request
+3e55f7,127.0.0.1,GET,http://127.0.0.1:8000/profile,1746390127,,200,request
+83f01c,127.0.0.1,GET,http://127.0.0.1:8000/profile,1746390128,,200,request
+2794a2,127.0.0.1,GET,http://127.0.0.1:8000/profile,1746390129,,200,request

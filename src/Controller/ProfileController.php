@@ -172,7 +172,7 @@ $chart->setOptions([
     'responsive' => true,
     'plugins' => [
         'legend' => [
-            'position' => 'top',
+            'position' => 'bottom',
             'labels' => [
                 'font' => [
                     'size' => 16,         // 🔹 zmiana wielkości czcionki legendy
@@ -182,16 +182,16 @@ $chart->setOptions([
                 'color' => '#444',       // 🔹 kolor tekstu
             ]
         ],
-        'title' => [
-            'display' => true,
-            'text' => 'Wykonane nawyki według kategorii',
-            'font' => [
-                'family' => 'Poppins',    // czcionka
-                'size' => 19,           // rozmiar w px
-                'weight' => 'normal',     // np. 'normal', 'bold', 'lighter'
-            ],
-        'color' => '#000000'
-    ],
+    //     'title' => [
+    //         // 'display' => true,
+    //         // 'text' => 'Wykonane nawyki wg kategorii',
+    //         'font' => [
+    //             'family' => 'Poppins',    // czcionka
+    //             'size' => 19,           // rozmiar w px
+    //             'weight' => 'normal',     // np. 'normal', 'bold', 'lighter'
+    //         ],
+    //     'color' => '#000000'
+    // ],
     ],
 ]);
 

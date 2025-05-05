@@ -273,4 +273,13 @@ body {
 
 .checkbox-hidden:checked ~ .panel-select__icon > .panel-select__icon--activity {
   background-color: rgb(255, 237, 213);
+}
+
+.profile__regularity:hover, .profile__self-development:hover, .profile__quantity:hover {
+  background-color: #F9F9F9;
+}
+
+.chevron-rotate {
+  transform: rotate(90);
+  transition: rotate 0.2s ease-in-out;
 }/*# sourceMappingURL=main.css.map */

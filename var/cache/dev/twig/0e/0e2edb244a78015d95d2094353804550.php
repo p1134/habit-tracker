@@ -83,7 +83,10 @@ class __TwigTemplate_b9e12bba86128d56e79f5b95ff44f372 extends Template
         // line 23
         yield from $this->unwrap()->yieldBlock('body', $context, $blocks);
         // line 24
-        yield "    </body>
+        yield "        <script src=\"";
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("/js/script.js"), "html", null, true);
+        yield "\"></script>
+    </body>
 </html>";
         
         $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
@@ -237,7 +240,7 @@ class __TwigTemplate_b9e12bba86128d56e79f5b95ff44f372 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  198 => 23,  175 => 15,  164 => 18,  161 => 16,  158 => 15,  145 => 14,  134 => 12,  121 => 11,  98 => 5,  86 => 24,  84 => 23,  78 => 19,  76 => 14,  73 => 13,  71 => 11,  64 => 7,  59 => 5,  53 => 1,);
+        return array (  201 => 23,  178 => 15,  167 => 18,  164 => 16,  161 => 15,  148 => 14,  137 => 12,  124 => 11,  101 => 5,  86 => 24,  84 => 23,  78 => 19,  76 => 14,  73 => 13,  71 => 11,  64 => 7,  59 => 5,  53 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -265,6 +268,7 @@ class __TwigTemplate_b9e12bba86128d56e79f5b95ff44f372 extends Template
     </head>
     <body class=\"h-full w-full m-0\">
         {% block body %}{% endblock %}
+        <script src=\"{{ asset('/js/script.js') }}\"></script>
     </body>
 </html>", "base.html.twig", "/Users/paulina/Desktop/habit-tracker/templates/base.html.twig");
     }

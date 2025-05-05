@@ -290,18 +290,13 @@ transition: transform 0.6s;
     background-color: rgb(255, 237, 213);
 }
 
-// /* Dodatkowy efekt, gdy checkbox jest zaznaczony */
-// .checkbox-hidden:checked + .panel-select__icon--health::after {
-//     content: "✔"; /* Ikona zaznaczenia */
-//     color: green;
-//     font-size: 20px;
-//     position: absolute;
-//     left: 10px;
-//     top: 10px;
-// }
-
-// .panel-select__row--health:hover{
-//     background-color: rgb(246, 246, 246);
-//     cursor: pointer;
-// }
+.profile{
+    &__regularity:hover, &__self-development:hover, &__quantity:hover{
+        background-color: #F9F9F9;
+    }
+}
+.chevron-rotate{
+    transform: rotate(90);
+    transition: rotate 0.2s ease-in-out;
+}
 

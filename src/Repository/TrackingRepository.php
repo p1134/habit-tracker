@@ -68,7 +68,8 @@ class TrackingRepository extends ServiceEntityRepository
             ';
 
             $stmt = $conn->prepare($sql);
-            $result = $stmt->executeQuery(['user' => $user->getId()]);
+            $stmt->bindValue('user', $user->getId());
+            $result = $stmt->executeQuery();
 
             return $result->fetchAllAssociative();
        }
@@ -88,7 +89,10 @@ class TrackingRepository extends ServiceEntityRepository
                 ORDER BY t.date";
 
             $stmt = $conn->prepare($sql);
-            $result = $stmt->executeQuery(['user' => $user->getId(), 'startOfWeek' => $startOfWeek->format('Y-m-d'), 'endOfWeek' => $endOfWeek->format('Y-m-d')]);
+            $stmt->bindValue('user', $user->getId());
+            $stmt->bindValue('startOfWeek', $startOfWeek->format('Y-m-d'));
+            $stmt->bindValue('endOfWeek', $endOfWeek->format('Y-m-d'));
+            $result = $stmt->executeQuery();
             return $result->fetchAllAssociative();
        }
 
@@ -104,7 +108,8 @@ class TrackingRepository extends ServiceEntityRepository
             ORDER BY t.date";
 
         $stmt = $conn->prepare($sql);
-        $result = $stmt->executeQuery(["user"=> $user->getId()]);
+        $stmt->bindValue("user", $user->getId());
+        $result = $stmt->executeQuery();
         return $result->fetchAllAssociative();
        }
 

@@ -42,6 +42,7 @@ final class ProfileController extends AbstractController
 
 
 //OBECNA SERIA
+
         $streaksDate = [];
 
         foreach($streaksArray as $key => $value){
@@ -49,6 +50,11 @@ final class ProfileController extends AbstractController
             if($value['end_date'] == $today->format('Y-m-d'))
             $streaksDate[$key] = $value['start_date'];
     }
+
+    $regularity = 0;
+    $selfDevelopment = 0;
+    $multitasking = 0;
+
     if(!empty($streaksDate)){
         $startDate = new DateTime($streaksDate[array_key_last($streaksDate)]);
         
@@ -59,15 +65,18 @@ final class ProfileController extends AbstractController
         //Pierwszy krok
         if($currentStreak > 1){
             $firstStepAchieve = true;
+            $regularity++;
         }
         //Złota jesień zycia
         if($currentStreak > 90){
             $goldLifeAchieve = true;
+            $regularity++;
         }
     }
         //Kreator rzeczywistości
     if($ownHabits->findBy(['user' => $user->getId()]) != null){
         $ownHabitAchieve = true;   
+        $selfDevelopment++;
     }
 
         //Weekendowy wojownik
@@ -82,6 +91,7 @@ final class ProfileController extends AbstractController
         $slice = array_slice($twArray, $i,count($pattern));
         if($slice === $pattern){
             $weekendAchieve = true;
+            $regularity++;
         }
     }
 
@@ -96,19 +106,21 @@ final class ProfileController extends AbstractController
 
             if((int)$dayDiff > 2){
                 $backAchieve = true;
-                dd($backAchieve);
+                $selfDevelopment++;
             }
         }
     }
         //Nowa rutyna
     $selected = $selectedHabits->getDate($user);
-    if(!empty($selected) && $selected[1]){
+    // dd($selected);
+    if(!empty($selected) && count($selected) >= 2){
         $lastDate = $selected[0]['date'];
         $beforeLast = $selected[1]['date'];
         $dayDiff = $lastDate->diff($beforeLast)->format('%a');
     }
         if((int)$dayDiff >= 30){
             $newRoutineAchieve = true;
+            $selfDevelopment++;
     }
 
         //Multizadaniowiec
@@ -116,14 +128,17 @@ final class ProfileController extends AbstractController
     $countSelected = count($selectedToTrack);
     if($countSelected >= 3){
         $multiAchieve = true;
+        $multitasking++;
     }
         //Ninja
     if($countSelected >= 6){
         $ninjaAchieve = true;
+        $multitasking++;
     }
         //Master
     if($countSelected >= 10){
         $masterAchieve = true;
+        $multitasking++;
     }
 
     //Wykres kategorii
@@ -210,6 +225,9 @@ $chart->setOptions([
             'ninja' => $ninjaAchieve ?? null,
             'master' => $masterAchieve ?? null,
             'chart' => $chart,
+            'regularity' => $regularity,
+            'selfDevelopment' => $selfDevelopment,
+            'multitasking' => $multitasking,
         ]);
     }
 }

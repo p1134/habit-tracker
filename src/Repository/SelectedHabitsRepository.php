@@ -57,8 +57,11 @@ class SelectedHabitsRepository extends ServiceEntityRepository
             ->addSelect('oh')
             ->leftJoin('sh.tracking', 't') // Dodajemy join do trackingów
             ->addSelect('t')
+            ->leftJoin('h.category', 'hc')
+            ->leftJoin('oh.category', 'ohc')
             ->andWhere('h IS NOT NULL OR oh IS NOT NULL') // Zapewnienie, że jest zwrócone przynajmniej jedno powiązanie
             // ->andWhere('sh.isDeleted = false')
+            // ->orderBy('hc.name', 'DESC')
             ->getQuery()
             ->getResult();
             // dd($query);

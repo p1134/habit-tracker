@@ -5884,7 +5884,7 @@
       </call>
     </service>
     <service id="doctrine_migrations.schema_filter_listener" class="Doctrine\Bundle\MigrationsBundle\EventListener\SchemaFilterListener">
-      <tag name="doctrine.dbal.schema_filter"/>
+      <tag name="doctrine.dbal.schema_filter" connection="default"/>
       <tag name="kernel.event_listener" event="console.command" method="onConsoleCommand"/>
       <tag name="container.no_preload"/>
       <argument>doctrine_migration_versions</argument>
@@ -7880,7 +7880,7 @@
       </call>
     </service>
     <service id="maker.auto_command.make_twig_component" class="Symfony\Bundle\MakerBundle\Command\MakerCommand">
-      <tag name="console.command" command="make:twig-component" description="Create a twig (or live) component"/>
+      <tag name="console.command" command="make:twig-component" description="Create a Twig (or Live) component"/>
       <tag name="container.no_preload"/>
       <argument type="service" id="maker.maker.make_twig_component"/>
       <argument type="service" id="maker.file_manager"/>
@@ -7890,7 +7890,7 @@
         <argument>make:twig-component</argument>
       </call>
       <call method="setDescription">
-        <argument>Create a twig (or live) component</argument>
+        <argument>Create a Twig (or Live) component</argument>
       </call>
     </service>
     <service id="maker.auto_command.make_controller" class="Symfony\Bundle\MakerBundle\Command\MakerCommand">
@@ -10008,7 +10008,7 @@
     <service id=".maker.auto_command.make_twig_component.lazy" class="Symfony\Component\Console\Command\LazyCommand">
       <argument>make:twig-component</argument>
       <argument type="collection"/>
-      <argument>Create a twig (or live) component</argument>
+      <argument>Create a Twig (or Live) component</argument>
       <argument>false</argument>
       <argument type="service_closure" id="maker.auto_command.make_twig_component"/>
     </service>

@@ -4,7 +4,8 @@
             {{ form_widget(form.name, {'attr': {'class': 'border rounded-xl w-1/2 p-3 h-12 resize-none', 'placeholder': 'Nawyk'}}) }}
             {{ form_widget(form.category, {'attr': {'class': 'w-1/2 p-3 rounded-xl border'}}) }}
         
-            <input type="hidden" name="{{ form._token.vars.full_name }}" value="{{ form._token.vars.value }}">
+            {# <input type="hidden" name="{{ form._token.vars.full_name }}" value="{{ form._token.vars.value }}"> #}
+            {{ form_widget(form._token) }}
         </div>
 
         <div class="btn w-full flex justify-center items-center gap-4 mb-8">

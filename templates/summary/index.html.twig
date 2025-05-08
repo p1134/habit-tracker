@@ -140,8 +140,8 @@
                     <div class="rounded-table w-full h-auto bg-black pl-8 pr-8 pt-4 pb-4">
                     <table class="bg-white rounded-table w-full">
                         <thead class="">
-                            <tr class="dni_tygodnia bg-black text-white">
-                                    <th class="p-1 w-[23%] tracking-widest font-semibold text-md main-color text-start pl-[3.5em]">Nawyki</th>
+                            <tr class="dni_tygodnia bg-black text-white w-full">
+                                    <th class="p-1 w-[23%] tracking-widest font-semibold text-md main-color text-start">Nawyki</th>
                                 {% set days = [1, 2, 3, 4, 5, 6, 0] %}
                                 {% for day in days %}
                                     <th class="p-1 w-[11%] font-normal tracking-widest text-md relative">
@@ -156,17 +156,17 @@
                     </table>
                     </div>
 
-                    <div class="table-scroll w-full h-[26em] overflow-y-auto mb-8">
-                    <table class="m-8 mt-0">
-                        <tbody class="overflow-y-auto w-full">
+                    <div class="table-scroll w-full h-[26em] overflow-y-auto mb-8 pl-8 pr-8 pt-0 pb-4">
+                    <table class="mt-0 w-full">
+                        <tbody class="overflow-y-auto w-auto">
                             {% for habit in habitsGrouped %}
                             {# <pre>
                                 {{ dump(habitsGrouped) }}
                             </pre> #}
                                 <tr class="nawyk">
                                     <td class="p-1 pt-2 pb-2 w-[23%] border-t border-r">
-                                        <div class="flex gap-4 items-center">
-                                            <span class="w-[2em]">
+                                        <div class="flex gap-4 items-center w-full break-words whitespace-normal">
+                                            {# <span class="w-[2em]">
                                             {% if habit.category == 1 %}
                                                 <span class="w-8 h-8 bg-blue-100 rounded-2xl flex justify-center items-center">
                                                     <img class="w-4 h-4" src="{{ asset('img/icon-blue.svg') }}" alt="">
@@ -180,11 +180,11 @@
                                                     <img class="w-4 h-4" src="{{ asset('img/icon-yellow.svg') }}" alt="">
                                                 </span>
                                             {% endif %}
-                                            </span>
+                                            </span> #}
 
-                                            <span class="break-words whitespace-normal">
+                                            {# <span class="break-words whitespace-normal"> #}
                                                 {{ habit.name }}
-                                            </span>
+                                            {# </span> #}
                                         </div>
                                     </td>
 

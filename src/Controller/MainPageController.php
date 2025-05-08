@@ -13,6 +13,7 @@ final class MainPageController extends AbstractController
     {
         return $this->render('main_page/index.html.twig', [
             'controller_name' => 'MainPageController',
+            'userData' => $user ?? null,
         ]);
     }
 }

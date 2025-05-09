@@ -60,19 +60,21 @@ final class ProfileController extends AbstractController
         
         $currentStreak = date_diff($today, $startDate)->days+1;
 
+    }
+
         //OSIAGNIECIA
 
         //Pierwszy krok
-        if($currentStreak > 1){
+        if($maxStreak > 1){
             $firstStepAchieve = true;
             $regularity++;
         }
         //Złota jesień zycia
-        if($currentStreak > 90){
+        if($maxStreak > 90){
             $goldLifeAchieve = true;
             $regularity++;
         }
-    }
+
         //Kreator rzeczywistości
     if($ownHabits->findBy(['user' => $user->getId()]) != null){
         $ownHabitAchieve = true;   

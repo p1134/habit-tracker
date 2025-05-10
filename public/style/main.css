@@ -89,6 +89,11 @@ body {
   height: 0.4em;
 }
 
+.fa-share-from-square:hover {
+  cursor: pointer;
+  color: #FABB18;
+}
+
 .main__content {
   padding: 0 6em 0 6em;
 }

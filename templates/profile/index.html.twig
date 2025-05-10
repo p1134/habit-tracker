@@ -156,9 +156,9 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="achivement__box achievement__box--regularity flex flex-col flex-wrap w-full h-full text-[1xrem] hidden border rounded-2xl" data-accordion-target="regularityBox">
+                                    <div class="achivement__box achievement__box--regularity flex flex-col flex-wrap w-full h-full text-[1xrem] hidden border rounded-2xl p-8 gap-8" data-accordion-target="regularityBox">
 
-                                        <div class="achivement__item w-full h-1/3 flex items-center gap-4 m-8">
+                                        <div class="achivement__item w-full h-1/3 flex items-center gap-4">
                                             <div class="w-11">
                                                 {% if firstStep is not null %}
                                                 <img class="w-full" src="{{ asset('/img/firststep.png') }}" alt="">
@@ -166,13 +166,20 @@
                                                 <img class="w-[90%]" src="{{ asset('/img/mystery.svg') }}" alt="">
                                                 {% endif %}
                                             </div>
-                                            <div class="">
-                                                <h2 class="font-semibold">Pierwszy krok</h2>
-                                                <p>Ukończono pierwszy dzień dobrych nawyków</p>
+                                            <div class="flex justify-between items-center w-full">
+                                                <div class="">
+                                                    <h2 class="font-semibold">Pierwszy krok</h2>
+                                                    <p>Ukończono pierwszy dzień dobrych nawyków</p>
+                                                </div>
+                                                {% if firstStep is not null %}
+                                                <div class="flex justify-center items-center">
+                                                    <i class="text-2xl fa-solid fa-share-from-square"></i>
+                                                </div>
+                                                {% endif %}
                                             </div>
                                         </div>
                                         
-                                        <div class="achivement__item w-full h-1/3 flex items-center gap-4 ml-8">
+                                        <div class="achivement__item w-full h-1/3 flex items-center gap-4">
                                             <div class="w-11">
                                                 {% if goldLife is not null %}
                                                 <img class="w-full" src="{{ asset('/img/jesien.png') }}" alt="">
@@ -180,13 +187,20 @@
                                                 <img class="w-[90%]" src="{{ asset('/img/mystery.svg') }}" alt="">
                                                 {% endif %}
                                             </div>
-                                            <div class="">
-                                                <h2 class="font-semibold">Złota jesień życia</h2>
-                                                <p>Utrzymanie dowolnego nawyku przez 90 dni</p>
+                                            <div class="flex justify-between items-center w-full">
+                                                <div class="">
+                                                    <h2 class="font-semibold">Złota jesień życia</h2>
+                                                    <p>Utrzymanie dowolnego nawyku przez 90 dni</p>
+                                                </div>
+                                                {% if goldLife is not null %}
+                                                <div class="flex justify-center items-center">
+                                                    <i class="text-2xl fa-solid fa-share-from-square"></i>
+                                                </div>
+                                                {% endif %}
                                             </div>
                                         </div>
 
-                                        <div class="achivement__item w-full h-1/3 flex items-center gap-4 m-8">
+                                        <div class="achivement__item w-full h-1/3 flex items-center gap-4">
                                             <div class="w-11">
                                                 {% if warrior == true %}
                                                 <img class="w-full" src="{{ asset('/img/weekend.png') }}" alt="">
@@ -194,9 +208,16 @@
                                                 <img class="w-[90%]" src="{{ asset('/img/mystery.svg') }}" alt="">
                                                 {% endif %}
                                             </div>
-                                            <div class="">
-                                                <h2 class="font-semibold">Weekendowy wojownik</h2>
-                                                <p>Wykonywanie nawyków przez miesiąc tylko w weekendy</p>
+                                            <div class="flex justify-between items-center w-full">
+                                                <div class="">
+                                                    <h2 class="font-semibold">Weekendowy wojownik</h2>
+                                                    <p>Wykonywanie nawyków przez miesiąc tylko w weekendy</p>
+                                                </div>
+                                                {% if warrior == true %}
+                                                <div class="flex justify-center items-center">
+                                                    <i class="text-2xl fa-solid fa-share-from-square"></i>
+                                                </div>
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
@@ -226,9 +247,9 @@
                                     </div>
                                     
 
-                                    <div class="achievement__box--develop flex flex-col flex-wrap w-full h-full text-[1rem] hidden rounded-2xl border" data-accordion-target="developBox">
+                                    <div class="achievement__box--develop flex flex-col flex-wrap w-full h-full text-[1rem] hidden rounded-2xl border p-8 gap-8" data-accordion-target="developBox">
 
-                                        <div class="achivement__item w-full h-1/3 flex items-center m-8 gap-4">
+                                        <div class="achivement__item w-full h-1/3 flex items-center gap-4">
                                             <div class="w-11">
                                                 {% if break == true %}
                                                 <img class="w-full" src="{{ asset('/img/marnotrawny.png') }}" alt="">
@@ -236,13 +257,20 @@
                                                 <img class="w-[90%]" src="{{ asset('/img/mystery.svg') }}" alt="">
                                                 {% endif %}
                                             </div>
-                                            <div class="">
-                                                <h2 class="font-semibold">Syn marnotrawny</h2>
-                                                <p>Powrót po przerwie do dobrej rutyny</p>
+                                            <div class="flex justify-between items-center w-full">
+                                                <div class="">
+                                                    <h2 class="font-semibold">Syn marnotrawny</h2>
+                                                    <p>Powrót po przerwie do dobrej rutyny</p>
+                                                </div>
+                                                {% if break == true %}
+                                                <div class="flex justify-center items-center">
+                                                    <i class="text-2xl fa-solid fa-share-from-square"></i>
+                                                </div>
+                                                {% endif %}
                                             </div>
                                         </div>
                                         
-                                        <div class="achivement__item w-full h-1/3 flex items-center gap-4 ml-8">
+                                        <div class="achivement__item w-full h-1/3 flex items-center gap-4">
                                             <div class="w-11">
                                                 {% if newRoutine == true %}
                                                 <img class="w-full" src="{{ asset('/img/rutyna.png') }}" alt="">
@@ -250,13 +278,20 @@
                                                 <img class="w-[90%]" src="{{ asset('/img/mystery.svg') }}" alt="">
                                                 {% endif %}
                                             </div>
-                                            <div class="">
-                                                <h2 class="font-semibold">Nowa rutyna</h2>
-                                                <p>Dodaj nowy nawyk po 30 dniach</p>
+                                            <div class="flex justify-between items-center w-full">
+                                                <div class="">
+                                                    <h2 class="font-semibold">Nowa rutyna</h2>
+                                                    <p>Dodaj nowy nawyk po 30 dniach</p>
+                                                </div>
+                                                {% if newRoutine == true %}
+                                                <div class="flex justify-center items-center">
+                                                    <i class="text-2xl fa-solid fa-share-from-square"></i>
+                                                </div>
+                                                {% endif %}
                                             </div>
                                         </div>
 
-                                        <div class="achivement__item w-full h-1/3 flex items-center gap-4 m-8">
+                                        <div class="achivement__item w-full h-1/3 flex items-center gap-4">
                                             <div class="w-11">
                                                 {% if ownHabit == true %}
                                                 <img class="w-full" src="{{ asset('/img/kreator.png') }}" alt="">
@@ -264,9 +299,16 @@
                                                 <img class="w-[90%]" src="{{ asset('/img/mystery.svg') }}" alt="">
                                                 {% endif %}
                                             </div>
-                                            <div class="">
-                                                <h2 class="font-semibold">Kreator rzeczywistości</h2>
-                                                <p>Stwórz własny nawyk do śledzenia</p>
+                                            <div class="flex justify-between items-center w-full">
+                                                <div class="">
+                                                    <h2 class="font-semibold">Kreator rzeczywistości</h2>
+                                                    <p>Stwórz własny nawyk do śledzenia</p>
+                                                </div>
+                                                {% if ownHabit == true %}
+                                                <div class="flex justify-center items-center">
+                                                    <i class="text-2xl fa-solid fa-share-from-square"></i>
+                                                </div>
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
@@ -296,9 +338,9 @@
                                     </div>
                                     
 
-                                    <div class="achievement__box achievement__box--quantity flex flex-col flex-wrap w-full h-full text-[1rem] hidden border rounded-2xl" data-accordion-target="quantityBox">
+                                    <div class="achievement__box achievement__box--quantity flex flex-col flex-wrap w-full h-full text-[1rem] hidden border rounded-2xl p-8 gap-8" data-accordion-target="quantityBox">
 
-                                        <div class="achivement__item h-1/3 w-full flex items-center gap-4 m-8">
+                                        <div class="achivement__item h-1/3 w-full flex items-center gap-4">
                                             <div class="w-11">
                                                 {% if multi == true %}
                                                 <img class="w-full" src="{{ asset('/img/multi.png') }}" alt="">
@@ -306,13 +348,20 @@
                                                 <img class="w-[90%]" src="{{ asset('/img/mystery.svg') }}" alt="">
                                                 {% endif %}
                                             </div>
-                                            <div class="">
-                                                <h2 class="font-semibold">Multizadaniowiec</h2>
-                                                <p>Śledzenie +3 nawyków</p>
+                                            <div class="flex justify-between items-center w-full">
+                                                <div class="">
+                                                    <h2 class="font-semibold">Multizadaniowiec</h2>
+                                                    <p>Śledzenie +3 nawyków</p>
+                                                </div>
+                                                {% if multi == true %}
+                                                <div class="flex justify-center items-center">
+                                                    <i class="text-2xl fa-solid fa-share-from-square"></i>
+                                                </div>
+                                                {% endif %}
                                             </div>
                                         </div>
                                         
-                                        <div class="achivement__item h-1/3 w-full flex items-center gap-4 ml-8">
+                                        <div class="achivement__item h-1/3 w-full flex items-center gap-4">
                                             <div class="w-11">
                                                 {% if ninja == true %}
                                                 <img class="w-full" src="{{ asset('/img/ninja.png') }}" alt="">
@@ -320,13 +369,20 @@
                                                 <img class="w-[90%]" src="{{ asset('/img/mystery.svg') }}" alt="">
                                                 {% endif %}
                                             </div>
-                                            <div class="">
-                                                <h2 class="font-semibold">Nawykowy Ninja</h2>
-                                                <p>Śledzenie +6 nawyków</p>
+                                            <div class="flex justify-between items-center w-full">
+                                                <div class="">
+                                                    <h2 class="font-semibold">Nawykowy Ninja</h2>
+                                                    <p>Śledzenie +6 nawyków</p>
+                                                </div>
+                                                {% if ninja == true %}
+                                                <div class="flex justify-center items-center">
+                                                    <i class="text-2xl fa-solid fa-share-from-square"></i>
+                                                </div>
+                                                {% endif %}
                                             </div>
                                         </div>
 
-                                        <div class="achivement__item h-1/3 w-full flex items-center gap-4 m-8">
+                                        <div class="achivement__item h-1/3 w-full flex items-center gap-4">
                                             <div class="w-11">
                                                 {% if master == true %}
                                                 <img class="w-full" src="{{ asset('/img/mistrz.png') }}" alt="">
@@ -334,9 +390,16 @@
                                                 <img class="w-[90%]" src="{{ asset('/img/mystery.svg') }}" alt="">
                                                 {% endif %}
                                             </div>
-                                            <div class="">
-                                                <h2 class="font-semibold">Mistrz rutyny</h2>
-                                                <p>Śledzenie +10 nawyków</p>
+                                            <div class="flex justify-between items-center w-full">
+                                                <div class="">
+                                                    <h2 class="font-semibold">Mistrz rutyny</h2>
+                                                    <p>Śledzenie +10 nawyków</p>
+                                                </div>
+                                                {% if master == true %}
+                                                <div class="flex justify-center items-center">
+                                                    <i class="text-2xl fa-solid fa-share-from-square"></i>
+                                                </div>
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>

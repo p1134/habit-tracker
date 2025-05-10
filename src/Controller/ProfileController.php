@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Achievement;
+use App\Repository\AchievementRepository;
 use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\UX\Chartjs\Model\Chart;
 use App\Repository\OwnHabitRepository;
 use App\Repository\TrackingRepository;
@@ -16,7 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 final class ProfileController extends AbstractController
 {
     #[Route('/profile', name: 'app_profile')]
-    public function index(TrackingRepository $trackings, OwnHabitRepository $ownHabits, SelectedHabitsRepository $selectedHabits, ChartBuilderInterface $chartBuilder): Response
+    public function index(TrackingRepository $trackings, OwnHabitRepository $ownHabits, SelectedHabitsRepository $selectedHabits, AchievementRepository $achievements, EntityManagerInterface $em, ChartBuilderInterface $chartBuilder): Response
     {
         $user = $this->getUser();
 
@@ -66,17 +69,50 @@ final class ProfileController extends AbstractController
 
         //Pierwszy krok
         if($maxStreak > 1){
-            $firstStepAchieve = true;
-            $regularity++;
+            if($achievements->findOneBy(['user' => $user->getId(),'name' => 'Pierwszy krok']) == null){
+            $achievement = new Achievement();
+            $achievement->setUser($user);
+            $achievement->setName('Pierwszy krok');
+            $achievement->setDateCreate(new DateTime('now'));
+            $achievement->setIsShared(false);
+
+            $em->persist($achievement);
+            $em->flush();
+
         }
+        $firstStepAchieve = true;
+        $regularity++;
+    }
         //Złota jesień zycia
         if($maxStreak > 90){
+            if($achievements->findOneBy(['user' => $user->getId(),'name' => 'Jesień życia']) == null){
+                $achievement = new Achievement();
+                $achievement->setUser($user);
+                $achievement->setName('Jesień życia');
+                $achievement->setDateCreate(new DateTime('now'));
+                $achievement->setIsShared(false);
+    
+                $em->persist($achievement);
+                $em->flush();
+    
+            }
             $goldLifeAchieve = true;
             $regularity++;
         }
 
         //Kreator rzeczywistości
     if($ownHabits->findBy(['user' => $user->getId()]) != null){
+        if($achievements->findOneBy(['user' => $user->getId(),'name' => 'Kreator rzeczywistości']) == null){
+            $achievement = new Achievement();
+            $achievement->setUser($user);
+            $achievement->setName('Kreator rzeczywistości');
+            $achievement->setDateCreate(new DateTime('now'));
+            $achievement->setIsShared(false);
+
+            $em->persist($achievement);
+            $em->flush();
+
+        }
         $ownHabitAchieve = true;   
         $selfDevelopment++;
     }
@@ -94,6 +130,18 @@ final class ProfileController extends AbstractController
         if($slice === $pattern){
             $weekendAchieve = true;
             $regularity++;
+
+            if($achievements->findOneBy(['user' => $user->getId(),'name' => 'Weekendowy wojownik']) == null){
+                $achievement = new Achievement();
+                $achievement->setUser($user);
+                $achievement->setName('Weekendowy wojownik');
+                $achievement->setDateCreate(new DateTime('now'));
+                $achievement->setIsShared(false);
+    
+                $em->persist($achievement);
+                $em->flush();
+    
+            }
         }
     }
 
@@ -109,12 +157,24 @@ final class ProfileController extends AbstractController
             if((int)$dayDiff > 2){
                 $backAchieve = true;
                 $selfDevelopment++;
+
+                if($achievements->findOneBy(['user' => $user->getId(),'name' => 'Powrót po przerwie']) == null){
+                    $achievement = new Achievement();
+                    $achievement->setUser($user);
+                    $achievement->setName('Powrót po przerwie');
+                    $achievement->setDateCreate(new DateTime('now'));
+                    $achievement->setIsShared(false);
+        
+                    $em->persist($achievement);
+                    $em->flush();
+        
+                }
             }
         }
     }
         //Nowa rutyna
     $selected = $selectedHabits->getDate($user);
-    // dd($selected);
+
     if(!empty($selected) && count($selected) >= 2){
         $lastDate = $selected[0]['date'];
         $beforeLast = $selected[1]['date'];
@@ -123,6 +183,18 @@ final class ProfileController extends AbstractController
         if((int)$dayDiff >= 30){
             $newRoutineAchieve = true;
             $selfDevelopment++;
+
+            if($achievements->findOneBy(['user' => $user->getId(),'name' => 'Nowa rutyna']) == null){
+                $achievement = new Achievement();
+                $achievement->setUser($user);
+                $achievement->setName('Nowa rutyna');
+                $achievement->setDateCreate(new DateTime('now'));
+                $achievement->setIsShared(false);
+    
+                $em->persist($achievement);
+                $em->flush();
+    
+            }
     }
 
         //Multizadaniowiec
@@ -131,16 +203,52 @@ final class ProfileController extends AbstractController
     if($countSelected >= 3){
         $multiAchieve = true;
         $multitasking++;
+
+        if($achievements->findOneBy(['user' => $user->getId(),'name' => 'Multizadaniowiec']) == null){
+            $achievement = new Achievement();
+            $achievement->setUser($user);
+            $achievement->setName('Multizadaniowiec');
+            $achievement->setDateCreate(new DateTime('now'));
+            $achievement->setIsShared(false);
+
+            $em->persist($achievement);
+            $em->flush();
+
+        }
     }
         //Ninja
     if($countSelected >= 6){
         $ninjaAchieve = true;
         $multitasking++;
+
+        if($achievements->findOneBy(['user' => $user->getId(),'name' => 'Nawykowy Ninja']) == null){
+            $achievement = new Achievement();
+            $achievement->setUser($user);
+            $achievement->setName('Nawykowy Ninja');
+            $achievement->setDateCreate(new DateTime('now'));
+            $achievement->setIsShared(false);
+
+            $em->persist($achievement);
+            $em->flush();
+
+        }
     }
         //Master
     if($countSelected >= 10){
         $masterAchieve = true;
         $multitasking++;
+
+        if($achievements->findOneBy(['user' => $user->getId(),'name' => 'Mistrz rutyny']) == null){
+            $achievement = new Achievement();
+            $achievement->setUser($user);
+            $achievement->setName('Mistrz rutyny');
+            $achievement->setDateCreate(new DateTime('now'));
+            $achievement->setIsShared(false);
+
+            $em->persist($achievement);
+            $em->flush();
+
+        }
     }
 
     //Wykres kategorii

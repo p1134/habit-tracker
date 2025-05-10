@@ -19334,3 +19334,11 @@ ad25fb,127.0.0.1,GET,http://127.0.0.1:8000/habits/summary,1746896169,,200,reques
 909d7c,127.0.0.1,GET,http://127.0.0.1:8000/habits,1746896230,,200,request
 692dba,127.0.0.1,GET,http://127.0.0.1:8000/habits/summary,1746896234,,200,request
 daa268,127.0.0.1,GET,http://127.0.0.1:8000/community,1746896235,,200,request
+131aad,127.0.0.1,GET,http://127.0.0.1:8000/community,1746897768,,200,request
+4fc8e5,127.0.0.1,GET,http://127.0.0.1:8000/profile,1746897769,,200,request
+d8f857,127.0.0.1,GET,http://127.0.0.1:8000/profile,1746897772,,200,request
+b7fc75,127.0.0.1,GET,http://127.0.0.1:8000/profile,1746897810,,200,request
+d0951a,127.0.0.1,GET,http://127.0.0.1:8000/profile,1746897831,,200,request
+e26171,127.0.0.1,GET,http://127.0.0.1:8000/profile,1746897997,,200,request
+b90df6,127.0.0.1,GET,http://127.0.0.1:8000/profile,1746898299,,200,request
+7b65e7,127.0.0.1,GET,http://127.0.0.1:8000/profile,1746898302,,200,request

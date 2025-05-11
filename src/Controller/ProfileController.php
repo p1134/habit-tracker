@@ -69,6 +69,9 @@ final class ProfileController extends AbstractController
 
         //Pierwszy krok
         if($maxStreak > 1){
+            $firstStepAchieve = true;
+            $regularity++;
+
             if($achievements->findOneBy(['user' => $user->getId(),'name' => 'Pierwszy krok']) == null){
             $achievement = new Achievement();
             $achievement->setUser($user);
@@ -78,13 +81,19 @@ final class ProfileController extends AbstractController
 
             $em->persist($achievement);
             $em->flush();
-
+            
+            $firstStepShare = $achievement->isShared();
+            }
+            else{
+                $achievement = $achievements->findOneBy(['user'=> $user->getId(),'name'=> 'Pierwszy krok']);
+                $firstStepShare = $achievement->isShared();
+            }
         }
-        $firstStepAchieve = true;
-        $regularity++;
-    }
         //Złota jesień zycia
         if($maxStreak > 90){
+            $goldLifeAchieve = true;
+            $regularity++;
+
             if($achievements->findOneBy(['user' => $user->getId(),'name' => 'Jesień życia']) == null){
                 $achievement = new Achievement();
                 $achievement->setUser($user);
@@ -94,14 +103,20 @@ final class ProfileController extends AbstractController
     
                 $em->persist($achievement);
                 $em->flush();
-    
+                
+                $goldLifeShare = $achievement->isShared();
             }
-            $goldLifeAchieve = true;
-            $regularity++;
+            else{
+                $achievement = $achievements->findOneBy(['user'=> $user->getId(),'name'=> 'Jesień życia']);
+                $goldLifeShare = $achievement->isShared();
+            }
         }
 
         //Kreator rzeczywistości
     if($ownHabits->findBy(['user' => $user->getId()]) != null){
+        $selfDevelopment++;
+        $ownHabitAchieve = true;  
+
         if($achievements->findOneBy(['user' => $user->getId(),'name' => 'Kreator rzeczywistości']) == null){
             $achievement = new Achievement();
             $achievement->setUser($user);
@@ -112,9 +127,12 @@ final class ProfileController extends AbstractController
             $em->persist($achievement);
             $em->flush();
 
+            $ownHabitShare = $achievement->isShared();
         }
-        $ownHabitAchieve = true;   
-        $selfDevelopment++;
+        else{
+            $achievement = $achievements->findOneBy(['user'=> $user->getId(),'name'=> 'Kreator rzeczywistości']);
+            $ownHabitShare = $achievement->isShared();
+        }
     }
 
         //Weekendowy wojownik
@@ -140,7 +158,10 @@ final class ProfileController extends AbstractController
     
                 $em->persist($achievement);
                 $em->flush();
-    
+            }
+            else{
+                $achievement = $achievements->findOneBy(['user'=> $user->getId(),'name'=> 'Weekendowy wojownik']);
+                $weekendShare = $achievement->isShared();
             }
         }
     }
@@ -168,6 +189,11 @@ final class ProfileController extends AbstractController
                     $em->persist($achievement);
                     $em->flush();
         
+                    $backShare = $achievement->isShared();
+                }
+                else{
+                    $achievement = $achievements->findOneBy(['user'=> $user->getId(),'name'=> 'Powrót po przerwie']);
+                    $backShare = $achievement->isShared();
                 }
             }
         }
@@ -194,6 +220,11 @@ final class ProfileController extends AbstractController
                 $em->persist($achievement);
                 $em->flush();
     
+                $newRoutineShare = $achievement->isShared();
+            }
+            else{
+                $achievement = $achievements->findOneBy(['user'=> $user->getId(),'name'=> 'Nowa rutyna']);
+                $newRoutineShare = $achievement->isShared();
             }
     }
 
@@ -214,6 +245,11 @@ final class ProfileController extends AbstractController
             $em->persist($achievement);
             $em->flush();
 
+            $multiShare = $achievement->isShared();
+        }
+        else{
+            $achievement = $achievements->findOneBy(['user'=> $user->getId(),'name'=> 'Multizadaniowiec']);
+            $multiShare = $achievement->isShared();
         }
     }
         //Ninja
@@ -231,6 +267,11 @@ final class ProfileController extends AbstractController
             $em->persist($achievement);
             $em->flush();
 
+            $ninjaShare = $achievement->isShared();
+        }
+        else{
+            $achievement = $achievements->findOneBy(['user'=> $user->getId(),'name'=> 'Nawykowy Ninja']);
+            $ninjaShare = $achievement->isShared();
         }
     }
         //Master
@@ -248,6 +289,11 @@ final class ProfileController extends AbstractController
             $em->persist($achievement);
             $em->flush();
 
+            $masterShare = $achievement->isShared();
+        }
+        else{
+            $achievement = $achievements->findOneBy(['user'=> $user->getId(),'name'=> 'Mistrz rutyny']);
+            $masterShare = $achievement->isShared();
         }
     }
 
@@ -334,10 +380,21 @@ $chart->setOptions([
             'multi' => $multiAchieve ?? null,
             'ninja' => $ninjaAchieve ?? null,
             'master' => $masterAchieve ?? null,
+
+            'regularity' => $regularity ?? null,
+            'selfDevelopment' => $selfDevelopment ?? null,
+            'multitasking' => $multitasking ?? null,
+            'firstStepShare' => $firstStepShare ?? null,
+            'goldLifeShare' => $goldLifeShare ?? null,
+            'ownHabitShare' => $ownHabitShare ?? null,
+            'warriorShare' => $weekendShare ?? null,
+            'breakShare' => $backShare ?? null,
+            'newRoutineShare' => $newRoutineShare ?? null,
+            'multiShare' => $multiShare ?? null,
+            'ninjaShare' => $ninjaShare ?? null,
+            'masterShare' => $masterShare ?? null,
+
             'chart' => $chart,
-            'regularity' => $regularity,
-            'selfDevelopment' => $selfDevelopment,
-            'multitasking' => $multitasking,
         ]);
     }
 }

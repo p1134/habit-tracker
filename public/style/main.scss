@@ -1,3 +1,6 @@
+* {
+    box-sizing: border-box;
+  }
 body{
     font-family: "Poppins", sans-serif;
 }
@@ -91,6 +94,13 @@ body{
 .fa-share-from-square:hover{
     cursor: pointer;
     color: #FABB18;
+}
+
+.achivement__item:hover .share-icon{
+    opacity: 1;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: opacity 0.1s ease-in-out;
 }
 
 .main{

@@ -4,11 +4,11 @@
 
 {% block body %}
 
-<div class="habits__container w-full h-screen flex flex-col">
+<div class="habits__container w-full max-h-full flex flex-col">
 
     <div class="flex flex w-full h-full">
         {# Nawigacja #}
-        <div class="nav__container h-full mt-5 flex justify-center">
+        <div class="nav__container h-[100vh] mt-5 flex justify-center">
             <div class="nav__container h-full flex flex-col items-center">
                 <div class="nav__name mb-16">
                     <p class="text-4xl font-bold">HABITIF<span class="main-color">Y.</span></p>
@@ -66,35 +66,35 @@
 
         </div>
 
-        <div class="main-container w-full h-full flex flex-col">
-            {# Górny pasek z profilem #}
-            <div class="nav flex w-full justify-between h-10 mb-4 mt-4">
-                <div class="name-page ml-8 text-xl font-semibold">
-                Mój profil
-                </div>
-
-                <div class="profile flex justify-center items-center gap-4">
-                    <div class="profile-text">
-                        <a href="{{ path('app_profile') }}">
-                            <p>{{ userData.firstname }} {{ userData.lastname }} </p>
-                        </a>
-                    </div>
-
-                    <div class="profile-icon w-30 h-30">
-                        <a href="{{ path('app_profile') }}">
-                            {% if userData.gender == 'M' %}
-                                <img src="{{ asset('/img/profile.svg') }}">
-                            {% else %}
-                                <img src="{{ asset('/img/profilek.svg') }}">
-                            {% endif %}
-                        </a>
-                    </div>
-                </div>
+{# Górny pasek z profilem #}
+        <div class="w-full">
+        <div class="nav flex w-full justify-between h-10 mb-4 mt-4">
+            <div class="name-page ml-8 text-xl font-semibold">
+                 Mój profil
             </div>
 
+            <div class="profile flex justify-center items-center gap-4">
+                <div class="profile-text">
+                    <a href="{{ path('app_profile') }}">
+                        <p>{{ userData.firstname }} {{ userData.lastname }} </p>                        </a>
+                </div>
+
+                <div class="profile-icon w-30 h-30">
+                    <a href="{{ path('app_profile') }}">
+                        {% if userData.gender == 'M' %}
+                            <img src="{{ asset('/img/profile.svg') }}">
+                        {% else %}
+                            <img src="{{ asset('/img/profilek.svg') }}">
+                        {% endif %}
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="main-container w-full h-[100vh] flex flex-col pb-8">
+
             {# Panel główny podsumowania #}
-            <div class="habits__main h-full w-full main__background flex gap-4">
-                <div class="habits__panel flex gap-8 m-8 w-full h-auto">
+            <div class="habits__main h-full w-full main__background flex gap-4 pb-9">
+                <div class="habits__panel flex gap-8 w-full h-full p-8">
 
                     <div class="habits__panel-l w-1/3 h-full flex flex-col gap-8">
                         <div class="panel__left--top bg-white rounded-[40px] w-full h-1/4 flex flex-col">
@@ -129,9 +129,9 @@
 
                         </div>
                     </div>
-                    <div class="habits__panel-r w-2/3 h-full bg-white rounded-[40px]">
-                        <div class="m-8 flex flex-col w-auto h-[35em] overflow-hidden">
-                            <div class="overflow-y-scroll w-full h-full">
+                    <div class="habits__panel-r w-2/3 h-full bg-white rounded-[40px] p-8">
+                        <div class="flex flex-col w-full h-full overflow-hidden">
+                            <div class="overflow-y-auto w-full h-full flex-1">
 
                                 <div class="w-full h-auto mb-4 flex flex-col gap-2" data-controller="accordion">
                                     <div class="profile__regularity achievement__header flex border rounded-2xl cursor-pointer" data-action="click->accordion#toggleRegularity">
@@ -171,8 +171,8 @@
                                                     <h2 class="font-semibold">Pierwszy krok</h2>
                                                     <p>Ukończono pierwszy dzień dobrych nawyków</p>
                                                 </div>
-                                                {% if firstStep is not null %}
-                                                <div class="flex justify-center items-center">
+                                                {% if firstStepShare is not null and firstStepShare == 0 %}
+                                                <div class="share-icon opacity-0 flex justify-center items-center">
                                                     <i class="text-2xl fa-solid fa-share-from-square"></i>
                                                 </div>
                                                 {% endif %}
@@ -192,9 +192,9 @@
                                                     <h2 class="font-semibold">Złota jesień życia</h2>
                                                     <p>Utrzymanie dowolnego nawyku przez 90 dni</p>
                                                 </div>
-                                                {% if goldLife is not null %}
+                                                {% if goldLifeShare is not null and goldLifeShare == 0 %}
                                                 <div class="flex justify-center items-center">
-                                                    <i class="text-2xl fa-solid fa-share-from-square"></i>
+                                                    <i class="text-2xl fa-solid fa-share-from-square share-icon opacity-0"></i>
                                                 </div>
                                                 {% endif %}
                                             </div>
@@ -213,9 +213,9 @@
                                                     <h2 class="font-semibold">Weekendowy wojownik</h2>
                                                     <p>Wykonywanie nawyków przez miesiąc tylko w weekendy</p>
                                                 </div>
-                                                {% if warrior == true %}
+                                                {% if warriorShare is not null and warriorShare == 0 %}
                                                 <div class="flex justify-center items-center">
-                                                    <i class="text-2xl fa-solid fa-share-from-square"></i>
+                                                    <i class="text-2xl fa-solid fa-share-from-square share-icon opacity-0"></i>
                                                 </div>
                                                 {% endif %}
                                             </div>
@@ -262,9 +262,9 @@
                                                     <h2 class="font-semibold">Syn marnotrawny</h2>
                                                     <p>Powrót po przerwie do dobrej rutyny</p>
                                                 </div>
-                                                {% if break == true %}
+                                                {% if breakShare is not null and breakShare == 0 %}
                                                 <div class="flex justify-center items-center">
-                                                    <i class="text-2xl fa-solid fa-share-from-square"></i>
+                                                    <i class="share-icon text-2xl fa-solid fa-share-from-square opacity-0"></i>
                                                 </div>
                                                 {% endif %}
                                             </div>
@@ -283,9 +283,9 @@
                                                     <h2 class="font-semibold">Nowa rutyna</h2>
                                                     <p>Dodaj nowy nawyk po 30 dniach</p>
                                                 </div>
-                                                {% if newRoutine == true %}
+                                                {% if newRoutineShare is not null and newRoutineShare == 0 %}
                                                 <div class="flex justify-center items-center">
-                                                    <i class="text-2xl fa-solid fa-share-from-square"></i>
+                                                    <i class="share-icon text-2xl fa-solid fa-share-from-square opacity-0"></i>
                                                 </div>
                                                 {% endif %}
                                             </div>
@@ -304,8 +304,8 @@
                                                     <h2 class="font-semibold">Kreator rzeczywistości</h2>
                                                     <p>Stwórz własny nawyk do śledzenia</p>
                                                 </div>
-                                                {% if ownHabit == true %}
-                                                <div class="flex justify-center items-center">
+                                                {% if ownHabitShare is not null and ownHabitShare == 0 %}
+                                                <div class="share-icon opacity-0 flex justify-center items-center">
                                                     <i class="text-2xl fa-solid fa-share-from-square"></i>
                                                 </div>
                                                 {% endif %}
@@ -353,8 +353,8 @@
                                                     <h2 class="font-semibold">Multizadaniowiec</h2>
                                                     <p>Śledzenie +3 nawyków</p>
                                                 </div>
-                                                {% if multi == true %}
-                                                <div class="flex justify-center items-center">
+                                                {% if multiShare is not null and multiShare == 0 %}
+                                                <div class="share-icon opacity-0 flex justify-center items-center">
                                                     <i class="text-2xl fa-solid fa-share-from-square"></i>
                                                 </div>
                                                 {% endif %}
@@ -374,8 +374,8 @@
                                                     <h2 class="font-semibold">Nawykowy Ninja</h2>
                                                     <p>Śledzenie +6 nawyków</p>
                                                 </div>
-                                                {% if ninja == true %}
-                                                <div class="flex justify-center items-center">
+                                                {% if ninjaShare is not null and ninjaShare == 0 %}
+                                                <div class="share-icon opacity-0 flex justify-center items-center">
                                                     <i class="text-2xl fa-solid fa-share-from-square"></i>
                                                 </div>
                                                 {% endif %}
@@ -395,9 +395,9 @@
                                                     <h2 class="font-semibold">Mistrz rutyny</h2>
                                                     <p>Śledzenie +10 nawyków</p>
                                                 </div>
-                                                {% if master == true %}
+                                                {% if masterShare is not null and masterShare == 0 %}
                                                 <div class="flex justify-center items-center">
-                                                    <i class="text-2xl fa-solid fa-share-from-square"></i>
+                                                    <i class="share-icon opacity-0 text-2xl fa-solid fa-share-from-square"></i>
                                                 </div>
                                                 {% endif %}
                                             </div>
@@ -410,6 +410,7 @@
                 </div>
 
             </div>  
+        </div>
                
         </div>
     </div>

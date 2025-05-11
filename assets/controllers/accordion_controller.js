@@ -2,23 +2,23 @@ import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   static targets = [
-    "regularityBtn", "regularityBox",
-    "developBtn", "developBox",
-    "quantityBtn", "quantityBox"
+    "regularityIcon", "regularityBox",
+    "developIcon", "developBox",
+    "quantityIcon", "quantityBox"
   ];
 
   toggleRegularity() {
     this.regularityBoxTarget.classList.toggle("hidden");
-    this.regularityBtnTarget.classList.toggle("rotate-90");
+    this.regularityIconTarget.classList.toggle("rotate-90");
   }
 
   toggleDevelop() {
     this.developBoxTarget.classList.toggle("hidden");
-    this.developBtnTarget.classList.toggle("rotate-90");
+    this.developIconTarget.classList.toggle("rotate-90");
   }
 
   toggleQuantity() {
     this.quantityBoxTarget.classList.toggle("hidden");
-    this.quantityBtnTarget.classList.toggle("rotate-90");
+    this.quantityIconTarget.classList.toggle("rotate-90");
   }
 }

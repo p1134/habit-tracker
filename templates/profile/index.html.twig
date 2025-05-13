@@ -68,350 +68,396 @@
 
 {# Górny pasek z profilem #}
         <div class="w-full">
-        <div class="nav flex w-full justify-between h-[10vh]">
-            <div class="name-page ml-8 text-xl font-semibold">
-                 Mój profil
-            </div>
-
-            <div class="profile flex justify-center items-center gap-4">
-                <div class="profile-text">
-                    <a href="{{ path('app_profile') }}">
-                        <p>{{ userData.firstname }} {{ userData.lastname }} </p>                        </a>
+            <div class="nav flex w-full justify-between h-[10vh]">
+                <div class="name-page ml-8 text-xl font-semibold">
+                    Mój profil
                 </div>
 
-                <div class="profile-icon w-30 h-30">
-                    <a href="{{ path('app_profile') }}">
-                        {% if userData.gender == 'M' %}
-                            <img src="{{ asset('/img/profile.svg') }}">
-                        {% else %}
-                            <img src="{{ asset('/img/profilek.svg') }}">
-                        {% endif %}
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="main-container w-full h-[90vh] flex flex-col">
-
-            {# Panel główny podsumowania #}
-            <div class="habits__main h-full w-full main__background flex gap-4">
-                <div class="habits__panel flex gap-8 w-full h-full p-8">
-
-                    <div class="habits__panel-l w-1/3 h-full flex flex-col gap-8">
-                        <div class="panel__left--top bg-white rounded-[40px] w-full h-1/4 flex flex-col">
-                            <div class="profile flex m-6 mb-0 items-center gap-4 w-auto">
-                                <div class="img flex w-[110px]">
-                                {% if userData.gender == 'M' %}
-                                    <img class="w-full" src="{{ asset('/img/profile.svg') }}">
-                                {% else %}
-                                    <img class="w-full" src="{{ asset('/img/profilek.svg') }}">
-                                {% endif %}
-                                </div>
-                                <div class="profile-text flex w-full justify-between">
-                                    <div class="profile-data">
-                                        <p class="font-semibold">{{ userData.firstname }} {{ userData.lastname }}</p>
-                                        <p class="font-light text-sm">{{ userData.email }}</p>
-                                    </div>
-                                    <div class="profile-date">
-                                        <p class="font-light text-sm mt-1">{{ userData.joinDate|date('d/m/Y') }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="level w-auto h-auto flex items-end mr-6 ml-6 mb-6 flex-col">
-                                <p class="text-sm">Poziom 1</p>
-                                <div class="exp-bar main__background--gold w-3/4 h-1.5 rounded-md"></div>
-                            </div>
-                        </div>
-                        <div class="panel__left--bottom bg-white rounded-[40px] wfull h-3/4 flex items-center justify-center">
-                            <div class="w-full h-full flex flex-wrap justify-center items-center m-8">
-                                <h2 class="text-[1.1rem] text-center">Wykonane nawyki według kategorii</h2>
-                                {{ render_chart(chart) }}
-                            </div>
-
-                        </div>
+                <div class="profile flex justify-center items-center gap-4">
+                    <div class="profile-text">
+                        <a href="{{ path('app_profile') }}">
+                            <p>{{ userData.firstname }} {{ userData.lastname }} </p>
+                        </a>
                     </div>
-                    <div class="habits__panel-r w-2/3 h-full bg-white rounded-[40px] p-8">
-                        <div class="flex flex-col w-full h-full overflow-hidden">
-                            <div class="overflow-y-auto w-full h-full flex-1">
 
-                                <div class="w-full h-auto mb-4 flex flex-col gap-2" data-controller="accordion">
-                                    <div class="profile__regularity achievement__header flex border rounded-2xl cursor-pointer" data-action="click->accordion#toggleRegularity">
-                                        <div class="flex items-center justify-between w-full text-[1.1rem] font-semibold m-4">
-                                            <div class="title flex gap-4 items-center ml-4">
-                                                <img class="w-10" src="{{ asset('/img/regularnosc.svg') }}" alt="">
-                                                <h1>Regularność</h1>
-                                                <div class=" text-[1rem] ml-6 flex items-center justify-center gap-4">
-                                                    {{ regularity }} / 3
-                                                    {% if regularity == 3 %}
-                                                    <div class="w-4 h-4 border border-gray-300 rounded-xl flex items-center justify-center bg-black">
-                                                        <i class="text-[0.7rem] text-white fa-solid fa-check"></i>
-                                                    </div>
-                                                    {% else %}
-                                                    <div class="w-4 h-4 border border-gray-300 rounded-xl flex items-center justify-center"></div>
-                                                    {% endif %}
-                                                </div>
-                                            </div>
-                                            <div class="dropdown-icon mr-6">
-                                                <i class="regularity-btn fa-solid fa-chevron-right" data-accordion-target="regularityIcon"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="achivement__box achievement__box--regularity flex flex-col flex-wrap w-full h-full text-[1xrem] hidden border rounded-2xl p-8 gap-8" data-accordion-target="regularityBox">
-
-                                        <div class="achivement__item w-full h-1/3 flex items-center gap-4">
-                                            <div class="w-11">
-                                                {% if firstStep is not null %}
-                                                <img class="w-full" src="{{ asset('/img/firststep.png') }}" alt="">
-                                                {% else %}
-                                                <img class="w-[90%]" src="{{ asset('/img/mystery.svg') }}" alt="">
-                                                {% endif %}
-                                            </div>
-                                            <div class="flex justify-between items-center w-full">
-                                                <div class="">
-                                                    <h2 class="font-semibold">Pierwszy krok</h2>
-                                                    <p>Ukończono pierwszy dzień dobrych nawyków</p>
-                                                </div>
-                                                {% if firstStepShare is not null and firstStepShare == 0 %}
-                                                <div class="share-icon opacity-0 flex justify-center items-center">
-                                                    <i class="text-2xl fa-solid fa-share-from-square"></i>
-                                                </div>
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="achivement__item w-full h-1/3 flex items-center gap-4">
-                                            <div class="w-11">
-                                                {% if goldLife is not null %}
-                                                <img class="w-full" src="{{ asset('/img/jesien.png') }}" alt="">
-                                                {% else %}
-                                                <img class="w-[90%]" src="{{ asset('/img/mystery.svg') }}" alt="">
-                                                {% endif %}
-                                            </div>
-                                            <div class="flex justify-between items-center w-full">
-                                                <div class="">
-                                                    <h2 class="font-semibold">Złota jesień życia</h2>
-                                                    <p>Utrzymanie dowolnego nawyku przez 90 dni</p>
-                                                </div>
-                                                {% if goldLifeShare is not null and goldLifeShare == 0 %}
-                                                <div class="flex justify-center items-center">
-                                                    <i class="text-2xl fa-solid fa-share-from-square share-icon opacity-0"></i>
-                                                </div>
-                                                {% endif %}
-                                            </div>
-                                        </div>
-
-                                        <div class="achivement__item w-full h-1/3 flex items-center gap-4">
-                                            <div class="w-11">
-                                                {% if warrior == true %}
-                                                <img class="w-full" src="{{ asset('/img/weekend.png') }}" alt="">
-                                                {% else %}
-                                                <img class="w-[90%]" src="{{ asset('/img/mystery.svg') }}" alt="">
-                                                {% endif %}
-                                            </div>
-                                            <div class="flex justify-between items-center w-full">
-                                                <div class="">
-                                                    <h2 class="font-semibold">Weekendowy wojownik</h2>
-                                                    <p>Wykonywanie nawyków przez miesiąc tylko w weekendy</p>
-                                                </div>
-                                                {% if warriorShare is not null and warriorShare == 0 %}
-                                                <div class="flex justify-center items-center">
-                                                    <i class="text-2xl fa-solid fa-share-from-square share-icon opacity-0"></i>
-                                                </div>
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="w-full h-auto mb-4 flex flex-col gap-2" data-controller="accordion">
-                                    <div class="profile__self-development achievement__header flex border rounded-2xl cursor-pointer" data-action="click->accordion#toggleDevelop">
-                                        <div class="flex justify-between items-center text-[1.1rem] font-semibold w-full m-4">
-                                            <div class="title flex gap-4 items-center ml-4">
-                                                <img class="w-10" src="{{ asset('/img/rozwoj.svg') }}" alt="">
-                                                <h1>Rozwój osobisty</h1>
-                                                <div class=" text-[1rem] ml-6 flex items-center justify-center gap-4">
-                                                    {{ selfDevelopment }} / 3
-                                                    {% if selfDevelopment == 3 %}
-                                                    <div class="w-4 h-4 border border-gray-300 rounded-xl flex items-center justify-center bg-black">
-                                                        <i class="text-[0.7rem] text-white fa-solid fa-check"></i>
-                                                    </div>
-                                                    {% else %}
-                                                    <div class="w-4 h-4 border border-gray-300 rounded-xl flex items-center justify-center"></div>
-                                                    {% endif %}
-                                                </div>
-                                            </div>
-                                            <div class="dropdown-icon mr-6">
-                                                <i class="develop-btn fa-solid fa-chevron-right" data-accordion-target="developIcon"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-
-                                    <div class="achievement__box--develop flex flex-col flex-wrap w-full h-full text-[1rem] hidden rounded-2xl border p-8 gap-8" data-accordion-target="developBox">
-
-                                        <div class="achivement__item w-full h-1/3 flex items-center gap-4">
-                                            <div class="w-11">
-                                                {% if break == true %}
-                                                <img class="w-full" src="{{ asset('/img/marnotrawny.png') }}" alt="">
-                                                {% else %}
-                                                <img class="w-[90%]" src="{{ asset('/img/mystery.svg') }}" alt="">
-                                                {% endif %}
-                                            </div>
-                                            <div class="flex justify-between items-center w-full">
-                                                <div class="">
-                                                    <h2 class="font-semibold">Syn marnotrawny</h2>
-                                                    <p>Powrót po przerwie do dobrej rutyny</p>
-                                                </div>
-                                                {% if breakShare is not null and breakShare == 0 %}
-                                                <div class="flex justify-center items-center">
-                                                    <i class="share-icon text-2xl fa-solid fa-share-from-square opacity-0"></i>
-                                                </div>
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="achivement__item w-full h-1/3 flex items-center gap-4">
-                                            <div class="w-11">
-                                                {% if newRoutine == true %}
-                                                <img class="w-full" src="{{ asset('/img/rutyna.png') }}" alt="">
-                                                {% else %}
-                                                <img class="w-[90%]" src="{{ asset('/img/mystery.svg') }}" alt="">
-                                                {% endif %}
-                                            </div>
-                                            <div class="flex justify-between items-center w-full">
-                                                <div class="">
-                                                    <h2 class="font-semibold">Nowa rutyna</h2>
-                                                    <p>Dodaj nowy nawyk po 30 dniach</p>
-                                                </div>
-                                                {% if newRoutineShare is not null and newRoutineShare == 0 %}
-                                                <div class="flex justify-center items-center">
-                                                    <i class="share-icon text-2xl fa-solid fa-share-from-square opacity-0"></i>
-                                                </div>
-                                                {% endif %}
-                                            </div>
-                                        </div>
-
-                                        <div class="achivement__item w-full h-1/3 flex items-center gap-4">
-                                            <div class="w-11">
-                                                {% if ownHabit == true %}
-                                                <img class="w-full" src="{{ asset('/img/kreator.png') }}" alt="">
-                                                {% else %}
-                                                <img class="w-[90%]" src="{{ asset('/img/mystery.svg') }}" alt="">
-                                                {% endif %}
-                                            </div>
-                                            <div class="flex justify-between items-center w-full">
-                                                <div class="">
-                                                    <h2 class="font-semibold">Kreator rzeczywistości</h2>
-                                                    <p>Stwórz własny nawyk do śledzenia</p>
-                                                </div>
-                                                {% if ownHabitShare is not null and ownHabitShare == 0 %}
-                                                <div class="share-icon opacity-0 flex justify-center items-center">
-                                                    <i class="text-2xl fa-solid fa-share-from-square"></i>
-                                                </div>
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="w-full h-auto flex flex-col gap-2" data-controller="accordion">
-                                    <div class="profile__quantity achievement__header flex border rounded-2xl cursor-pointer" data-action="click->accordion#toggleQuantity">
-                                        <div class="flex items-center justify-between text-[1.1rem] font-semibold w-full m-4 ml-10">
-                                            <div class="title flex gap-4 items-center">
-                                                <img class="w-8" src="{{ asset('/img/liczba.svg') }}" alt="">
-                                                <h1>Liczba nawyków</h1>
-                                                <div class=" text-[1rem] ml-6 flex items-center justify-center gap-4">
-                                                    {{ multitasking }} / 3
-                                                    {% if multitasking == 3 %}
-                                                    <div class="w-4 h-4 border border-gray-300 rounded-xl flex items-center justify-center bg-black">
-                                                        <i class="text-[0.7rem] text-white fa-solid fa-check"></i>
-                                                    </div>
-                                                    {% else %}
-                                                    <div class="w-4 h-4 border border-gray-300 rounded-xl flex items-center justify-center"></div>
-                                                    {% endif %}
-                                                </div>
-                                            </div>
-                                            <div class="dropdown-icon mr-6">
-                                                <i class="quantity-btn fa-solid fa-chevron-right"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-
-                                    <div class="achievement__box achievement__box--quantity flex flex-col flex-wrap w-full h-full text-[1rem] hidden border rounded-2xl p-8 gap-8" data-accordion-target="quantityBox">
-
-                                        <div class="achivement__item h-1/3 w-full flex items-center gap-4">
-                                            <div class="w-11">
-                                                {% if multi == true %}
-                                                <img class="w-full" src="{{ asset('/img/multi.png') }}" alt="">
-                                                {% else %}
-                                                <img class="w-[90%]" src="{{ asset('/img/mystery.svg') }}" alt="">
-                                                {% endif %}
-                                            </div>
-                                            <div class="flex justify-between items-center w-full">
-                                                <div class="">
-                                                    <h2 class="font-semibold">Multizadaniowiec</h2>
-                                                    <p>Śledzenie +3 nawyków</p>
-                                                </div>
-                                                {% if multiShare is not null and multiShare == 0 %}
-                                                <div class="share-icon opacity-0 flex justify-center items-center">
-                                                    <i class="text-2xl fa-solid fa-share-from-square"></i>
-                                                </div>
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="achivement__item h-1/3 w-full flex items-center gap-4">
-                                            <div class="w-11">
-                                                {% if ninja == true %}
-                                                <img class="w-full" src="{{ asset('/img/ninja.png') }}" alt="">
-                                                {% else %}
-                                                <img class="w-[90%]" src="{{ asset('/img/mystery.svg') }}" alt="">
-                                                {% endif %}
-                                            </div>
-                                            <div class="flex justify-between items-center w-full">
-                                                <div class="">
-                                                    <h2 class="font-semibold">Nawykowy Ninja</h2>
-                                                    <p>Śledzenie +6 nawyków</p>
-                                                </div>
-                                                {% if ninjaShare is not null and ninjaShare == 0 %}
-                                                <div class="share-icon opacity-0 flex justify-center items-center">
-                                                    <i class="text-2xl fa-solid fa-share-from-square"></i>
-                                                </div>
-                                                {% endif %}
-                                            </div>
-                                        </div>
-
-                                        <div class="achivement__item h-1/3 w-full flex items-center gap-4">
-                                            <div class="w-11">
-                                                {% if master == true %}
-                                                <img class="w-full" src="{{ asset('/img/mistrz.png') }}" alt="">
-                                                {% else %}
-                                                <img class="w-[90%]" src="{{ asset('/img/mystery.svg') }}" alt="">
-                                                {% endif %}
-                                            </div>
-                                            <div class="flex justify-between items-center w-full">
-                                                <div class="">
-                                                    <h2 class="font-semibold">Mistrz rutyny</h2>
-                                                    <p>Śledzenie +10 nawyków</p>
-                                                </div>
-                                                {% if masterShare is not null and masterShare == 0 %}
-                                                <div class="flex justify-center items-center">
-                                                    <i class="share-icon opacity-0 text-2xl fa-solid fa-share-from-square"></i>
-                                                </div>
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="profile-icon w-30 h-30">
+                        <a href="{{ path('app_profile') }}">
+                            {% if userData.gender == 'M' %}
+                                <img src="{{ asset('/img/profile.svg') }}">
+                            {% else %}
+                                <img src="{{ asset('/img/profilek.svg') }}">
+                            {% endif %}
+                        </a>
                     </div>
                 </div>
+            </div>
+            <div class="main-container w-full h-[90vh] flex flex-col">
 
-            </div>  
-        </div>
-               
+                {# Panel główny podsumowania #}
+                <div class="habits__main h-full w-full main__background flex gap-4">
+
+                    <div class="habits__panel flex gap-8 w-full h-full p-8">
+
+                        <div class="habits__panel-l w-1/3 h-full flex flex-col gap-8">
+                            <div class="panel__left--top bg-white rounded-[40px] w-full h-1/4 flex flex-col">
+                                <div class="profile flex m-6 mb-0 items-center gap-4 w-auto">
+                                    <div class="img flex w-[110px]">
+                                    {% if userData.gender == 'M' %}
+                                        <img class="w-full" src="{{ asset('/img/profile.svg') }}">
+                                    {% else %}
+                                        <img class="w-full" src="{{ asset('/img/profilek.svg') }}">
+                                    {% endif %}
+                                    </div>
+                                    <div class="profile-text flex w-full justify-between">
+                                        <div class="profile-data">
+                                            <p class="font-semibold">{{ userData.firstname }} {{ userData.lastname }}</p>
+                                            <p class="font-light text-sm">{{ userData.email }}</p>
+                                        </div>
+                                        <div class="profile-date">
+                                            <p class="font-light text-sm mt-1">{{ userData.joinDate|date('d/m/Y') }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="level w-auto h-auto flex items-end mr-6 ml-6 mb-6 flex-col">
+                                    <p class="text-sm">Poziom 1</p>
+                                    <div class="exp-bar main__background--gold w-3/4 h-1.5 rounded-md"></div>
+                                </div>
+                            </div>
+                            <div class="panel__left--bottom bg-white rounded-[40px] wfull h-3/4 flex items-center justify-center">
+                                <div class="w-full h-full flex flex-wrap justify-center items-center m-8">
+                                    <h2 class="text-[1.1rem] text-center">Wykonane nawyki według kategorii</h2>
+                                    {{ render_chart(chart) }}
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="habits__panel-r w-2/3 h-full bg-white rounded-[40px] p-8">
+                            <div class="flex flex-col w-full h-full overflow-hidden">
+                                <div class="overflow-y-auto w-full h-full flex-1">
+
+                                    <div class="w-full h-auto mb-4 flex flex-col gap-2" data-controller="accordion">
+                                        <div class="profile__regularity achievement__header flex border rounded-2xl cursor-pointer" data-action="click->accordion#toggleRegularity">
+                                            <div class="flex items-center justify-between w-full text-[1.1rem] font-semibold m-4">
+                                                <div class="title flex gap-4 items-center ml-4">
+                                                    <img class="w-10" src="{{ asset('/img/regularnosc.svg') }}" alt="">
+                                                    <h1>Regularność</h1>
+                                                    <div class=" text-[1rem] ml-6 flex items-center justify-center gap-4">
+                                                        {{ regularity }} / 3
+                                                        {% if regularity == 3 %}
+                                                        <div class="w-4 h-4 border border-gray-300 rounded-xl flex items-center justify-center bg-black">
+                                                            <i class="text-[0.7rem] text-white fa-solid fa-check"></i>
+                                                        </div>
+                                                        {% else %}
+                                                        <div class="w-4 h-4 border border-gray-300 rounded-xl flex items-center justify-center"></div>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                <div class="dropdown-icon mr-6">
+                                                    <i class="regularity-btn fa-solid fa-chevron-right" data-accordion-target="regularityIcon"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="achivement__box achievement__box--regularity flex flex-col flex-wrap w-full h-full text-[1xrem] hidden border rounded-2xl p-8 gap-8" data-accordion-target="regularityBox">
+
+                                            <div class="achivement__item w-full h-1/3 flex items-center gap-4">
+                                                <div class="w-11">
+                                                    {% if firstStep is not null %}
+                                                    <img class="w-full" src="{{ asset('/img/firststep.png') }}" alt="">
+                                                    {% else %}
+                                                    <img class="w-[90%]" src="{{ asset('/img/mystery.svg') }}" alt="">
+                                                    {% endif %}
+                                                </div>
+                                                <div class="flex justify-between items-center w-full">
+                                                    <div class="">
+                                                        <h2 class="font-semibold">Pierwszy krok</h2>
+                                                        <p>Ukończono pierwszy dzień dobrych nawyków</p>
+                                                    </div>
+                                                    {% if firstStepShare is not null and firstStepShare == 0 %}
+                                                    <div class="share-icon opacity-0 flex justify-center items-center">
+                                                        <form action="{{ path('app_share') }}" method="POST" class="w-full h-full">
+                                                            <input type="hidden" name="achievement" value="1">
+                                                            <button type="submit" class="w-full h-full">
+                                                                <i class="text-2xl fa-solid fa-share-from-square"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="achivement__item w-full h-1/3 flex items-center gap-4">
+                                                <div class="w-11">
+                                                    {% if goldLife is not null %}
+                                                    <img class="w-full" src="{{ asset('/img/jesien.png') }}" alt="">
+                                                    {% else %}
+                                                    <img class="w-[90%]" src="{{ asset('/img/mystery.svg') }}" alt="">
+                                                    {% endif %}
+                                                </div>
+                                                <div class="flex justify-between items-center w-full">
+                                                    <div class="">
+                                                        <h2 class="font-semibold">Złota jesień życia</h2>
+                                                        <p>Utrzymanie dowolnego nawyku przez 90 dni</p>
+                                                    </div>
+                                                    {% if goldLifeShare is not null and goldLifeShare == 0 %}
+                                                    <div class="share-icon opacity-0 flex justify-center items-center">
+                                                        <form action="{{ path('app_share') }}" method="POST" class="w-full h-full">
+                                                            <input type="hidden" name="achievement" value="2">
+                                                            <button type="submit" class="w-full h-full">
+                                                                <i class="text-2xl fa-solid fa-share-from-square"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+
+                                            <div class="achivement__item w-full h-1/3 flex items-center gap-4">
+                                                <div class="w-11">
+                                                    {% if warrior == true %}
+                                                    <img class="w-full" src="{{ asset('/img/weekend.png') }}" alt="">
+                                                    {% else %}
+                                                    <img class="w-[90%]" src="{{ asset('/img/mystery.svg') }}" alt="">
+                                                    {% endif %}
+                                                </div>
+                                                <div class="flex justify-between items-center w-full">
+                                                    <div class="">
+                                                        <h2 class="font-semibold">Weekendowy wojownik</h2>
+                                                        <p>Wykonywanie nawyków przez miesiąc tylko w weekendy</p>
+                                                    </div>
+                                                    {% if warriorShare is not null and warriorShare == 0 %}
+                                                    <div class="share-icon opacity-0 flex justify-center items-center">
+                                                        <form action="{{ path('app_share') }}" method="POST" class="w-full h-full">
+                                                            <input type="hidden" name="achievement" value="3">
+                                                            <button type="submit" class="w-full h-full">
+                                                                <i class="text-2xl fa-solid fa-share-from-square"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="w-full h-auto mb-4 flex flex-col gap-2" data-controller="accordion">
+                                        <div class="profile__self-development achievement__header flex border rounded-2xl cursor-pointer" data-action="click->accordion#toggleDevelop">
+                                            <div class="flex justify-between items-center text-[1.1rem] font-semibold w-full m-4">
+                                                <div class="title flex gap-4 items-center ml-4">
+                                                    <img class="w-10" src="{{ asset('/img/rozwoj.svg') }}" alt="">
+                                                    <h1>Rozwój osobisty</h1>
+                                                    <div class=" text-[1rem] ml-6 flex items-center justify-center gap-4">
+                                                        {{ selfDevelopment }} / 3
+                                                        {% if selfDevelopment == 3 %}
+                                                        <div class="w-4 h-4 border border-gray-300 rounded-xl flex items-center justify-center bg-black">
+                                                            <i class="text-[0.7rem] text-white fa-solid fa-check"></i>
+                                                        </div>
+                                                        {% else %}
+                                                        <div class="w-4 h-4 border border-gray-300 rounded-xl flex items-center justify-center"></div>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                <div class="dropdown-icon mr-6">
+                                                    <i class="develop-btn fa-solid fa-chevron-right" data-accordion-target="developIcon"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+
+                                        <div class="achievement__box--develop flex flex-col flex-wrap w-full h-full text-[1rem] hidden rounded-2xl border p-8 gap-8" data-accordion-target="developBox">
+
+                                            <div class="achivement__item w-full h-1/3 flex items-center gap-4">
+                                                <div class="w-11">
+                                                    {% if break == true %}
+                                                    <img class="w-full" src="{{ asset('/img/marnotrawny.png') }}" alt="">
+                                                    {% else %}
+                                                    <img class="w-[90%]" src="{{ asset('/img/mystery.svg') }}" alt="">
+                                                    {% endif %}
+                                                </div>
+                                                <div class="flex justify-between items-center w-full">
+                                                    <div class="">
+                                                        <h2 class="font-semibold">Syn marnotrawny</h2>
+                                                        <p>Powrót po przerwie do dobrej rutyny</p>
+                                                    </div>
+                                                    {% if breakShare is not null and breakShare == 0 %}
+                                                    <div class="share-icon opacity-0 flex justify-center items-center">
+                                                        <form action="{{ path('app_share') }}" method="POST" class="w-full h-full">
+                                                            <input type="hidden" name="achievement" value="4">
+                                                            <button type="submit" class="w-full h-full">
+                                                                <i class="text-2xl fa-solid fa-share-from-square"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="achivement__item w-full h-1/3 flex items-center gap-4">
+                                                <div class="w-11">
+                                                    {% if newRoutine == true %}
+                                                    <img class="w-full" src="{{ asset('/img/rutyna.png') }}" alt="">
+                                                    {% else %}
+                                                    <img class="w-[90%]" src="{{ asset('/img/mystery.svg') }}" alt="">
+                                                    {% endif %}
+                                                </div>
+                                                <div class="flex justify-between items-center w-full">
+                                                    <div class="">
+                                                        <h2 class="font-semibold">Nowa rutyna</h2>
+                                                        <p>Dodaj nowy nawyk po 30 dniach</p>
+                                                    </div>
+                                                    {% if newRoutineShare is not null and newRoutineShare == 0 %}
+                                                    <div class="share-icon opacity-0 flex justify-center items-center">
+                                                        <form action="{{ path('app_share') }}" method="POST" class="w-full h-full">
+                                                            <input type="hidden" name="achievement" value="5">
+                                                            <button type="submit" class="w-full h-full">
+                                                                <i class="text-2xl fa-solid fa-share-from-square"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+
+                                            <div class="achivement__item w-full h-1/3 flex items-center gap-4">
+                                                <div class="w-11">
+                                                    {% if ownHabit == true %}
+                                                    <img class="w-full" src="{{ asset('/img/kreator.png') }}" alt="">
+                                                    {% else %}
+                                                    <img class="w-[90%]" src="{{ asset('/img/mystery.svg') }}" alt="">
+                                                    {% endif %}
+                                                </div>
+                                                <div class="flex justify-between items-center w-full">
+                                                    <div class="">
+                                                        <h2 class="font-semibold">Kreator rzeczywistości</h2>
+                                                        <p>Stwórz własny nawyk do śledzenia</p>
+                                                    </div>
+                                                    {% if ownHabitShare is not null and ownHabitShare == 0 %}
+                                                    <div class="share-icon opacity-0 flex justify-center items-center">
+                                                        <form action="{{ path('app_share') }}" method="POST" class="w-full h-full">
+                                                            <input type="hidden" name="achievement" value="6">
+                                                            <button type="submit" class="w-full h-full">
+                                                                <i class="text-2xl fa-solid fa-share-from-square"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="w-full h-auto flex flex-col gap-2" data-controller="accordion">
+                                        <div class="profile__quantity achievement__header flex border rounded-2xl cursor-pointer" data-action="click->accordion#toggleQuantity">
+                                            <div class="flex items-center justify-between text-[1.1rem] font-semibold w-full m-4 ml-10">
+                                                <div class="title flex gap-4 items-center">
+                                                    <img class="w-8" src="{{ asset('/img/liczba.svg') }}" alt="">
+                                                    <h1>Liczba nawyków</h1>
+                                                    <div class=" text-[1rem] ml-6 flex items-center justify-center gap-4">
+                                                        {{ multitasking }} / 3
+                                                        {% if multitasking == 3 %}
+                                                        <div class="w-4 h-4 border border-gray-300 rounded-xl flex items-center justify-center bg-black">
+                                                            <i class="text-[0.7rem] text-white fa-solid fa-check"></i>
+                                                        </div>
+                                                        {% else %}
+                                                        <div class="w-4 h-4 border border-gray-300 rounded-xl flex items-center justify-center"></div>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                <div class="dropdown-icon mr-6">
+                                                    <i class="quantity-btn fa-solid fa-chevron-right"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+
+                                        <div class="achievement__box achievement__box--quantity flex flex-col flex-wrap w-full h-full text-[1rem] hidden border rounded-2xl p-8 gap-8" data-accordion-target="quantityBox">
+
+                                            <div class="achivement__item h-1/3 w-full flex items-center gap-4">
+                                                <div class="w-11">
+                                                    {% if multi == true %}
+                                                    <img class="w-full" src="{{ asset('/img/multi.png') }}" alt="">
+                                                    {% else %}
+                                                    <img class="w-[90%]" src="{{ asset('/img/mystery.svg') }}" alt="">
+                                                    {% endif %}
+                                                </div>
+                                                <div class="flex justify-between items-center w-full">
+                                                    <div class="">
+                                                        <h2 class="font-semibold">Multizadaniowiec</h2>
+                                                        <p>Śledzenie +3 nawyków</p>
+                                                    </div>
+                                                    {% if multiShare is not null and multiShare == 0 %}
+                                                    <div class="share-icon opacity-0 flex justify-center items-center">
+                                                        <form action="{{ path('app_share') }}" method="POST" class="w-full h-full">
+                                                            <input type="hidden" name="achievement" value="7">
+                                                            <button type="submit" class="w-full h-full">
+                                                                <i class="text-2xl fa-solid fa-share-from-square"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="achivement__item h-1/3 w-full flex items-center gap-4">
+                                                <div class="w-11">
+                                                    {% if ninja == true %}
+                                                    <img class="w-full" src="{{ asset('/img/ninja.png') }}" alt="">
+                                                    {% else %}
+                                                    <img class="w-[90%]" src="{{ asset('/img/mystery.svg') }}" alt="">
+                                                    {% endif %}
+                                                </div>
+                                                <div class="flex justify-between items-center w-full">
+                                                    <div class="">
+                                                        <h2 class="font-semibold">Nawykowy Ninja</h2>
+                                                        <p>Śledzenie +6 nawyków</p>
+                                                    </div>
+                                                    {% if ninjaShare is not null and ninjaShare == 0 %}
+                                                    <div class="share-icon opacity-0 flex justify-center items-center">
+                                                        <form action="{{ path('app_share') }}" method="POST" class="w-full h-full">
+                                                            <input type="hidden" name="achievement" value="8">
+                                                            <button type="submit" class="w-full h-full">
+                                                                <i class="text-2xl fa-solid fa-share-from-square"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+
+                                            <div class="achivement__item h-1/3 w-full flex items-center gap-4">
+                                                <div class="w-11">
+                                                    {% if master == true %}
+                                                    <img class="w-full" src="{{ asset('/img/mistrz.png') }}" alt="">
+                                                    {% else %}
+                                                    <img class="w-[90%]" src="{{ asset('/img/mystery.svg') }}" alt="">
+                                                    {% endif %}
+                                                </div>
+                                                <div class="flex justify-between items-center w-full">
+                                                    <div class="">
+                                                        <h2 class="font-semibold">Mistrz rutyny</h2>
+                                                        <p>Śledzenie +10 nawyków</p>
+                                                    </div>
+                                                    {% if masterShare is not null and masterShare == 0 %}
+                                                    <div class="share-icon opacity-0 flex justify-center items-center">
+                                                        <form action="{{ path('app_share') }}" method="POST" class="w-full h-full">
+                                                            <input type="hidden" name="achievement" value="9">
+                                                            <button type="submit" class="w-full h-full">
+                                                                <i class="text-2xl fa-solid fa-share-from-square"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>  
+            </div>
         </div>
     </div>
 </div>

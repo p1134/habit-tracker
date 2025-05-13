@@ -4,11 +4,11 @@
 
 {% block body %}
 
-<div class="habits__container w-full h-screen flex flex-col">
+<div class="habits__container w-full max-h-full flex flex-col">
 
     <div class="flex flex w-full h-full">
         {# Nawigacja #}
-        <div class="nav__container h-full mt-5 flex justify-center">
+        <div class="nav__container h-[100vh] mt-5 flex justify-center">
             <div class="nav__container h-full flex flex-col items-center">
                 <div class="nav__name mb-16">
                     <p class="text-4xl font-bold">HABITIF<span class="main-color">Y.</span></p>
@@ -66,9 +66,9 @@
 
         </div>
 
-        <div class="main-container w-full h-full flex flex-col">
+        <div class="w-full h-[100vh]">
             {# Górny pasek z profilem #}
-            <div class="nav flex w-full justify-between h-10 mb-4 mt-4">
+            <div class="nav flex w-full justify-between h-[10vh]">
                 <div class="name-page ml-8 text-xl font-semibold">
                 Nawyki
                 </div>
@@ -92,130 +92,133 @@
                 </div>
             </div>
 
-            {# Panel główny dashboardu #}
-            <div class="habits__main h-full w-full main__background flex gap-4 flex-col">
-                {# Lewy panel #}
-                
-                <div class="habits__panel-main w-full h-full flex flex-row gap-8">
+            <div class="main-container w-full h-[90vh] flex flex-col">
 
-                    <div class="habits__panel--left habits__panel mt-8 mb-8 ml-8 flex flex-col gap-6">
-                        <div class="overflow-hidden m-8 flex flex-col gap-4">
-                        <p class="text-2xl">Twoje nawyki</p>
-                            <div class="habits__panel__habit overflow-y-scroll overflow-x-hidden">
-                                <form method="post" action="{{ path('app_tracking_habit') }}">
-                                    {% for h in habits %}
-                                        <div class="border rounded-xl mb-5 w-full">
-                                            <label class="habits__row flex p-4 items-center gap-4 cursor-pointer justify-between">
-                                                <div class="habits__row flex items-center gap-4">
-                                                    {% if h.habit is not null and h.habit.category.id == 1 or h.ownHabit is not null and h.ownHabit.category.id == 1 %}
-                                                    <div class="w-9">
-                                                        <div class="habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-blue-100">
-                                                            <img src="{{ asset('img/icon-blue.svg') }}" alt="">
+                {# Panel główny dashboardu #}
+                <div class="habits__main h-full w-full main__background flex gap-4 flex-col overflow-hidden">
+                    {# Lewy panel #}
+                    
+                    <div class="habits__panel-main w-full h-full flex flex-row gap-8 overflow-hidden p-8">
+
+                        <div class="habits__panel--left habits__panel flex flex-col gap-6 h-full">
+                            <div class="overflow-hidden flex flex-col gap-4 p-8">
+                            <p class="text-2xl">Twoje nawyki</p>
+                                <div class="habits__panel__habit overflow-y-scroll overflow-x-hidden">
+                                    <form method="post" action="{{ path('app_tracking_habit') }}">
+                                        {% for h in habits %}
+                                            <div class="border rounded-xl mb-5 w-full">
+                                                <label class="habits__row flex p-4 items-center gap-4 cursor-pointer justify-between">
+                                                    <div class="habits__row flex items-center gap-4">
+                                                        {% if h.habit is not null and h.habit.category.id == 1 or h.ownHabit is not null and h.ownHabit.category.id == 1 %}
+                                                        <div class="w-9">
+                                                            <div class="habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-blue-100">
+                                                                <img src="{{ asset('img/icon-blue.svg') }}" alt="">
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    {% elseif h.habit is not null and h.habit.category.id == 2 or h.ownHabit is not null and h.ownHabit.category.id == 2 %}
-                                                    <div class="w-9">
-                                                        <div class="habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-green-100">
-                                                            <img src="{{ asset('img/icon-green.svg') }}" alt="">
+                                                        {% elseif h.habit is not null and h.habit.category.id == 2 or h.ownHabit is not null and h.ownHabit.category.id == 2 %}
+                                                        <div class="w-9">
+                                                            <div class="habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-green-100">
+                                                                <img src="{{ asset('img/icon-green.svg') }}" alt="">
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    {% elseif h.habit is not null and h.habit.category.id == 3 or h.ownHabit is not null and h.ownHabit.category.id == 3 %}
-                                                    <div class="w-9">
-                                                        <div class="habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-orange-100">
-                                                            <img src="{{ asset('img/icon-yellow.svg') }}" alt="">
+                                                        {% elseif h.habit is not null and h.habit.category.id == 3 or h.ownHabit is not null and h.ownHabit.category.id == 3 %}
+                                                        <div class="w-9">
+                                                            <div class="habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-orange-100">
+                                                                <img src="{{ asset('img/icon-yellow.svg') }}" alt="">
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    {% endif %}
-                                                
-                                                    {% if not h.isDeleted %}
-                                                        {{ h.habit.name ?? h.ownHabit.name }}
-                                                </div>
-                                                
-                                                <div class="flex items-center ">
-                                                    <div class="habits__habit-row w-48 flex items-center">
-                                                    <input type="checkbox" name="habits[]" value="{{ h.id }}" class="habits__checkbox cursor-pointer invisible"
-                                                    {% for t in tracked %}
-                                                        {% if t.selectedHabits and t.selectedHabits.id == h.id and not t.selectedHabits.isDeleted and not t.isDeleted %}
-                                                            checked
                                                         {% endif %}
-                                                    {% endfor %}
-                                                    onchange="this.form.submit()" >
-                                            {% endif %}
-
-
-                                                    <div class="habits__checkbox-progress h-2 rounded-md main__background--gold"></div>
+                                                    
+                                                        {% if not h.isDeleted %}
+                                                            {{ h.habit.name ?? h.ownHabit.name }}
                                                     </div>
-                                                </div>
-                                            </label>
-                                        </div>
-                                    {% endfor %}
-                                    {# <button type="submit">Zapisz</button> #}
-                                </form>
-                            </div>
-                            
-                            <div class="habits__select-btn w-full flex">
-                                <div class="overflow-hidden relative w-full h-auto">
-                                    <a class="btn--habits w-full relative" href="{{ path('app_select_habit') }}"><button class="bg-black text-white text-md w-full rounded-xl mt-1 flex items-center justify-center gap-4 pt-1 pb-1"><span class="main-color text-3xl">+</span> Edytuj listę</button></a>
-                                    <div class="btn-dot--habits absolute bottom-1 left-0"></div>
+                                                    
+                                                    <div class="flex items-center ">
+                                                        <div class="habits__habit-row w-48 flex items-center">
+                                                        <input type="checkbox" name="habits[]" value="{{ h.id }}" class="habits__checkbox cursor-pointer invisible"
+                                                        {% for t in tracked %}
+                                                            {% if t.selectedHabits and t.selectedHabits.id == h.id and not t.selectedHabits.isDeleted and not t.isDeleted %}
+                                                                checked
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                        onchange="this.form.submit()" >
+                                                {% endif %}
+
+
+                                                        <div class="habits__checkbox-progress h-2 rounded-md main__background--gold"></div>
+                                                        </div>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        {% endfor %}
+                                        {# <button type="submit">Zapisz</button> #}
+                                    </form>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    {# <a href="{{ path('app_select_habit') }}"><button>Wybierz nawyki</button></a>
-                    <a href="{{ path('app_new_habit') }}"><button>Stwórz nowy nawyk</button></a>
-                    <a href="{{ path('app_habit_remove') }}"><button>Usuń nawyk</button></a>  #}
-
-                    {# Prawy panel #}
-                    <div class="habits__panel--right mb-8 mr-8 mt-8 flex flex-col gap-6 h-auto">
-                        <div class="habits__panel-right--top h-3/5 flex flex-col">
-                            <div class="m-8 h-full flex flex-col">
-                                <p class="text-2xl">Kategorie</p>
-                                <div class="categories flex flex-col h-full justify-between">
-                                    <div class="w-full h-auto flex flex-col gap-3 items-center justify-center mt-8">
-                                        <div class="habits__category-row flex flex-col w-full h-auto">
-                                            <p>Zdrowie</p>
-                                            <div class="habits__category-bar habits__category-bar--health rounded-md"></div>
-                                        </div>
-                                        <div class="habits__category-row flex flex-col w-full h-auto">
-                                            <p>Relaks</p>
-                                            <div class="habits__category-bar habits__category-bar--relax rounded-md"></div>
-                                        </div>
-                                        <div class="habits__category-row flex flex-col w-full h-auto">
-                                            <p>Aktywność społeczna</p>
-                                            <div class="habits__category-bar habits__category-bar--activity rounded-md"></div>
-                                        </div>
-                                    </div>
-
-                                    <div class="categories-buttons w-full h-auto flex gap-4">
-                                        <a href="{{ path('app_new_habit') }}" class="overflow-hidden w-1/2 bg-black category-btn flex justify-center rounded-xl pt-1 pb-1 relative {{ formType == 'ownHabitAdd' ? 'hidden' : 'visible' }} {{ formType == 'ownHabitRemove' ? 'hidden' : 'visible' }}">
-                                            <button class="btn--categories relative text-white flex gap-4 items-center justofy-center"><span class="main-color text-3xl">+</span>Stwórz nowy nawyk</button>
-                                            <div class="btn-dot--categories absolute bottom-1 left-0"></div>
-                                        </a>
-                                        <a href="{{ path('app_habit_remove') }}" class="overflow-hidden w-1/2 bg-black category-btn flex justify-center rounded-xl pt-1 pb-1 relative {{ formType == 'ownHabitAdd' ? 'hidden' : 'visible' }} {{ formType == 'ownHabitRemove' ? 'hidden' : 'visible' }}">
-                                            <button class="btn--categories relative text-white flex gap-4 items-center justofy-center"><span class="main-color text-3xl">-</span>Usuń własny nawyk</button>
-                                            <div class="btn-dot--categories absolute bottom-1 left-0"></div>
-                                        </a>
+                                
+                                <div class="habits__select-btn w-full flex">
+                                    <div class="overflow-hidden relative w-full h-auto">
+                                        <a class="btn--habits w-full relative" href="{{ path('app_select_habit') }}"><button class="bg-black text-white text-md w-full rounded-xl mt-1 flex items-center justify-center gap-4 pt-1 pb-1"><span class="main-color text-3xl">+</span> Edytuj listę</button></a>
+                                        <div class="btn-dot--habits absolute bottom-1 left-0"></div>
                                     </div>
                                 </div>
                             </div>
-                        {% if formType == 'ownHabitAdd' %}
-                            {{ include('/habit/_new_habit_form.html.twig') }}
-                        {% endif %}
-                        {% if formType == 'ownHabitRemove' %}
-                            {{ include('/habit/_remove_habit_form.html.twig') }}
-                        {% endif %}
                         </div>
 
-                        {# <div class="h-2/5 flex items-center">
-                        {% if formType == 'ownHabitAdd' %}
-                            {{ include('/habit/_new_habit_form.html.twig') }}
-                        {% endif %}
-                        {% if formType == 'ownHabitRemove' %}
-                            {{ include('/habit/_remove_habit_form.html.twig') }}
-                        {% endif %}
-                        </div> #}
+
+                        {# <a href="{{ path('app_select_habit') }}"><button>Wybierz nawyki</button></a>
+                        <a href="{{ path('app_new_habit') }}"><button>Stwórz nowy nawyk</button></a>
+                        <a href="{{ path('app_habit_remove') }}"><button>Usuń nawyk</button></a>  #}
+
+                        {# Prawy panel #}
+                        <div class="habits__panel--right flex flex-col gap-6 h-full">
+                            <div class="habits__panel-right--top h-3/5 flex flex-col p-8">
+                                <div class="h-full flex flex-col">
+                                    <p class="text-2xl">Kategorie</p>
+                                    <div class="categories flex flex-col h-full justify-between">
+                                        <div class="w-full h-auto flex flex-col gap-3 items-center justify-center mt-8">
+                                            <div class="habits__category-row flex flex-col w-full h-auto">
+                                                <p>Zdrowie</p>
+                                                <div class="habits__category-bar habits__category-bar--health rounded-md"></div>
+                                            </div>
+                                            <div class="habits__category-row flex flex-col w-full h-auto">
+                                                <p>Relaks</p>
+                                                <div class="habits__category-bar habits__category-bar--relax rounded-md"></div>
+                                            </div>
+                                            <div class="habits__category-row flex flex-col w-full h-auto">
+                                                <p>Aktywność społeczna</p>
+                                                <div class="habits__category-bar habits__category-bar--activity rounded-md"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="categories-buttons w-full h-auto flex gap-4">
+                                            <a href="{{ path('app_new_habit') }}" class="overflow-hidden w-1/2 bg-black category-btn flex justify-center rounded-xl pt-1 pb-1 relative {{ formType == 'ownHabitAdd' ? 'hidden' : 'visible' }} {{ formType == 'ownHabitRemove' ? 'hidden' : 'visible' }}">
+                                                <button class="btn--categories relative text-white flex gap-4 items-center justofy-center"><span class="main-color text-3xl">+</span>Stwórz nowy nawyk</button>
+                                                <div class="btn-dot--categories absolute bottom-1 left-0"></div>
+                                            </a>
+                                            <a href="{{ path('app_habit_remove') }}" class="overflow-hidden w-1/2 bg-black category-btn flex justify-center rounded-xl pt-1 pb-1 relative {{ formType == 'ownHabitAdd' ? 'hidden' : 'visible' }} {{ formType == 'ownHabitRemove' ? 'hidden' : 'visible' }}">
+                                                <button class="btn--categories relative text-white flex gap-4 items-center justofy-center"><span class="main-color text-3xl">-</span>Usuń własny nawyk</button>
+                                                <div class="btn-dot--categories absolute bottom-1 left-0"></div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% if formType == 'ownHabitAdd' %}
+                                {{ include('/habit/_new_habit_form.html.twig') }}
+                            {% endif %}
+                            {% if formType == 'ownHabitRemove' %}
+                                {{ include('/habit/_remove_habit_form.html.twig') }}
+                            {% endif %}
+                            </div>
+
+                            {# <div class="h-2/5 flex items-center">
+                            {% if formType == 'ownHabitAdd' %}
+                                {{ include('/habit/_new_habit_form.html.twig') }}
+                            {% endif %}
+                            {% if formType == 'ownHabitRemove' %}
+                                {{ include('/habit/_remove_habit_form.html.twig') }}
+                            {% endif %}
+                            </div> #}
+                        </div>
                     </div>
                 </div>
             </div>

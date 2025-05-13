@@ -144,6 +144,7 @@ body{
         // border-radius: 5px;
     }
 }
+
 .nav{
     display: flex;
     width: 100%;
@@ -211,7 +212,7 @@ transition: transform 0.6s;
     border-top-left-radius: 40px;
     }
     &__panel--left, &__panel--right{
-        height: 32em;
+        // height: 32em;
         width: 50%;
         // height: 93%;
     }

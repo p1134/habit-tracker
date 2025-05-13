@@ -13,13 +13,15 @@ final class CommunityController extends AbstractController
     public function index(): Response
     {
         $user = $this->getUser();
-
+        
         return $this->render('community/index.html.twig', [
             'controller_name' => 'CommunityController',
             'userData' => $user,
+            'user' => $user->getUserIdentifier(),
         ]);
     }
-
+    
+    #[Route('/profile/share', name: 'app_share')]
     public function addPost(PostRepository $posts){
 
     }

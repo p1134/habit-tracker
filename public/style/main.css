@@ -202,7 +202,6 @@ body {
   border-top-left-radius: 40px;
 }
 .habits__panel--left, .habits__panel--right {
-  height: 32em;
   width: 50%;
 }
 .habits__panel {

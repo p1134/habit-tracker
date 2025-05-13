@@ -2,15 +2,17 @@
 
 namespace App\Controller;
 
-use App\Entity\Achievement;
-use App\Repository\AchievementRepository;
 use DateTime;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Achievement;
 use Symfony\UX\Chartjs\Model\Chart;
 use App\Repository\OwnHabitRepository;
+// use Symfony\Component\BrowserKit\Request;
 use App\Repository\TrackingRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\AchievementRepository;
 use App\Repository\SelectedHabitsRepository;
 use Proxies\__CG__\App\Entity\SelectedHabits;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
@@ -395,6 +397,46 @@ $chart->setOptions([
             'masterShare' => $masterShare ?? null,
 
             'chart' => $chart,
+
+            'user' => $user->getUserIdentifier(),
         ]);
+    }
+
+    #[Route('/profile/share', name: 'app_share')]
+    public function shareAchievement(Request $request, AchievementRepository $achievements, EntityManagerInterface $em){
+
+        $user = $this->getUser();
+
+        $achievementsAll = [
+            '1'=> 'Pierwszy krok',
+            '2'=> 'Złota jesień życia',
+            '3'=> 'Weekendowy wojownik',
+            '4'=> 'Syn marnotrawny',
+            '5'=> 'Nowa rutyna',
+            '6'=> 'Kreator rzeczywistości',
+            '7'=> 'Multiazadaniowiec',
+            '8'=> 'Nawykowy ninja',
+            '9'=> 'Mistrz rutyny',
+    ];
+
+    $share = null;
+
+    if($request->isMethod('POST')){
+        $id = $request->get('achievement');
+        
+            foreach($achievementsAll as $key => $value){
+                if($key == $id){
+                    $share = $value;
+                }
+            }
+        }
+
+        $achievement = $achievements->findOneBy(['user' => $user->getId(), 'name' => $share]);
+        $achievement->setIsShared(true);
+
+        $em->persist($achievement);
+        $em->flush();
+
+        return $this->redirectToRoute('app_community');
     }
 }

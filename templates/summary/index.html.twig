@@ -4,14 +4,14 @@
 
 {% block body %}
 
-<div class="habits__container w-full h-screen flex flex-col">
+<div class="habits__container w-full max-h-full flex flex-col">
 {# <pre>
     {{ dump(doneHabits) }}
     {{ dump(habitsGrouped) }}
 </pre> #}
     <div class="flex flex w-full h-full">
         {# Nawigacja #}
-        <div class="nav__container h-full mt-5 flex justify-center">
+        <div class="nav__container h-[100vh] mt-5 flex justify-center">
             <div class="nav__container h-full flex flex-col items-center">
                 <div class="nav__name mb-16">
                     <p class="text-4xl font-bold">HABITIF<span class="main-color">Y.</span></p>
@@ -81,9 +81,9 @@
 
         </div>
 
-        <div class="main-container w-full h-full flex flex-col">
+        <div class="main-container w-full h-[100vh] flex flex-col">
             {# Górny pasek z profilem #}
-            <div class="nav flex w-full justify-between h-10 mb-4 mt-4">
+            <div class="nav flex w-full justify-between h-[10vh]">
                 <div class="name-page ml-8 text-xl font-semibold">
                 Podsumowanie
                 </div>
@@ -108,17 +108,17 @@
             </div>
 
             {# Panel główny podsumowania #}
-            <div class="habits__main h-full w-full main__background flex gap-4 flex-col">
+            <div class="habits__main h-[90vh] w-full main__background flex gap-4 flex-col p-8">
 
-                 <div class="habits__panel--top w-full h-28 flex justify-between mt-6 items-center">
-                    <div class="ml-8">
+                 <div class="habits__panel--top w-full h-28 flex justify-between items-center">
+                    <div class="">
                         <p class="text-3xl font-semibold mb-3">Tydzień</p>
                         <p class="text-lg">
                             {{ startOfWeek }} - {{ endOfWeek }}
                         </p>
                     </div>
                     
-                    <div class="mr-8 flex gap-4">
+                    <div class="flex gap-4">
                         <div class="flex items-center gap-2">
                             <div class="bg-green-300 w-12 h-6 rounded-sm"></div>
                             <span>Wykonany</span>
@@ -135,9 +135,9 @@
                 </div>
 
                 {# Tabela z tygoniem #}
-                <div class="habits__table bg-white w-auto m-8 mt-0 flex flex-col justify-center items-center">
+                <div class="habits__table bg-white w-auto h-full flex flex-col justify-center items-center overflow-hidden">
 
-                    <div class="rounded-table w-full h-auto bg-black pl-8 pr-8 pt-4 pb-4">
+                    <div class="rounded-table w-full h-auto bg-black pl-8 pr-8 pt-4 pb-4 overflow-hidden">
                     <table class="bg-white rounded-table w-full">
                         <thead class="">
                             <tr class="dni_tygodnia bg-black text-white w-full">
@@ -156,7 +156,7 @@
                     </table>
                     </div>
 
-                    <div class="table-scroll w-full h-[26em] overflow-y-auto mb-8 pl-8 pr-8 pt-0 pb-4">
+                    <div class="table-scroll w-full h-full overflow-y-auto pl-8 pr-8 pt-0 mb-8">
                     <table class="mt-0 w-full">
                         <tbody class="overflow-y-auto w-auto">
                             {% for habit in habitsGrouped %}

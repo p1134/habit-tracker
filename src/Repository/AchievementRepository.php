@@ -16,20 +16,19 @@ class AchievementRepository extends ServiceEntityRepository
         parent::__construct($registry, Achievement::class);
     }
 
-    //    /**
-    //     * @return Achievement[] Returns an array of Achievement objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('a')
-    //            ->andWhere('a.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('a.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+       /**
+        * @return Achievement[] Returns an array of Achievement objects
+        */
+       public function getAllShared(): array
+       {
+           return $this->createQueryBuilder('a')
+               ->andWhere('a.isShared = :val')
+               ->setParameter('val', true)
+               ->orderBy('a.dateCreate', 'DESC')
+               ->getQuery()
+               ->getResult()
+           ;
+       }
 
     //    public function findOneBySomeField($value): ?Achievement
     //    {

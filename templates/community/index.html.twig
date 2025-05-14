@@ -3,12 +3,11 @@
 {% block title %}Habitify - Społeczność{% endblock %}
 
 {% block body %}
-
-<div class="habits__container w-full h-screen flex flex-col">
+<div class="habits__container w-full max-h-full flex flex-col">
 
     <div class="flex flex w-full h-full">
         {# Nawigacja #}
-        <div class="nav__container h-full mt-5 flex justify-center">
+        <div class="nav__container h-[100vh] mt-5 flex justify-center">
             <div class="nav__container h-full flex flex-col items-center">
                 <div class="nav__name mb-16">
                     <p class="text-4xl font-bold">HABITIF<span class="main-color">Y.</span></p>
@@ -18,7 +17,7 @@
 
                     <div class="nav__tabs flex flex-col gap-5">
                         <a class="w-auto h-auto" href="{{ path('app_dashboard') }}">
-                            <div class="nav__dashboard  w-auto h-auto relative overflow-hidden">
+                            <div class="nav__dashboard w-auto h-auto relative overflow-hidden">
                                 <div class="nav__dashboard btn-inactive flex gap-3 justify-start items-center relative">
                                     <img class="w-5 h-5" src="{{ asset('/img/dashboard-off.svg') }}" alt="">
                                     <p>Pulpit</p>
@@ -28,7 +27,7 @@
 
                         <div class="nav__habits flex gap-3 justify-left items-center gap-4">
                             <a href="{{ path('app_habit') }}" class="flex gap-3 w-auto h-auto">
-                                <div class="nav__dashboard  w-auto h-auto relative overflow-hidden">
+                                <div class="nav__dashboard w-auto h-auto relative overflow-hidden">
                                     <div class="nav__dashboard btn-inactive flex gap-3 justify-start items-center relative">
                                         <img src="{{ asset('img/nawyki-off.svg') }}" alt="">
                                         <p>Nawyki</p>
@@ -38,7 +37,7 @@
                         </div>
                         <div class="nav__summary flex gap-3 justify-left items-center gap-4">
                             <a href="{{ path('app_summary') }}" class="flex gap-3">
-                                <div class="nav__dashboard  w-auto h-auto relative overflow-hidden">
+                                <div class="nav__dashboard w-auto h-auto relative overflow-hidden">
                                     <div class="nav__dashboard btn-inactive flex gap-3 justify-start items-center relative">
                                         <img src="{{ asset('img/podsumowanie-off.svg') }}" alt="">
                                         <p>Podsumowanie</p>
@@ -48,7 +47,7 @@
                         </div>
                         <div class="nav__society flex gap-3 justify-left items-center gap-4">
                             <a href="{{ path('app_community') }}" class="flex gap-3">
-                                <div class="nav__dashboard  w-auto h-auto relative overflow-hidden">
+                                <div class="nav__dashboard w-auto h-auto relative overflow-hidden">
                                     <div class="nav__dashboard btn-active flex gap-3 justify-start items-center relative">
                                         <img src="{{ asset('img/spolecznosc.svg') }}" alt="">
                                         <p>Społeczność</p>
@@ -58,7 +57,7 @@
                         </div>
                         <div class="nav__profile flex gap-3 justify-left items-center gap-4">
                             <a href="{{ path('app_profile') }}" class="flex gap-3">
-                                <div class="nav__dashboard  w-auto h-auto relative overflow-hidden">
+                                <div class="nav__dashboard w-auto h-auto relative overflow-hidden">
                                     <div class="nav__dashboard btn-inactive flex gap-3 justify-start items-center relative">
                                         <img src="{{ asset('img/profil-off.svg') }}" alt="">
                                         <p>Mój profil</p>
@@ -68,6 +67,7 @@
                             </a>
                         </div>
                     </div>
+
                     <div class="flex gap-4 cursor-pointer items-center justify-center">
                         <a href="{{ path('app_logout') }}" class="btn-logout flex gap-4 items-center justify-center">
                             <i class="logout-icon fa-solid fa-right-from-bracket text-3xl"></i><span>Wyloguj</span>
@@ -75,20 +75,19 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
-        <div class="main-container w-full h-full flex flex-col">
+        <div class="w-full">
             {# Górny pasek z profilem #}
-            <div class="nav flex w-full justify-between h-10 mb-4 mt-4">
+            <div class="nav flex w-full justify-between h-[10vh]">
                 <div class="name-page ml-8 text-xl font-semibold">
-                Społeczność
+                    Społeczność
                 </div>
 
                 <div class="profile flex justify-center items-center gap-4">
                     <div class="profile-text">
                         <a href="{{ path('app_profile') }}">
-                            <p>{{ userData.firstname }} {{ userData.lastname }} </p>
+                            <p>{{ userData.firstname }} {{ userData.lastname }}</p>
                         </a>
                     </div>
 
@@ -104,19 +103,84 @@
                 </div>
             </div>
 
-            {# Panel główny podsumowania #}
-            <div class="habits__main h-full w-full main__background flex gap-4 flex-col">
+            <div class="main-container w-full h-[90vh] flex flex-col">
+                {# Panel główny społeczności #}
+                <div class="habits__main h-full w-full main__background gap-8 p-8 border border-gray-100">
+                    <div class="habits__panel bg-white w-full h-full p-8 rounded-[40px] border border-gray-100 flex">
+                        {# Posty #}
+                        <div class="habits__posts h-full w-4/6 overflow-y-auto">
+                            <div class="w-full h-auto flex flex-wrap gap-8">
 
-                {# Tabela z tygoniem #}
-                <div class="habits__table bg-white w-auto m-8 mt-0 flex flex-col justify-center items-center">
+                                {% for post in posts %}
+                                
+                                    {% set status = post.name %}
 
-                    
+                                    {% set image = {
+                                        'Pierwszy krok': 'img/firststep.png',
+                                        'Złota jesień życia': 'img/jesien.png',
+                                        'Weekendowy wojownik': 'img/weekend.png',
+                                        'Syn marnotrawny': 'img/marnotrawny.png',
+                                        'Nowa rutyna': 'img/rutyna.png',
+                                        'Kreator rzeczywistości': 'img/kreator.png',
+                                        'Multizadaniowiec': 'img/multi.png',
+                                        'Nawykowy Ninja': 'img/ninja.png',
+                                        'Mistrz rutyny': 'img/mistrz.png',
+                                    }[status]|default('img') %}
 
 
+                                    {% set text = post.name %}
+
+                                    {% set description = {
+                                        'Pierwszy krok': 'Pierwszy dzień za mną!',
+                                        'Złota jesień życia': 'Wykonuję nawyki już 90 dni!',
+                                        'Weekendowy wojownik': 'Dążę do celu tylko w weekendy :)',
+                                        'Syn marnotrawny': 'Wracam na dobre tory!',
+                                        'Nowa rutyna': 'Czas na aktualizację',
+                                        'Kreator rzeczywistości': 'Nowy rok a może nowy nawyk?',
+                                        'Multizadaniowiec': '3 nawyki? Bułka z masłem!',
+                                        'Nawykowy Ninja': '6 nawyków - mały krok, wielka zmiana!',
+                                        'Mistrz rutyny': '10 nawyków? Jeszcze się trzymam!',
+                                    }[text]|default('img') %}
+
+                                    <div class="flex flex-col gap-3 mb-5 w-full xl:w-[45%] flex-wrap">
+                                        <div class="flex gap-2 items-end">
+                                            <div class="rounded-[50%]">
+                                                {% if post.user.gender == 'M' %}
+                                                    <img class="w-[3.5em]" src="{{ asset('/img/profile.svg') }}">
+                                                {% else %}
+                                                    <img class="w-[3.5em]" src="{{ asset('/img/profilek.svg') }}">
+                                                {% endif %}
+                                            </div>
+                                            <div>
+                                                <p class="font-semibold">{{ post.user.firstname }} {{ post.user.lastname }}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex w-full h-[8em] main__background rounded-[30px] justify-between p-3 border border-gray-100 gap-1">
+                                            <div class="flex flex-col">
+                                                <p class="text-sm mb-1">{{ post.dateCreate|date('d/m/Y') }}</p>
+                                                <p class="font-semibold flex flex-wrap mb-2">{{ post.name }}</p>
+                                                <p class="font-light flex flex-wrap">
+                                                    <span class="flex flex-wrap">{{ description }}</span>
+                                                </p>
+                                            </div>
+                                            <div class="flex h-full w-[30%] items-center items-center justify-center">
+                                                <img class="h-11" src="{{ asset(image) }}" alt="{{ status }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {# Ranking #}
+                        <div class="rank-panel w-2/6 h-full main__background rounded-[30px] border border-gray-100 flex flex-col">
+                            <div class="rank__table--top flex bg-[#424242] w-full h-16 rounded-tr-[30px] rounded-tl-[30px] justify-center items-center">
+                                <h1 class="text-xl text-white font-semibold">Ranking</h1>
+                            </div>    
+                        </div>
+                    </div>
                 </div>
-
-            </div>  
-               
+            </div>
         </div>
     </div>
 </div>

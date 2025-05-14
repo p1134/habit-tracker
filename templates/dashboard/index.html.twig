@@ -109,7 +109,7 @@
                     
                     <div class="habits__panel-main w-full h-full flex flex-row gap-8 overflow-hidden">
 
-                        <div class="habits__panel--left mt-4 mb-8 ml-8 flex flex-col gap-6">
+                        <div class="habits__panel--left mt-4 mb-8 ml-8 flex flex-col gap-6 border border-gray-100">
                             <div class="overflow-hidden m-8 flex flex-col gap-4">
                             <p class="text-2xl">Nawyki</p>
                                 <div class="habits__panel__habit overflow-hidden">
@@ -176,11 +176,11 @@
 
                         {# Prawy panel #}
                         <div class="habits__panel--right mb-8 mr-8 mt-4 flex flex-col gap-6">
-                            <div class="habits__panel-right--top h-3/4 flex flex-col">
+                            <div class="habits__panel-right--top h-3/4 flex flex-col border border-gray-100">
                                 <div class="m-8 overflow-hidden w-auto h-full flex items-center justify-center flex-col">
                                     <p class="text-2xl w-full text-left">Postęp</p>
                                     <div class="chart w-full h-full flex items-center justify-center">
-                                        <div class="w-[21em] relative">
+                                        <div class="w-[18em] relative">
                                         {{ render_chart(chart) }}
                                         </div>
                                         <div class="chart__text absolute top-[51%]">
@@ -195,7 +195,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="habits__panel-right--bottom h-1/4 flex items-center">
+                            <div class="habits__panel-right--bottom h-1/4 flex items-center border border-gray-100">
                                 <div class="day_streak flex gap-6 items-center ml-4">
                                     <p class="ml-4 text-xl">Dzień</p>
                                     <div class="main__background--gold w-12 h-12 rounded-xl mr-4 flex justify-center items-center text-3xl font-semibold">

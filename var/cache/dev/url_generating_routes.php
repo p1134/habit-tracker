@@ -34,7 +34,6 @@ return [
     'app_verify_email' => [[], ['_controller' => 'App\\Controller\\RegistrationController::verifyUserEmail'], [], [['text', '/verify/email']], [], [], []],
     'app_summary' => [[], ['_controller' => 'App\\Controller\\SummaryController::index'], [], [['text', '/habits/summary']], [], [], []],
     'App\Controller\CommunityController::index' => [[], ['_controller' => 'App\\Controller\\CommunityController::index'], [], [['text', '/community']], [], [], []],
-    'App\Controller\CommunityController::addPost' => [[], ['_controller' => 'App\\Controller\\ProfileController::shareAchievement'], [], [['text', '/profile/share']], [], [], []],
     'App\Controller\DashboardController::Habits' => [[], ['_controller' => 'App\\Controller\\DashboardController::Habits'], [], [['text', '/dashboard']], [], [], []],
     'App\Controller\HabitController::Habits' => [[], ['_controller' => 'App\\Controller\\HabitController::Habits'], [], [['text', '/habits']], [], [], []],
     'App\Controller\HabitController::trackHabits' => [[], ['_controller' => 'App\\Controller\\HabitController::trackHabits'], [], [['text', '/habits/tracking']], [], [], []],

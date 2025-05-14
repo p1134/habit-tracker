@@ -1,6 +1,6 @@
 <div class="habits__panel-right--bottom h-full w-full flex items-center">
-    <form method="POST" action="{{ path('app_new_habit') }}" name="form[ownHabits][]" class="flex flex-col m-8 w-full h-full justify-between items-center">
-        <div class="flex w-full justify-center items-start mt-8 gap-4">
+    <form method="POST" action="{{ path('app_new_habit') }}" name="form[ownHabits][]" class="flex flex-col w-full h-full justify-between gap-6 items-center">
+        <div class="flex w-full justify-center items-start mt-4 gap-4">
             {{ form_widget(form.name, {'attr': {'class': 'border rounded-xl w-1/2 p-3 h-12 resize-none', 'placeholder': 'Nawyk'}}) }}
             {{ form_widget(form.category, {'attr': {'class': 'w-1/2 p-3 rounded-xl border'}}) }}
         
@@ -8,7 +8,7 @@
             {{ form_widget(form._token) }}
         </div>
 
-        <div class="btn w-full flex justify-center items-center gap-4 mb-8">
+        <div class="btn w-full flex justify-center items-center gap-4">
 
             <div class="relative overflow-hidden flex w-1/2">
                 <input type="submit" value="Zapisz" name="add" class="btn--categories relative w-full bg-black text-center text-md text-white rounded-xl pt-2.5 pb-2.5 cursor-pointer flex items-center">

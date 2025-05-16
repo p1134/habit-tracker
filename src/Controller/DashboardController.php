@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\UserRepository;
 use DateTime;
 use App\Repository\TrackingRepository;
 use App\Repository\SelectedHabitsRepository;
@@ -19,7 +20,7 @@ use Symfony\UX\Chartjs\Model\Chart;
 final class DashboardController extends AbstractController
 {
     #[Route('/dashboard', name: 'app_dashboard')]
-    public function Habits(TrackingRepository $trackings, SelectedHabitsRepository $sh, Request $request, ChartBuilderInterface $chartBuilder, EntityManagerInterface $em): Response
+    public function Habits(TrackingRepository $trackings, SelectedHabitsRepository $sh, Request $request, ChartBuilderInterface $chartBuilder, EntityManagerInterface $em, UserRepository $users): Response
     {
         $user = $this->getUser();
 
@@ -114,7 +115,18 @@ final class DashboardController extends AbstractController
         $currentStreak = date_diff($today, $startDate)->days+1;
         // dd($currentStreak);
     }
-    // dd($streaksDate);
+
+// ZAPISYWANIE WYKONANYCH DNI DO BAZY
+    $setCurrentStreak = $user->getCurrentStreak();
+
+    if($setCurrentStreak == null or $setCurrentStreak != $currentStreak){
+        $user->setCurrentStreak($currentStreak);
+        $em->persist($user);
+        $em->flush();    
+    }
+    
+    // dd($setCurrentStreak,$currentStreak);
+    
 
             return $this->render('dashboard/index.html.twig', [
                 'controller_name' => 'HabitController',

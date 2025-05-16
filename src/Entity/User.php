@@ -87,6 +87,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Achievement::class, mappedBy: 'user')]
     private Collection $achievements;
 
+    #[ORM\Column(name: "current_streak", type: "integer", nullable: true)]
+    private ?int $currentStreak = null;
+
     // #[ORM\ManyToOne(inversedBy: 'user')]
     // #[ORM\JoinColumn(nullable: false)]
     // private ?SelectedHabits $selectedHabit = null;
@@ -428,6 +431,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $achievement->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCurrentStreak(): ?int
+    {
+        return $this->currentStreak;
+    }
+
+    public function setCurrentStreak(?int $currentStreak): static
+    {
+        $this->currentStreak = $currentStreak;
 
         return $this;
     }

@@ -33,6 +33,15 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
+    public function getStreaksRanking(){
+        return $this->createQueryBuilder('u')
+        ->select('u.id')
+        ->addselect('u.firstname, u.lastname, u.currentStreak, u.gender')
+        ->orderBy('u.currentStreak', 'DESC')
+        ->getQuery()
+        ->getResult();
+    }
+
     //    /**
     //     * @return User[] Returns an array of User objects
     //     */

@@ -112,8 +112,11 @@ final class DashboardController extends AbstractController
         $startDate = new DateTime($streaksDate[array_key_last($streaksDate)]);
         // dd($date1); 
         
-        $currentStreak = date_diff($today, $startDate)->days+1;
         // dd($currentStreak);
+        $currentStreak = date_diff($today, $startDate)->days+1;
+    }
+    else{
+        $currentStreak = 0;
     }
 
 // ZAPISYWANIE WYKONANYCH DNI DO BAZY

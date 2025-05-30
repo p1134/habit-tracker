@@ -7,6 +7,13 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
+.radio-btn input[type=radio] {
+  width: 24px;
+  height: 24px;
+  accent-color: #FABB18;
+  transform: scale(1.5);
+}
+
 .limit-height {
   max-height: 15em;
 }

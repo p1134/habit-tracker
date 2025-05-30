@@ -2,34 +2,36 @@
 
 {% block body %}
 <div class="main__background w-full h-screen">
-    <div class="nav">
-        <div class="profile-text">
+    <div class="nav-main flex justify-end items-center gap-4">
+        <div class="profile-text mt-8">
             <a href="{{ path('app_login') }}">
-                <p>Zaloguj się</p>
+                <p class="text-[2.5rem] lg:text-lg">Zaloguj się</p>
             </a>
         </div>
 
-        <div class="profile-icon w-30 h-30">
+        <div class="profile-icon mr-8 mt-8">
             <a href="{{ path('app_login') }}">
-                                <img src="{{ asset('/img/profile.svg') }}">
+               <img class="w-32 h-32 lg:w-12 lg:h-12" src="{{ asset('/img/profile.svg') }}">
             </a>
         </div>
     </div>
 
-    <div class="flex flex-col w-full h-full justify-center items-center">
-        <div class="main__content md:w-auto w-full h-auto relative">
+    <div class="flex flex-col w-full h-full justify-center items-center pb-[30em] lg:pb-36">
+        <div class="main__content md:w-auto w-full relative h-36">
             <div class="main__heading">
-                <h1 class="h-auto">HABITIF<span class="main-color">Y.</span></h1>
+                <h1 class="h-auto text-[10rem] lg:text-[7rem]">HABITIF<span class="main-color">Y.</span></h1>
             </div>
-            <div class="main__heading--small absolute w-max right-0 bottom-44">
+            <div class="main__heading--small absolute w-max text-[2.4rem] lg:text-[1.8rem] right-14 lg:right-0 bottom-0 lg:bottom-4">
                 <h2 class="text-black w-full h-auto">Przypomni, zanim ty zdążysz zapomnieć</h2>
             </div>
         </div>
-        <div class="main__cta absolute bottom-48 overflow-hidden">
-            <a href="{{ path('app_register') }}">
-                <button class="main__cta-btn rounded-xl text-xl relative flex gap-3"><span><img src="{{ asset('/img/dashboard.svg') }}" class="main__btn-dashboard w-4/5"></span>Zacznij teraz</button>
-                <div class="btn-dot absolute bottom-2"></div>
-            </a>
+        <div class="flex w-full justify-center mt-24 lg:mt-16">
+            <div class="main__cta absolute overflow-hidden">
+                <a href="{{ path('app_register') }}">
+                    <button class="main__cta-btn rounded-3lg lg:rounded-lg text-[2.5rem] lg:text-lg relative flex gap-8 lg:gap-3 "><span><img src="{{ asset('/img/dashboard.svg') }}" class="main__btn-dashboard w-[1.2em] lg:w-4/5"></span>Zacznij teraz</button>
+                    <div class="btn-dot absolute bottom-2"></div>
+                </a>
+            </div>
         </div>
     </div>
 

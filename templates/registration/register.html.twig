@@ -7,62 +7,62 @@
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
 
-    <div class="main__background w-full h-screen">
-    <div class="nav">
-        <div class="profile-text">
+    <div class="main__background w-full h-screen overflow-hidden">
+    <div class="nav-main flex justify-end items-center gap-4">
+        <div class="profile-text mt-8">
             <a href="{{ path('app_login') }}">
-                <p>Zaloguj się</p>
+                <p class="text-[2.5rem] lg:text-lg">Zaloguj się</p>
             </a>
         </div>
 
-        <div class="profile-icon w-30 h-30">
+        <div class="profile-icon w-30 h-30 mr-8 mt-8">
             <a href="{{ path('app_login') }}">
-                <img src="{{ asset('/img/profile.svg') }}">
+                <img src="{{ asset('/img/profile.svg') }}" class="w-32 h-32 lg:w-12 lg:h-12">
             </a>
         </div>
     </div>
 
-    <div class="flex flex-col w-auto h-full justify-start items-center mt-20">
+    <div class="flex flex-col w-auto h-full justify-start items-center mt-[30%] lg:mt-20 gap-[8em] lg:gap-0">
         <div class="main__content md:w-auto w-full h-auto">
             <div class="main__heading--form">
-                <h1 class="h-auto">REJESTRAC<span class="main-color">JA.</span></h1>
+                <h1 class="h-auto text-[6.5rem] lg:text-[3.5rem]">REJESTRAC<span class="main-color">JA.</span></h1>
             </div>
         </div>
 
-        {# <div class="flex flex-col w-"> #}
+        <div class="flex flex-col w-full lg:w-auto items-center">
         {{ form_errors(registrationForm) }}
 
         {{ form_start(registrationForm) }}
-            <div class="flex flex-col gap-4 w-full">
+            <div class="flex flex-col gap-10 lg:gap-4 w-full">
             {{ form_widget(registrationForm.firstname, {
                 'attr': {
-                    'class': 'form__widget',
+                    'class': 'form__widget text-[2.5rem] lg:text-[1rem] rounded-3xl lg:rounded-md',
                     'placeholder': 'Imię'
                     }}) }}
             {{ form_widget(registrationForm.lastname, {
                 'attr': {
-                    'class': 'form__widget',
+                    'class': 'form__widget text-[2.5rem] lg:text-[1rem] rounded-3xl lg:rounded-md',
                     'placeholder': 'Nazwisko'
                     }}) }}
             {{ form_widget(registrationForm.email, {
                 'attr': {
-                    'class': 'form__widget',
+                    'class': 'form__widget text-[2.5rem] lg:text-[1rem] rounded-3xl lg:rounded-md',
                     'placeholder':'Adres e-mail'
                     }}) }}
             {{ form_widget(registrationForm.plainPassword, {
                 'attr': {
-                    'class': 'form__widget',
+                    'class': 'form__widget text-[2.5rem] lg:text-[1rem] rounded-3xl lg:rounded-md',
                     'placeholder': 'Hasło'
                 }
             }) }}
             {{ form_widget(registrationForm.gender, {
                 'attr': {
-                    'class': 'flex gap-2',
+                    'class': 'flex gap-6 lg:gap-2 text-[2.5rem] lg:text-[1rem] items-center',
                     'placeholder': 'Płeć'
                 }
             }) }}
-            <a href="{{ path('app_login') }}" class="text-sm text-gray-500">Mam już konto</a>
-            <div class="flex gap-3">
+            {# <a href="{{ path('app_login') }}" class="text-gray-500 text-[2rem] lg:text-[0.9rem]">Mam już konto</a> #}
+            <div class="flex gap-6 lg:gap-3 items-center text-[2rem] lg:text-[1rem]">
             {{ form_widget(registrationForm.agreeTerms) }}
             <p>Akceptuję regulamin</p>
             </div>
@@ -70,7 +70,7 @@
             <div class="mt-10">
                 <div class=" form-submit absolute overflow-hidden">
                     {# <a href="{{ path('app_register') }}"> #}
-                        <button type="submit" class="form__btn rounded-xl text-xl relative flex gap-3"><span><img src="{{ asset('/img/register.svg') }}" class="main__btn-dashboard w-4/5"></span>Zarejestruj</button>
+                        <button type="submit" class="form__btn rounded-3xl lg:rounded-xl text-[3rem] lg:text-xl relative flex gap-3"><span><img src="{{ asset('/img/register.svg') }}" class="main__btn-dashboard hidden lg:block"></span>Zarejestruj</button>
                         <div class="btn-dot absolute bottom-2"></div>
                     {# </a> #}
                 </div>
@@ -78,7 +78,7 @@
 
             </div>
         {{ form_end(registrationForm) }}
-        {# </div> #}
+        </div>
     </div>
 
 </div>

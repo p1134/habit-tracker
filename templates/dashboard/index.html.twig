@@ -6,9 +6,9 @@
 
 <div class="habits__container w-full max-h-full flex flex-col">
 
-    <div class="flex flex w-full h-full">
+    <div class="flex flex w-full h-full lg:flex-row flex-col">
         {# Nawigacja #}
-        <div class="nav__container h-[100vh] mt-5 flex justify-center">
+        <div class="nav__container h-[100vh] mt-5 flex justify-center absolute hidden lg:static lg:block">
             <div class="nav__container h-full flex flex-col items-center">
                 <div class="nav__name mb-16">
                     <p class="text-4xl font-bold">HABITIF<span class="main-color">Y.</span></p>
@@ -18,7 +18,7 @@
                     <div class="nav__tabs flex flex-col gap-5">
 
                         <a class="w-auto h-auto" href="{{ path('app_dashboard') }}">
-                            <div class="nav__dashboard  w-auto h-auto relative overflow-hidden">
+                            <div class="nav__dashboard  w-auto h-auto relative lg:overflow-hidden">
                                 <div class="nav__dashboard btn-active flex gap-3 justify-start items-center relative">
                                     <img class="w-5 h-5" src="{{ asset('/img/dashboard.svg') }}" alt="">
                                     <p>Pulpit</p>
@@ -62,13 +62,25 @@
         </div>
 
             {# Górny pasek z profilem #}
-        <div class="w-full h-[100vh]">
-            <div class="nav flex w-full justify-between h-[10vh]">
-                <div class="name-page ml-8 text-xl font-semibold">
-                Pulpit
+            <div class="nav nav--mobile lg:hidden flex w-full justify-between h-[10vh] fixed main__background">
+                <div class="w-[6em] h-[6em] ml-16 relative flex flex-col justify-center">
+                    <div class="absolute rounded-md w-1/2 h-[0.6em] bg-black mb-[3em]"></div>
+                    <div class="absolute rounded-md w-full h-[0.6em] bg-black"></div>
+                    <div class="absolute rounded-md w-1/2 h-[0.6em] bg-black mt-[3em] right-0"></div>
+                </div>
+                <div class="name-page mr-16 text-[3rem] font-semibold">
+                    <p>Pulpit</p>
                 </div>
 
-                <div class="profile flex justify-center items-center gap-4">
+            </div>
+        <div class="w-full lg:h-[100vh]">
+            <div class="nav flex w-full justify-between h-[10vh]">
+
+                <div class="name-page lg:ml-8 lg:mr-8 mr-8 text-[3rem] lg:text-xl font-semibold hidden lg:block">
+                <p>Pulpit</p>
+                </div>
+
+                <div class="profile justify-center items-center gap-4 hidden lg:flex">
                     <div class="profile-text">
                         <a href="{{ path('app_profile') }}">
                             <p>{{ userData.firstname }} {{ userData.lastname }} </p>
@@ -87,63 +99,63 @@
                 </div>
             </div>
 
-            <div class="main-container w-full h-[90vh] flex flex-col">
+            <div class="main-container w-full lg:h-[90vh] flex flex-col">
 
                 {# Panel główny dashboardu #}
-                <div class="habits__main h-full w-full main__background flex gap-4 flex-col overflow-hidden">
-                    <div class="w-full h-[12vh] flex flex-col p-8">
+                <div class="habits__main h-full w-full main__background flex gap-4 flex-col lg:overflow-hidden">
+                    <div class="w-full lg:h-[12vh] flex flex-col p-8">
                     {# Lewy panel #}
-                    <div class="habits__panel--top w-full h-[12vh] flex justify-between items-center">
-                        <div class="">
-                            <p class="text-3xl font-semibold mb-3">Dzisiaj</p>
-                            <p class="text-lg">{{ day }} | {{ today }}</p>
+                    <div class="habits__panel--top w-full lg:h-[12vh] flex flex-col lg:flex-row lg:justify-between lg:items-center">
+                        <div class="ml-8 lg:ml-0">
+                            <p class="text-[5rem] lg:text-3xl font-semibold mb-3">Dzisiaj</p>
+                            <p class="text-[2.5rem] lg:text-lg">{{ day }} | {{ today }}</p>
                         </div>
-                        <div class="bg-white w-72 h-20 rounded-3xl flex items-center justify-between">
-                            <p class="ml-8 text-xl">Najdłuższa seria</p>
-                            <div class="main__background--gold w-12 h-12 rounded-xl mr-8 flex justify-center items-center text-3xl font-semibold">      
-                                {{ maxStreak ?? 0 }}
+                        <div class="bg-white w-full lg:w-72 lg:h-20 rounded-[3em] lg:rounded-3xl flex items-center justify-between lg:mt-0 mt-8 pt-10 pb-10 border border-gray-100">
+                            <p class="ml-8 text-[3rem] lg:text-xl">Najdłuższa seria</p>
+                            <div class="main__background--gold w-36 h-36 lg:w-12 lg:h-12 rounded-3xl lg:rounded-xl mr-8 flex justify-center items-center text-[6rem] lg:text-3xl font-semibold">      
+                                <p>{{ maxStreak ?? 0 }}</p>
                             </div>
                         </div>
                     </div>
                     </div>
                     
-                    <div class="habits__panel-main w-full h-full flex flex-row gap-8 overflow-hidden">
+                    <div class="habits__panel-main w-full h-full flex flex-col lg:flex-row gap-8 lg:overflow-hidden">
 
-                        <div class="habits__panel--left mt-4 mb-8 ml-8 flex flex-col gap-6 border border-gray-100">
+                        <div class="lg:bg-white lg:rounded-[40px] w-full lg:w-[50%] mt-4 mb-8 ml-8 flex flex-col gap-6 border border-gray-100">
                             <div class="overflow-hidden m-8 flex flex-col gap-4">
-                            <p class="text-2xl">Nawyki</p>
+                            <p class="text-[4rem] lg:text-2xl mb-6 lg:mb-0">Nawyki</p>
                                 <div class="habits__panel__habit overflow-hidden">
                                     <form class="overflow-y-scroll flex-1 h-full" method="post" action="{{ path('app_tracking_habit') }}">
                                         {% for h in habits %}
-                                            <div class="border rounded-xl mb-5 w-full">
-                                                <label class="habits__row flex p-4 items-center gap-4 cursor-pointer justify-between">
-                                                    <div class="habits__row flex items-center gap-4">
+                                            <div class="border rounded-3xl lg:rounded-xl mb-5 w-full">
+                                                <label class="habits__row flex p-8 lg:p-4 items-center gap-4 cursor-pointer justify-between">
+                                                    <div class="habits__row flex items-center gap-8 lg:gap-4">
                                                         {% if h.habit is not null and h.habit.category.id == 1 or h.ownHabit is not null and h.ownHabit.category.id == 1 %}
-                                                        <div class="w-9">
-                                                            <div class="habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-blue-100">
-                                                                <img src="{{ asset('img/icon-blue.svg') }}" alt="">
+                                                        <div class="w-[6em] lg:w-9">
+                                                            <div class="habits__panel__habit-icon w-[6em] h-[6em] lg:w-9 lg:h-9 rounded-[50%] lg:rounded-3xl flex justify-center items-center bg-blue-100">
+                                                                <img src="{{ asset('img/icon-blue.svg') }}" alt="" class="w-[3em] lg:w-[1em]">
                                                             </div>
                                                         </div>
                                                         {% elseif h.habit is not null and h.habit.category.id == 2 or h.ownHabit is not null and h.ownHabit.category.id == 2 %}
-                                                        <div class="w-9">
-                                                            <div class="habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-green-100">
-                                                                <img src="{{ asset('img/icon-green.svg') }}" alt="">
+                                                        <div class="w-[6em] lg:w-9">
+                                                            <div class="habits__panel__habit-icon w-[6em] h-[6em] lg:w-9 lg:h-9 lg:rounded-3xl rounded-[50%] flex justify-center items-center bg-green-100">
+                                                                <img src="{{ asset('img/icon-green.svg') }}" alt="" class="w-[3em] lg:w-[1em]">
                                                             </div>
                                                         </div>
                                                         {% elseif h.habit is not null and h.habit.category.id == 3 or h.ownHabit is not null and h.ownHabit.category.id == 3 %}
-                                                        <div class="w-9">
-                                                            <div class="habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-orange-100">
-                                                                <img src="{{ asset('img/icon-yellow.svg') }}" alt="">
+                                                        <div class="w-[6em] lg:w-9">
+                                                            <div class="habits__panel__habit-icon w-[6em] h-[6em] lg:w-9 lg:h-9 lg:rounded-3xl rounded-[50%] flex justify-center items-center bg-orange-100">
+                                                                <img src="{{ asset('img/icon-yellow.svg') }}" alt="" class="w-[3em] lg:w-[1em]">
                                                             </div>
                                                         </div>
                                                         {% endif %}
                                                     
                                                         {% if not h.isDeleted %}
-                                                            {{ h.habit.name ?? h.ownHabit.name }}
+                                                            <p class="text-[2.5rem] lg:text-[1rem]">{{ h.habit.name ?? h.ownHabit.name }}</p>
                                                     </div>
                                                     
                                                     <div class="flex items-center ">
-                                                        <div class="habits__habit-row w-48 flex items-center">
+                                                        <div class="habits__habit-row lg:w-48 flex items-center">
                                                         <input type="checkbox" name="habits[]" value="{{ h.id }}" class="habits__checkbox cursor-pointer invisible"
                                                         {% for t in tracked %}
                                                         {# <pre>
@@ -157,7 +169,8 @@
                                                 {% endif %}
 
 
-                                                        <div class="habits__checkbox-progress h-2 rounded-md main__background--gold"></div>
+                                                        <div class="habits__checkbox-progress hidden lg:block h-5 w-5 lg:w-[0.5em] lg:h-2 rounded-3xl lg:rounded-md main__background--gold"></div>
+                                                        <div class="lg:hidden habits__checkbox-progress--mb h-5 w-20 rounded-3xl"></div>
                                                         </div>
                                                     </div>
                                                 </label>
@@ -175,31 +188,33 @@
                         <a href="{{ path('app_habit_remove') }}"><button>Usuń nawyk</button></a>  #}
 
                         {# Prawy panel #}
-                        <div class="habits__panel--right mb-8 mr-8 mt-4 flex flex-col gap-6">
-                            <div class="habits__panel-right--top h-3/4 flex flex-col border border-gray-100">
-                                <div class="m-8 overflow-hidden w-auto h-full flex items-center justify-center flex-col">
-                                    <p class="text-2xl w-full text-left">Postęp</p>
-                                    <div class="chart w-full h-full flex items-center justify-center">
-                                        <div class="w-[18em] relative">
+                        <div class="w-full lg:w-[50%] mb-8 mr-8 mt-4 flex flex-col gap-6">
+                            <div class="lg:bg-white lg:rounded-[40px] h-[48em] lg:h-3/4 flex flex-col border border-gray-100">
+                                <div class="m-8 lg:overflow-hidden w-auto h-full flex items-center justify-center flex-col">
+                                    <p class="text-2xl w-full text-left text-[4rem] lg:text-2xl mb-6 lg:mb-0">Postęp</p>
+                                    <div class="chart w-full h-full flex items-center justify-center relative">
+                                        <div class="lg:w-[18em] w-[32em]">
                                         {{ render_chart(chart) }}
                                         </div>
-                                        <div class="chart__text absolute top-[51%]">
+                                        <div class="chart__text lg:text-[1rem] text-[2.3rem] absolute top-[45%]">
                                             <p>{{ trackedCount }} 
                                                 {% if trackedCount == '1' %} nawyk 
                                                 {% elseif trackedCount == '2' or trackedCount == '3' or trackedCount == '4' %} nawyki
                                                 {% else %}
                                                     nawyków
                                                 {% endif %}</p>
-                                            <p class="text-gray-600 font-light">{{ percentage }}%</p>
+                                            <p class="text-gray-600 font-light text-center">{{ percentage }}%</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="habits__panel-right--bottom h-1/4 flex items-center border border-gray-100">
-                                <div class="day_streak flex gap-6 items-center ml-4">
-                                    <p class="ml-4 text-xl">Obecna seria <span class="ml-4">|</span></p>
-                                    <p class="text-xl">Dzień</p>
-                                    <div class="main__background--gold w-12 h-12 rounded-xl mr-4 flex justify-center items-center text-3xl font-semibold">
+                            <div class="habits__panel-right--bottom lg:h-1/4 lg:p-0 m-8 lg:m-0 p-4 pt-8 pb-8 flex items-center border border-gray-100">
+                                <div class="day_streak w-full flex gap-6 items-center ml-4 lg:justify-start justify-between">
+                                    <div class="flex gap-6">
+                                        <p class="ml-4 text-[3rem] lg:text-xl">Obecna seria <span class="ml-4">|</span></p>
+                                        <p class="text-[3rem] lg:text-xl">Dzień</p>
+                                    </div>
+                                    <div class="main__background--gold w-36 h-36 lg:w-12 lg:h-12 rounded-3xl lg:rounded-xl mr-4 flex justify-center items-center text-[6rem] lg:text-3xl font-semibold">
                                         {{ currentStreak != 0 ? currentStreak:'?' }}
                                     </div>
                                 </div>

@@ -222,6 +222,10 @@ body {
   width: 0.5em;
   transition: width 0.2s;
 }
+.habits__checkbox-progress--mb {
+  transition: width background-color 0.2s;
+  background-color: lightgray;
+}
 .habits__category-bar {
   width: 20em;
   height: 0.5em;
@@ -255,6 +259,11 @@ body {
 .habits__checkbox:checked ~ .habits__checkbox-progress {
   width: 10em;
   transition: width 0.2s;
+}
+
+.habits__checkbox:checked ~ .habits__checkbox-progress--mb {
+  background-color: #FABB18;
+  transition: background-color 0.2s;
 }
 
 .chart__text {

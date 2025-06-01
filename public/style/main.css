@@ -160,6 +160,12 @@ body {
 .nav__container {
   width: 16em;
 }
+.nav__btn-bar {
+  width: 50%;
+}
+.nav__btn-bar--middle {
+  width: 50%;
+}
 
 .btn-dot {
   width: 6px;

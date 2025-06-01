@@ -60,19 +60,25 @@
                 </div>
             </div>
         </div>
+        {# Nawigacja mobilna #}
+            {# <div data-controller="mobile-menu" class=""> #}
+                <div data-controller="mobile-menu" class="nav nav--mobile lg:hidden flex w-full justify-between h-[10vh] fixed main__background z-10">
+                    <div data-action="click->mobile-menu#toggle" class="burger-btn pointer w-[6em] h-[6em] ml-16 relative flex flex-col justify-center z-50">
+                        <div data-mobile-menu-target="bar" class="nav__btn-bar transition-all duration-500 absolute rounded-md h-[0.6em] bg-black mb-[3em] z-50"></div>
+                        <div class="absolute rounded-md h-[0.6em] w-full bg-black z-50"></div>
+                        <div data-mobile-menu-target="bar" class="nav__btn-bar transition-all duration-500 absolute rounded-md h-[0.6em] bg-black mt-[3em] right-0 z-50"></div>
+                    </div>
+                    <div class="name-page mr-16 text-[3rem] font-semibold z-50">
+                        <p data-mobile-menu-target="page" class="">Pulpit</p>
+                        <p data-mobile-menu-target="user" class="hidden static translate-x-full transition-all duration-500">{{ userData.firstname }} {{ userData.lastname }}</p>
+                    </div>
+                <div data-mobile-menu-target="menu" class="fixed top-0 left-0 -translate-x-full transition-all duration-500 w-full h-full main__background z-[10] pt-[10vh]">
+                    {{ include("./shared/_nav_mobile.html.twig") }}
+                </div>
+                </div>
 
+            {# </div> #}
             {# Górny pasek z profilem #}
-            <div class="nav nav--mobile lg:hidden flex w-full justify-between h-[10vh] fixed main__background">
-                <div class="w-[6em] h-[6em] ml-16 relative flex flex-col justify-center">
-                    <div class="absolute rounded-md w-1/2 h-[0.6em] bg-black mb-[3em]"></div>
-                    <div class="absolute rounded-md w-full h-[0.6em] bg-black"></div>
-                    <div class="absolute rounded-md w-1/2 h-[0.6em] bg-black mt-[3em] right-0"></div>
-                </div>
-                <div class="name-page mr-16 text-[3rem] font-semibold">
-                    <p>Pulpit</p>
-                </div>
-
-            </div>
         <div class="w-full lg:h-[100vh]">
             <div class="nav flex w-full justify-between h-[10vh]">
 

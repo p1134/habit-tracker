@@ -165,6 +165,22 @@ body{
     &__container{
         width: 16em;
     }
+
+    &__btn-bar{
+        width: 50%;
+        &--middle{
+            width: 50%;
+        }
+    }
+    // &-mobile{
+    //     position: relative;
+    //     right: 100%;
+
+    //     &--clicked{
+    //         width: 100%;
+    //     }
+    // }
+
 }
 .btn-dot{
     width: 6px;
@@ -333,5 +349,4 @@ transition: transform 0.6s;
     transform: rotate(90);
     transition: rotate 0.2s ease-in-out;
 }
-
 

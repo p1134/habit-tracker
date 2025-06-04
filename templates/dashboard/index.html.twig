@@ -6,7 +6,7 @@
 
 <div class="habits__container w-full max-h-full flex flex-col">
 
-    <div class="flex flex w-full h-full lg:flex-row flex-col">
+    <div class="flex w-full h-full lg:flex-row flex-col">
         {# Nawigacja #}
         <div class="nav__container h-[100vh] mt-5 flex justify-center absolute hidden lg:static lg:block">
             <div class="nav__container h-full flex flex-col items-center">
@@ -61,7 +61,6 @@
             </div>
         </div>
         {# Nawigacja mobilna #}
-            {# <div data-controller="mobile-menu" class=""> #}
                 <div data-controller="mobile-menu" class="nav nav--mobile lg:hidden flex w-full justify-between h-[10vh] fixed main__background z-10">
                     <div data-action="click->mobile-menu#toggle" class="burger-btn pointer w-[6em] h-[6em] ml-16 relative flex flex-col justify-center z-50">
                         <div data-mobile-menu-target="bar" class="nav__btn-bar transition-all duration-500 absolute rounded-md h-[0.6em] bg-black mb-[3em] z-50"></div>
@@ -77,7 +76,6 @@
                 </div>
                 </div>
 
-            {# </div> #}
             {# Górny pasek z profilem #}
         <div class="w-full lg:h-[100vh]">
             <div class="nav flex w-full justify-between h-[10vh]">
@@ -125,16 +123,16 @@
                     </div>
                     </div>
                     
-                    <div class="habits__panel-main w-full h-full flex flex-col lg:flex-row gap-8 lg:overflow-hidden">
+                    <div class="habits__panel-main w-full h-full flex flex-col p-8 lg:p-0 lg:pl-8 lg:flex-row gap-8 lg:overflow-hidden">
 
-                        <div class="lg:bg-white lg:rounded-[40px] w-full lg:w-[50%] mt-4 mb-8 ml-8 flex flex-col gap-6 border border-gray-100">
+                        <div class="lg:bg-white lg:rounded-[40px] w-full lg:w-[50%] mt-4 mb-8 flex flex-col gap-6 border border-gray-100">
                             <div class="overflow-hidden m-8 flex flex-col gap-4">
                             <p class="text-[4rem] lg:text-2xl mb-6 lg:mb-0">Nawyki</p>
                                 <div class="habits__panel__habit overflow-hidden">
                                     <form class="overflow-y-scroll flex-1 h-full" method="post" action="{{ path('app_tracking_habit') }}">
                                         {% for h in habits %}
                                             <div class="border rounded-3xl lg:rounded-xl mb-5 w-full">
-                                                <label class="habits__row flex p-8 lg:p-4 items-center gap-4 cursor-pointer justify-between">
+                                                <label class="habits__row flex p-8 lg:p-4 items-center gap-8 cursor-pointer justify-between">
                                                     <div class="habits__row flex items-center gap-8 lg:gap-4">
                                                         {% if h.habit is not null and h.habit.category.id == 1 or h.ownHabit is not null and h.ownHabit.category.id == 1 %}
                                                         <div class="w-[6em] lg:w-9">

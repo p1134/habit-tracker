@@ -6,9 +6,9 @@
 
 <div class="habits__container w-full max-h-full flex flex-col">
 
-    <div class="flex flex w-full h-full">
+    <div class="flex w-full h-full lg:flex-row flex-col">
         {# Nawigacja #}
-        <div class="nav__container h-[100vh] mt-5 flex justify-center">
+        <div class="nav__container h-[100vh] mt-5 flex justify-center absolute hidden lg:static lg:block">
             <div class="nav__container h-full flex flex-col items-center">
                 <div class="nav__name mb-16">
                     <p class="text-4xl font-bold">HABITIF<span class="main-color">Y.</span></p>
@@ -18,7 +18,7 @@
                     <div class="nav__tabs flex flex-col gap-5">
 
                         <a class="w-auto h-auto" href="{{ path('app_dashboard') }}">
-                            <div class="nav__dashboard  w-auto h-auto relative overflow-hidden">
+                            <div class="nav__dashboard  w-auto h-auto relative lg:overflow-hidden">
                                 <div class="nav__dashboard btn-inactive flex gap-3 justify-start items-center relative">
                                     <img class="w-5 h-5" src="{{ asset('/img/dashboard-off.svg') }}" alt="">
                                     <p>Pulpit</p>
@@ -66,14 +66,31 @@
 
         </div>
 
-        <div class="w-full h-[100vh]">
-            {# Górny pasek z profilem #}
+{# Nawigacja mobilna #}
+        <div data-controller="mobile-menu" class="nav nav--mobile lg:hidden flex w-full justify-between h-[10vh] fixed main__background z-10">
+            <div data-action="click->mobile-menu#toggle" class="burger-btn pointer w-[6em] h-[6em] ml-16 relative flex flex-col justify-center z-50">
+                <div data-mobile-menu-target="bar" class="nav__btn-bar transition-all duration-500 absolute rounded-md h-[0.6em] bg-black mb-[3em] z-50"></div>
+                <div class="absolute rounded-md h-[0.6em] w-full bg-black z-50"></div>
+                <div data-mobile-menu-target="bar" class="nav__btn-bar transition-all duration-500 absolute rounded-md h-[0.6em] bg-black mt-[3em] right-0 z-50"></div>
+            </div>
+            <div class="name-page mr-16 text-[3rem] font-semibold z-50">
+                <p data-mobile-menu-target="page" class="">Nawyki</p>
+                <p data-mobile-menu-target="user" class="hidden static translate-x-full transition-all duration-500">{{ userData.firstname }} {{ userData.lastname }}</p>
+            </div>
+            <div data-mobile-menu-target="menu" class="fixed top-0 left-0 -translate-x-full transition-all duration-500 w-full h-full main__background z-[10] pt-[10vh]">
+                {{ include("./shared/_nav_mobile.html.twig") }}
+            </div>
+        
+        </div>
+        {# Górny pasek z profilem #}
+        <div class="w-full lg:h-[100vh]">
             <div class="nav flex w-full justify-between h-[10vh]">
-                <div class="name-page ml-8 text-xl font-semibold">
+
+                <div class="name-page lg:ml-8 lg:mr-8 mr-8 text-[3rem] lg:text-xl font-semibold hidden lg:block">
                 Nawyki
                 </div>
 
-                <div class="profile flex justify-center items-center gap-4">
+                <div class="profile justify-center items-center gap-4 hidden lg:flex">
                     <div class="profile-text">
                         <a href="{{ path('app_profile') }}">
                             <p>{{ userData.firstname }} {{ userData.lastname }} </p>
@@ -92,49 +109,51 @@
                 </div>
             </div>
 
-            <div class="main-container w-full h-[90vh] flex flex-col">
+            <div class="main-container w-full lg:h-[90vh] flex flex-col">
 
                 {# Panel główny dashboardu #}
-                <div class="habits__main h-full w-full main__background flex gap-4 flex-col overflow-hidden">
+                <div class="habits__main h-full w-full main__background flex gap-4 flex-col lg:overflow-hidden">
                     {# Lewy panel #}
                     
-                    <div class="habits__panel-main w-full h-full flex flex-row gap-8 overflow-hidden p-8">
+                    <div class="habits__panel-main w-full h-full flex flex-col lg:flex-row gap-8 lg:overflow-hidden p-8">
 
-                        <div class="habits__panel--left habits__panel flex flex-col gap-6 h-full border border-gray-100">
-                            <div class="overflow-hidden flex flex-col gap-4 p-8">
-                            <p class="text-2xl">Twoje nawyki</p>
+                        <div class="order-2 lg:order-1 lg:bg-white lg:rounded-[40px] w-full lg:w-[50%] mt-4 lg:mt-0 mb-8 flex flex-col gap-6 h-full border border-gray-100">
+                            <div class="overflow-hidden flex flex-col gap-4 m-8">
+                            <p class="text-[4rem] lg:text-2xl mb-6 lg:mb-0">Twoje nawyki</p>
                                 <div class="habits__panel__habit overflow-y-scroll overflow-x-hidden">
                                     <form method="post" action="{{ path('app_tracking_habit') }}">
                                         {% for h in habits %}
-                                            <div class="border rounded-xl mb-5 w-full">
-                                                <label class="habits__row flex p-4 items-center gap-4 cursor-pointer justify-between">
-                                                    <div class="habits__row flex items-center gap-4">
+                                            <div class="border rounded-3xl lg:rounded-xl mb-5 w-full">
+                                                <label class="habits__row flex p-8 lg:p-4 items-center gap-8 lg:gap-4 cursor-pointer justify-between">
+                                                    <div class="habits__row flex items-center gap-8 lg:gap-4">
                                                         {% if h.habit is not null and h.habit.category.id == 1 or h.ownHabit is not null and h.ownHabit.category.id == 1 %}
-                                                        <div class="w-9">
-                                                            <div class="habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-blue-100">
-                                                                <img src="{{ asset('img/icon-blue.svg') }}" alt="">
+                                                        <div class="w-[6em] lg:w-9">
+                                                            <div class="habits__panel__habit-icon w-[6em] h-[6em] lg:w-9 lg:h-9 rounded-[50%] lg:rounded-3xl flex justify-center items-center bg-blue-100">
+                                                                <img class="w-[3em] lg:w-[1em]" src="{{ asset('img/icon-blue.svg') }}" alt="">
                                                             </div>
                                                         </div>
                                                         {% elseif h.habit is not null and h.habit.category.id == 2 or h.ownHabit is not null and h.ownHabit.category.id == 2 %}
-                                                        <div class="w-9">
-                                                            <div class="habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-green-100">
-                                                                <img src="{{ asset('img/icon-green.svg') }}" alt="">
+                                                        <div class="w-[6em] lg:w-9">
+                                                            <div class="habits__panel__habit-icon w-[6em] h-[6em] lg:w-9 lg:h-9 rounded-[50%] lg:rounded-3xl flex justify-center items-center bg-green-100">
+                                                                <img class="w-[3em] lg:w-[1em]" src="{{ asset('img/icon-green.svg') }}" alt="">
                                                             </div>
                                                         </div>
                                                         {% elseif h.habit is not null and h.habit.category.id == 3 or h.ownHabit is not null and h.ownHabit.category.id == 3 %}
-                                                        <div class="w-9">
-                                                            <div class="habits__panel__habit-icon w-9 h-9 rounded-3xl flex justify-center items-center bg-orange-100">
-                                                                <img src="{{ asset('img/icon-yellow.svg') }}" alt="">
+                                                        <div class="w-[6em] lg:w-9">
+                                                            <div class="habits__panel__habit-icon w-[6em] h-[6em] lg:w-9 lg:h-9 rounded-[50%] lg:rounded-3xl flex justify-center items-center bg-orange-100">
+                                                                <img class="w-[3em] lg:w-[1em]" src="{{ asset('img/icon-yellow.svg') }}" alt="">
                                                             </div>
                                                         </div>
                                                         {% endif %}
                                                     
                                                         {% if not h.isDeleted %}
-                                                            {{ h.habit.name ?? h.ownHabit.name }}
+                                                            <p class="text-[2.5rem] lg:text-[1rem]">
+                                                                {{ h.habit.name ?? h.ownHabit.name }}
+                                                            </p>
                                                     </div>
                                                     
                                                     <div class="flex items-center ">
-                                                        <div class="habits__habit-row w-48 flex items-center">
+                                                        <div class="habits__habit-row lg:w-48 flex items-center">
                                                         <input type="checkbox" name="habits[]" value="{{ h.id }}" class="habits__checkbox cursor-pointer invisible"
                                                         {% for t in tracked %}
                                                             {% if t.selectedHabits and t.selectedHabits.id == h.id and not t.selectedHabits.isDeleted and not t.isDeleted %}
@@ -145,7 +164,8 @@
                                                 {% endif %}
 
 
-                                                        <div class="habits__checkbox-progress h-2 rounded-md main__background--gold"></div>
+                                                        <div class="habits__checkbox-progress hidden lg:block h-5 w-5 lg:w-[0.5em] lg:h-2 rounded-3xl lg:rounded-md main__background--gold"></div>
+                                                        <div class="lg:hidden habits__checkbox-progress--mb h-5 w-20 rounded-3xl"></div>
                                                         </div>
                                                     </div>
                                                 </label>
@@ -156,8 +176,8 @@
                                 </div>
                                 
                                 <div class="habits__select-btn w-full flex">
-                                    <div class="overflow-hidden relative w-full h-auto">
-                                        <a class="btn--habits w-full relative" href="{{ path('app_select_habit') }}"><button class="bg-black text-white text-md w-full rounded-xl mt-1 flex items-center justify-center gap-4 pt-1 pb-1"><span class="main-color text-3xl">+</span> Edytuj listę</button></a>
+                                    <div class="overflow-hidden relative w-full h-auto text-[2.5rem] lg:text-[1rem]">
+                                        <a class="btn--habits w-full relative" href="{{ path('app_select_habit') }}"><button class="bg-black text-white text-md w-full rounded-3xl lg:rounded-xl mt-1 flex items-center justify-center lg:gap-4 gap-8 lg:pt-1 lg:pb-1"><span class="main-color text-[5rem] lg:text-3xl">+</span> Edytuj listę</button></a>
                                         <div class="btn-dot--habits absolute bottom-1 left-0"></div>
                                     </div>
                                 </div>
@@ -170,34 +190,34 @@
                         <a href="{{ path('app_habit_remove') }}"><button>Usuń nawyk</button></a>  #}
 
                         {# Prawy panel #}
-                        <div class="habits__panel--right flex flex-col gap-6 h-full">
-                            <div class="habits__panel-right--top h-auto flex flex-col p-8 border border-gray-100">
+                        <div class="lg:rounded-[40px] w-full lg:w-[50%] flex flex-col gap-6 h-full order-1 lg:order-2">
+                            <div class="lg:bg-white lg:rounded-[40px] h-auto flex flex-col p-8 border border-gray-100">
                                 <div class="h-full flex flex-col">
-                                    <p class="text-2xl">Kategorie</p>
-                                    <div class="categories flex flex-col h-full justify-between">
-                                        <div class="w-full h-auto flex flex-col gap-3 items-center justify-center mt-8 mb-12">
+                                    <p class="text-[4rem] lg:text-2xl mb-6 lg:mb-0">Kategorie</p>
+                                    <div class="categories flex flex-col h-full justify-between lg:gap-0 gap-12">
+                                        <div class="w-full h-auto flex flex-col lg:gap-3 gap-8 items-center justify-center mt-8 mb-12">
                                             <div class="habits__category-row flex flex-col w-full h-auto">
-                                                <p>Zdrowie</p>
-                                                <div class="habits__category-bar habits__category-bar--health rounded-md"></div>
+                                                <p class="text-[2.5rem] lg:text-[1rem]">Zdrowie</p>
+                                                <div class="lg:w-[20em] w-full lg:h-[0.5em] h-[1em] habits__category-bar--health rounded-md"></div>
                                             </div>
                                             <div class="habits__category-row flex flex-col w-full h-auto">
-                                                <p>Relaks</p>
-                                                <div class="habits__category-bar habits__category-bar--relax rounded-md"></div>
+                                                <p class="text-[2.5rem] lg:text-[1rem]">Relaks</p>
+                                                <div class="lg:w-[20em] w-full lg:h-[0.5em] h-[1em] habits__category-bar--relax rounded-md"></div>
                                             </div>
                                             <div class="habits__category-row flex flex-col w-full h-auto">
-                                                <p>Aktywność społeczna</p>
-                                                <div class="habits__category-bar habits__category-bar--activity rounded-md"></div>
+                                                <p class="text-[2.5rem] lg:text-[1rem]">Aktywność społeczna</p>
+                                                <div class="lg:w-[20em] w-full lg:h-[0.5em] h-[1em] habits__category-bar--activity rounded-md"></div>
                                             </div>
                                         </div>
 
-                                        <div class="categories-buttons w-full h-auto flex gap-4">
-                                            <a href="{{ path('app_new_habit') }}" class="overflow-hidden w-1/2 bg-black category-btn flex justify-center rounded-xl pt-1 pb-1 relative {{ formType == 'ownHabitAdd' ? 'hidden' : 'visible' }} {{ formType == 'ownHabitRemove' ? 'hidden' : 'visible' }}">
-                                                <button class="btn--categories relative text-white flex gap-4 items-center justofy-center"><span class="main-color text-3xl">+</span>Stwórz nowy nawyk</button>
+                                        <div class="categories-buttons w-full h-auto flex lg:flex-row flex-col gap-4 text-[2.5rem] lg:text-[1rem]">
+                                            <a href="{{ path('app_new_habit') }}" class="overflow-hidden w-full lg:w-1/2 bg-black category-btn flex justify-center rounded-3xl lg:rounded-xl p-0 lg:pt-1 lg:pb-1 relative {{ formType == 'ownHabitAdd' ? 'hidden' : 'visible' }} {{ formType == 'ownHabitRemove' ? 'hidden' : 'visible' }}">
+                                                <button class="btn--categories relative text-white flex lg:gap-4 gap-8 items-center justify-center"><span class="main-color text-[5rem] lg:text-3xl">+</span>Stwórz nowy nawyk</button>
                                                 <div class="btn-dot--categories absolute bottom-1 left-0"></div>
                                             </a>
-                                            <a href="{{ path('app_habit_remove') }}" class="overflow-hidden w-1/2 bg-black category-btn flex justify-center rounded-xl pt-1 pb-1 relative {{ formType == 'ownHabitAdd' ? 'hidden' : 'visible' }} {{ formType == 'ownHabitRemove' ? 'hidden' : 'visible' }}">
-                                                <button class="btn--categories relative text-white flex gap-4 items-center justofy-center"><span class="main-color text-3xl">-</span>Usuń własny nawyk</button>
-                                                <div class="btn-dot--categories absolute bottom-1 left-0"></div>
+                                            <a href="{{ path('app_habit_remove') }}" class="overflow-hidden w-full lg:w-1/2 bg-black category-btn flex justify-center rounded-3xl lg:rounded-xl p-0 lg:pt-1 lg:pb-1 relative lg:mt-0 mt-4 {{ formType == 'ownHabitAdd' ? 'hidden' : 'visible' }} {{ formType == 'ownHabitRemove' ? 'hidden' : 'visible' }}">
+                                                <button class="btn--categories relative text-white flex lg:gap-4 gap-8 items-center justify-center"><span class="main-color text-[5rem] lg:text-3xl">-</span>Usuń własny nawyk</button>
+                                                <div class="hidden lg:block btn-dot--categories absolute bottom-1 left-0"></div>
                                             </a>
                                         </div>
                                     </div>

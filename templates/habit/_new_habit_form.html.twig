@@ -1,22 +1,22 @@
-<div class="habits__panel-right--bottom h-full w-full flex items-center">
-    <form method="POST" action="{{ path('app_new_habit') }}" name="form[ownHabits][]" class="flex flex-col w-full h-full justify-between gap-6 items-center">
-        <div class="flex w-full justify-center items-start mt-4 gap-4">
-            {{ form_widget(form.name, {'attr': {'class': 'border rounded-xl w-1/2 p-3 h-12 resize-none', 'placeholder': 'Nawyk'}}) }}
-            {{ form_widget(form.category, {'attr': {'class': 'w-1/2 p-3 rounded-xl border'}}) }}
+<div class="lg:bg-white h-full w-full flex items-center">
+    <form method="POST" action="{{ path('app_new_habit') }}" name="form[ownHabits][]" class="flex flex-col w-full h-full justify-between gap-16 lg:gap-6 items-center">
+        <div class="flex lg:flex-row flex-col w-full justify-center items-start mt-4 lg:gap-4 gap-8">
+            {{ form_widget(form.name, {'attr': {'class': 'text-[2.5rem] lg:text-[1rem] border rounded-3xl lg:rounded-xl w-full lg:w-1/2 p-6 lg:p-3 h-[3em] lg:h-12 resize-none', 'placeholder': 'Nawyk'}}) }}
+            {{ form_widget(form.category, {'attr': {'class': 'text-[2.5rem] lg:text-[1rem] w-full lg:w-1/2 h-[3em] lg:h-auto p-6 lg:p-3 rounded-3xl lg:rounded-xl border'}}) }}
         
             {# <input type="hidden" name="{{ form._token.vars.full_name }}" value="{{ form._token.vars.value }}"> #}
             {{ form_widget(form._token) }}
         </div>
 
-        <div class="btn w-full flex justify-center items-center gap-4">
+        <div class="btn w-full flex lg:flex-row flex-col justify-center items-center lg:gap-4 gap-8">
 
-            <div class="relative overflow-hidden flex w-1/2">
-                <input type="submit" value="Zapisz" name="add" class="btn--categories relative w-full bg-black text-center text-md text-white rounded-xl pt-2.5 pb-2.5 cursor-pointer flex items-center">
+            <div class="relative overflow-hidden flex w-full lg:w-1/2">
+                <input type="submit" value="Zapisz" name="add" class="btn--categories relative w-full bg-black text-center text-[2.5rem] lg:text-[1rem] text-white rounded-3xl lg:rounded-xl pt-6 pb-6 lg:pt-2.5 lg:pb-2.5 cursor-pointer flex items-center justify-center">
                 <div class="btn-dot--categories absolute bottom-1 left-0"></div>
             </div>
 
-            <div class="relative overflow-hidden flex w-1/2">
-                <a href="{{ path('app_habit') }}" class="btn--categories w-full relative bg-black text-center text-white text-md rounded-xl pt-2.5 pb-2.5"><button>Anuluj</button></a>
+            <div class="relative overflow-hidden flex w-full lg:w-1/2">
+                <a href="{{ path('app_habit') }}" class="btn--categories w-full relative bg-black text-center text-white text-[2.5rem] lg:text-[1rem] rounded-3xl lg:rounded-xl pt-6 pb-6 lg:pt-2.5 lg:pb-2.5"><button>Anuluj</button></a>
                 <div class="btn-dot--categories absolute bottom-1 left-0"></div>
             </div>
         </div>

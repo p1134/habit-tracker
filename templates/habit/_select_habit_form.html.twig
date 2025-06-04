@@ -1,20 +1,14 @@
-{# {{ form_start(form) }}
-    {{ form_widget(form.habits) }}
-    {{ form_widget(form.ownHabits) }}
-    <button>Zapisz</button>
-    <a href="{{ path('app_habit') }}"><button>Anuluj</button></a>
-{{ form_end(form) }} #}
-
 {% extends 'base.html.twig' %}
 
 {% block title %}Habitify - Nawyki{% endblock %}
 
 {% block body %}
+
 <div class="habits__container w-full h-screen flex flex-col">
 
-    <div class="flex flex w-full h-full">
+    <div class="flex w-full h-full">
         {# Nawigacja #}
-        <div class="nav__container h-full mt-5 flex justify-center">
+        <div class="nav__container h-full mt-5 flex justify-center abolute hidden lg:static lg:block">
             <div class="nav__container h-full flex flex-col items-center">
                 <div class="nav__name mb-16">
                     <p class="text-4xl font-bold">HABITIF<span class="main-color">Y.</span></p>
@@ -24,7 +18,7 @@
                     <div class="nav__tabs flex flex-col gap-5">
 
                         <a class="w-auto h-auto" href="{{ path('app_dashboard') }}">
-                            <div class="nav__dashboard  w-auto h-auto relative overflow-hidden">
+                            <div class="nav__dashboard  w-auto h-auto relative lg:overflow-hidden">
                                 <div class="nav__dashboard btn-inactive flex gap-3 justify-start items-center relative">
                                     <img class="w-5 h-5" src="{{ asset('/img/dashboard-off.svg') }}" alt="">
                                     <p>Pulpit</p>
@@ -72,9 +66,25 @@
 
         </div>
 
-        <div class="main-container w-full h-full flex flex-col">
-            {# Górny pasek z profilem #}
-            <div class="nav flex w-full justify-between h-10 mb-4 mt-4">
+        {# Nawigacja mobilna #}
+        <div data-controller="mobile-menu" class="nav nav--mobile lg:hidden flex w-full justify-between h-[10vh] fixed main__background z-10">
+            <div data-action="click->mobile-menu#toggle" class="burger-btn pointer w-[6em] h-[6em] ml-16 relative flex flex-col justify-center z-50">
+                <div data-mobile-menu-target="bar" class="nav__btn-bar transition-all duration-500 absolute rounded-md h-[0.6em] bg-black mb-[3em] z-50"></div>
+                <div class="absolute rounded-md h-[0.6em] w-full bg-black z-50"></div>
+                <div data-mobile-menu-target="bar" class="nav__btn-bar transition-all duration-500 absolute rounded-md h-[0.6em] bg-black mt-[3em] right-0 z-50"></div>
+            </div>
+            <div class="name-page mr-16 text-[3rem] font-semibold z-50">
+                <p data-mobile-menu-target="page" class="">Nawyki</p>
+                <p data-mobile-menu-target="user" class="hidden static translate-x-full transition-all duration-500">{{ userData.firstname }} {{ userData.lastname }}</p>
+            </div>
+            <div data-mobile-menu-target="menu" class="fixed top-0 left-0 -translate-x-full transition-all duration-500 w-full h-full main__background z-[10] pt-[10vh]">
+                {{ include("./shared/_nav_mobile.html.twig") }}
+            </div>
+        
+        </div>
+        {# Górny pasek z profilem #}
+        <div class="w-full lg:h-[100vh]">
+            <div class="nav flex w-full justify-between h-[10vh] lg:mb-4 lg:mt-4">
                 <div class="name-page ml-8 text-xl font-semibold">
                 Nawyki
                 </div>
@@ -94,192 +104,194 @@
                 </div>
             </div>
 
-            {# Panel główny dashboardu #}
-            <div class="habits__main h-full w-full main__background flex gap-4 flex-col">
-                {# Lewy panel #}
-                
-                <div class="habits__panel-main w-full h-full flex flex-row gap-8">
+            <div class="main-container w-full lg:h-[90vh] flex flex-col">
+                {# Panel główny dashboardu #}
+                <div class="h-full w-full main__background flex gap-4 flex-col lg:overflow-hidden">
+                    {# Lewy panel #}
+                    
+                    <div class="habits__panel-main w-full h-full flex flex-row gap-8">
 
-                    <div class="habits__panel m-8 flex flex-col gap-6 w-full bg-white rounded-[40px]">
-                        <div class="m-8 flex flex-col gap-4 h-full">
-                            <p class="text-2xl">Lista nawyków</p>
-                            <div class="form-select h-full w-full">
-                                {{ form_start(form, {'attr': {'class': 'h-full flex flex-col justify-between'}}) }}
-                            <div class="overflow-hidden flex h-auto">
+                        <div class="habits__panel m-8 flex flex-col gap-6 w-full lg:bg-white rounded-[40px]">
+                            <div class="m-8 flex flex-col lg:gap-4 gap-8 h-full">
+                                <p class="text-[4rem] lg:text-2xl">Lista nawyków</p>
+                                <div class="form-select h-full w-full">
+                                    {{ form_start(form, {'attr': {'class': 'h-full flex flex-col justify-between'}}) }}
+                                <div class="lg:overflow-hidden flex lg:flex-row flex-col h-auto">
 
-                                <div class="panel-select--left w-1/3 h-auto">
-                                    <div class="panel-select--margin m-4 w-auto h-auto">
-                                        <div class="panel-select__text flex flex-col gap-1 mb-4">
-                                            <p>Zdrowie</p>
-                                            <div class="habits__category-bar habits__category-bar--health w-full rounded-md"></div>
+                                    <div class="panel-select--left w-full lg:w-1/3 h-auto">
+                                        <div class="panel-select--margin m-4 w-auto h-auto">
+                                            <div class="panel-select__text flex flex-col gap-1 mb-4">
+                                                <p class="text-[3rem] lg:text-[1rem]">Zdrowie</p>
+                                                <div class="lg:mb-0 mb-4 h-4 lg:h-2 habits__category-bar--health w-full rounded-md"></div>
+                                            </div>
+                                            <div class="overflow-y-scroll overflow-x-hidden lg:h-[22em] flex flex-col lg:gap-4 gap-8">
+                                            {% for key, field in form.habits %}
+                                                    {% set habit = form.habits.vars.choices[key].data %}
+                                                    
+                                                    {% if habit.category is not null and habit.category.id == 1 %}
+                                                        <label for="{{ field.vars.id }}" class="panel-select__row--health flex items-center gap-8 lg:gap-4 border rounded-3xl lg:rounded-md lg:p-2 lg:pl-4 lg:pr-4 p-2 p-6">
+                                                            <!-- Ukryty checkbox -->
+                                                            {{ form_widget(field, {'attr': {'class': 'checkbox-hidden'}}) }}
+                                                            
+                                                            <!-- Ikona, która będzie pełniła rolę kliknięcia -->
+                                                            <div class="panel-select__icon lg:w-9 w-[6em] h-[6em] lg:h-9 flex">
+                                                                <div class="panel-select__icon--health w-[6em] h-[6em] lg:w-9 lg:h-9 rounded-[50%] lg:rounded-3xl flex items-center justify-center">
+                                                                    <img class="w-[3em] lg:w-[1em]" src="{{ asset('img/icon-blue.svg') }}" alt="">
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Etykieta checkboxa -->
+                                                            {{ form_label(field, null, {'label_attr': {'class': 'cursor-pointer lg:text-[1rem] text-[2.5rem]'}}) }}
+                                                        </label>
+
+                                                    {% endif %}
+                                                {% endfor %}
+                                                {% for key, field in form.ownHabits %}
+                                                    {% set ownHabit = form.ownHabits.vars.choices[key].data %}
+                                                    
+                                                    {% if ownHabit.category is not null and ownHabit.category.id == 1 %}
+                                                        <label for="{{ field.vars.id }}" class="panel-select__row--health flex items-center gap-4 border rounded-3xl lg:rounded-md lg:p-2 lg:pl-4 lg:pr-4 p-6">
+                                                            <!-- Ukryty checkbox -->
+                                                            {{ form_widget(field, {'attr': {'class': 'checkbox-hidden'}}) }}
+                                                            
+                                                            <!-- Ikona, która będzie pełniła rolę kliknięcia -->
+                                                            <div class="panel-select__icon lg:w-9 lg:h-9 w-[6rem] h-[6rem] flex">
+                                                                <div class="panel-select__icon--health lg:w-9 lg:h-9 w-[6rem] h-[6rem] rounded-[50%] lg:rounded-3xl flex items-center justify-center">
+                                                                    <img class="w-[3em] lg:w-[1em]" src="{{ asset('img/icon-blue.svg') }}" alt="">
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Etykieta checkboxa -->
+                                                            {{ form_label(field, null, {'label_attr': {'class': 'cursor-pointer text-[2.5rem] lg:text-[1rem]'}}) }}
+                                                        </label>
+
+                                                    {% endif %}
+                                                {% endfor %}
+
+                                            </div>
                                         </div>
-                                        <div class="overflow-y-scroll overflow-x-hidden h-[22em] flex flex-col gap-4">
-                                           {% for key, field in form.habits %}
-                                                {% set habit = form.habits.vars.choices[key].data %}
-                                                
-                                                {% if habit.category is not null and habit.category.id == 1 %}
-                                                    <label for="{{ field.vars.id }}" class="panel-select__row--health flex items-center gap-4 border rounded-md p-2 pl-4 pr-4">
-                                                        <!-- Ukryty checkbox -->
-                                                        {{ form_widget(field, {'attr': {'class': 'checkbox-hidden'}}) }}
-                                                        
-                                                        <!-- Ikona, która będzie pełniła rolę kliknięcia -->
-                                                        <div class="panel-select__icon w-9 h-9 flex">
-                                                            <div class="panel-select__icon--health w-9 h-9 rounded-3xl flex items-center justify-center">
-                                                                <img src="{{ asset('img/icon-blue.svg') }}" alt="">
+                                    </div>
+
+                                    <div class="panel-select--middle w-full lg:w-1/3 h-full">
+                                        <div class="panel-select--margin m-4 w-auto h-auto">
+                                            <div class="panel-select__text flex flex-col gap-1 mb-4">
+                                                <p class="text-[3rem] lg:text-[1rem]">Relaks</p>
+                                                <div class="lg:mb-0 mb-4 h-6 lg:h-2 habits__category-bar--relax w-full rounded-md"></div>
+                                            </div>
+                                            <div class="overflow-y-scroll overflow-x-hidden lg:h-[22em] flex flex-col lg:gap-4 gap-8">
+                                            {% for key, field in form.habits %}
+                                                    {% set habit = form.habits.vars.choices[key].data %}
+                                                    
+                                                    {% if habit.category is not null and habit.category.id == 2 %}
+                                                        <label for="{{ field.vars.id }}" class="panel-select__row--relax flex items-center gap-8 lg:gap-4 border rounded-3xl lg:rounded-md lg:p-2 lg:pl-4 lg:pr-4 p-6">
+                                                            <!-- Ukryty checkbox -->
+                                                            {{ form_widget(field, {'attr': {'class': 'checkbox-hidden'}}) }}
+                                                            
+                                                            <!-- Ikona, która będzie pełniła rolę kliknięcia -->
+                                                            <div class="panel-select__icon w-[6rem] h-[6rem] lg:w-9 lg:h-9 flex">
+                                                                <div class="panel-select__icon--relax w-[6rem] h-[6rem] lg:w-9 lg:h-9 rounded-[50%] lg:rounded-3xl flex items-center justify-center">
+                                                                    <img class="w-[3em] lg:w-[1em]" src="{{ asset('img/icon-green.svg') }}" alt="">
+                                                                </div>
                                                             </div>
-                                                        </div>
 
-                                                        <!-- Etykieta checkboxa -->
-                                                        {{ form_label(field, null, {'label_attr': {'class': 'cursor-pointer'}}) }}
-                                                    </label>
+                                                            <!-- Etykieta checkboxa -->
+                                                            {{ form_label(field, null, {'label_attr': {'class': 'cursor-pointer text-[2.5rem] lg:text-[1rem]'}}) }}
+                                                        </label>
 
-                                                {% endif %}
-                                            {% endfor %}
-                                            {% for key, field in form.ownHabits %}
-                                                {% set ownHabit = form.ownHabits.vars.choices[key].data %}
-                                                
-                                                {% if ownHabit.category is not null and ownHabit.category.id == 1 %}
-                                                    <label for="{{ field.vars.id }}" class="panel-select__row--health flex items-center gap-4 border rounded-md p-2 pl-4 pr-4">
-                                                        <!-- Ukryty checkbox -->
-                                                        {{ form_widget(field, {'attr': {'class': 'checkbox-hidden'}}) }}
-                                                        
-                                                        <!-- Ikona, która będzie pełniła rolę kliknięcia -->
-                                                        <div class="panel-select__icon w-9 h-9 flex">
-                                                            <div class="panel-select__icon--health w-9 h-9 rounded-3xl flex items-center justify-center">
-                                                                <img src="{{ asset('img/icon-blue.svg') }}" alt="">
+                                                    {% endif %}
+                                                {% endfor %}
+                                                {% for key, field in form.ownHabits %}
+                                                    {% set ownHabit = form.ownHabits.vars.choices[key].data %}
+                                                    
+                                                    {% if ownHabit.category is not null and ownHabit.category.id == 2 %}
+                                                        <label for="{{ field.vars.id }}" class="panel-select__row--relax flex items-center gap-8 lg:gap-4 border rounded-3xl lg:rounded-md lg:p-2 lg:pl-4 lg:pr-4 p-6">
+                                                            <!-- Ukryty checkbox -->
+                                                            {{ form_widget(field, {'attr': {'class': 'checkbox-hidden'}}) }}
+                                                            
+                                                            <!-- Ikona, która będzie pełniła rolę kliknięcia -->
+                                                            <div class="panel-select__icon lg:w-9 lg:h-9 w-[6rem] h-[6rem] flex">
+                                                                <div class="panel-select__icon--relax lg:w-9 lg:h-9 w-[6rem] h-[6rem] rounded-3xl flex items-center justify-center">
+                                                                    <img class="lg:w-[1rem] w-[3rem]" src="{{ asset('img/icon-green.svg') }}" alt="">
+                                                                </div>
                                                             </div>
-                                                        </div>
 
-                                                        <!-- Etykieta checkboxa -->
-                                                        {{ form_label(field, null, {'label_attr': {'class': 'cursor-pointer'}}) }}
-                                                    </label>
+                                                            <!-- Etykieta checkboxa -->
+                                                            {{ form_label(field, null, {'label_attr': {'class': 'cursor-pointer text-[2.5rem] lg:text-[1rem]'}}) }}
+                                                        </label>
 
-                                                {% endif %}
-                                            {% endfor %}
+                                                    {% endif %}
+                                                {% endfor %}
 
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel-select--right w-full lg:w-1/3 h-full">
+                                        <div class="panel-select--margin m-4 w-auto h-auto">
+                                            <div class="panel-select__text flex flex-col gap-1 mb-4">
+                                                <p class="text-[3rem] lg:text-[1rem]">Aktywność społeczna</p>
+                                                <div class="lg:mb-0 mb-4 lg:h-2 h-4 habits__category-bar--activity w-full rounded-md"></div>
+                                            </div>
+                                            <div class="overflow-y-scroll overflow-x-hidden lg:h-[22em] flex flex-col lg:gap-4 gap-8">
+                                            {% for key, field in form.habits %}
+                                                    {% set habit = form.habits.vars.choices[key].data %}
+                                                    
+                                                    {% if habit.category is not null and habit.category.id == 3 %}
+                                                        <label for="{{ field.vars.id }}" class="panel-select__row--activity flex items-center gap-8 lg:gap-4 border rounded-3xl lg:rounded-md lg:p-2 lg:pl-4 lg:pr-4 p-6">
+                                                            <!-- Ukryty checkbox -->
+                                                            {{ form_widget(field, {'attr': {'class': 'checkbox-hidden'}}) }}
+                                                            
+                                                            <!-- Ikona, która będzie pełniła rolę kliknięcia -->
+                                                            <div class="panel-select__icon lg:w-9 lg:h-9 w-[6em] h-[6em] flex">
+                                                                <div class="panel-select__icon--activity lg:w-9 lg:h-9 w-[6em] h-[6em] rounded-[50%] lg:rounded-3xl flex items-center justify-center">
+                                                                    <img class="w-[3em] lg:w-[1em]" src="{{ asset('img/icon-yellow.svg') }}" alt="">
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Etykieta checkboxa -->
+                                                            {{ form_label(field, null, {'label_attr': {'class': 'cursor-pointer text-[2.5rem] lg:text-[1rem]'}}) }}
+                                                        </label>
+
+                                                    {% endif %}
+                                                {% endfor %}
+                                                {% for key, field in form.ownHabits %}
+                                                    {% set ownHabit = form.ownHabits.vars.choices[key].data %}
+                                                    
+                                                    {% if ownHabit.category is not null and ownHabit.category.id == 3 %}
+                                                        <label for="{{ field.vars.id }}" class="panel-select__row--activity flex items-center gap-8 lg:gap-4 border rounded-3xl lg:rounded-md lg:p-2 lg:pl-4 lg:pr-4 p-6">
+                                                            <!-- Ukryty checkbox -->
+                                                            {{ form_widget(field, {'attr': {'class': 'checkbox-hidden'}}) }}
+                                                            
+                                                            <!-- Ikona, która będzie pełniła rolę kliknięcia -->
+                                                            <div class="panel-select__icon lg:w-9 lg:h-9 w-[6em] h-[6em] flex">
+                                                                <div class="panel-select__icon--activity lg:w-9 lg:h-9 w-[6em] h-[6em] rounded-3xl flex items-center justify-center">
+                                                                    <img class="w-[3em] lg:w-[1em]" src="{{ asset('img/icon-yellow.svg') }}" alt="">
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Etykieta checkboxa -->
+                                                            {{ form_label(field, null, {'label_attr': {'class': 'cursor-pointer'}}) }}
+                                                        </label>
+
+                                                    {% endif %}
+                                                {% endfor %}
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="panel-select--middle w-1/3 h-full">
-                                    <div class="panel-select--margin m-4 w-auto h-auto">
-                                        <div class="panel-select__text flex flex-col gap-1 mb-4">
-                                            <p>Relaks</p>
-                                            <div class="habits__category-bar habits__category-bar--relax w-full rounded-md"></div>
-                                        </div>
-                                        <div class="overflow-y-scroll overflow-x-hidden h-[22em] flex flex-col gap-4">
-                                           {% for key, field in form.habits %}
-                                                {% set habit = form.habits.vars.choices[key].data %}
-                                                
-                                                {% if habit.category is not null and habit.category.id == 2 %}
-                                                    <label for="{{ field.vars.id }}" class="panel-select__row--relax flex items-center gap-4 border rounded-md p-2 pl-4 pr-4">
-                                                        <!-- Ukryty checkbox -->
-                                                        {{ form_widget(field, {'attr': {'class': 'checkbox-hidden'}}) }}
-                                                        
-                                                        <!-- Ikona, która będzie pełniła rolę kliknięcia -->
-                                                        <div class="panel-select__icon w-9 h-9 flex">
-                                                            <div class="panel-select__icon--relax w-9 h-9 rounded-3xl flex items-center justify-center">
-                                                                <img src="{{ asset('img/icon-green.svg') }}" alt="">
-                                                            </div>
-                                                        </div>
-
-                                                        <!-- Etykieta checkboxa -->
-                                                        {{ form_label(field, null, {'label_attr': {'class': 'cursor-pointer'}}) }}
-                                                    </label>
-
-                                                {% endif %}
-                                            {% endfor %}
-                                            {% for key, field in form.ownHabits %}
-                                                {% set ownHabit = form.ownHabits.vars.choices[key].data %}
-                                                
-                                                {% if ownHabit.category is not null and ownHabit.category.id == 2 %}
-                                                    <label for="{{ field.vars.id }}" class="panel-select__row--relax flex items-center gap-4 border rounded-md p-2 pl-4 pr-4">
-                                                        <!-- Ukryty checkbox -->
-                                                        {{ form_widget(field, {'attr': {'class': 'checkbox-hidden'}}) }}
-                                                        
-                                                        <!-- Ikona, która będzie pełniła rolę kliknięcia -->
-                                                        <div class="panel-select__icon w-9 h-9 flex">
-                                                            <div class="panel-select__icon--relax w-9 h-9 rounded-3xl flex items-center justify-center">
-                                                                <img src="{{ asset('img/icon-green.svg') }}" alt="">
-                                                            </div>
-                                                        </div>
-
-                                                        <!-- Etykieta checkboxa -->
-                                                        {{ form_label(field, null, {'label_attr': {'class': 'cursor-pointer'}}) }}
-                                                    </label>
-
-                                                {% endif %}
-                                            {% endfor %}
-
-                                        </div>
-                                    </div>
+                                <div class="btn flex lg:flex-row flex-col justify-end lg:mr-4 lg:gap-4 gap-8 lg:mt-0 mt-12">
+                                    <button type="submit" class="lg:w-52 w-full lg:p-2.5 p-6 bg-black text-white text-center rounded-3xl lg:rounded-xl cursor-pointer text-[2.5rem] lg:text-[1rem]">Zapisz</button>
+                                    <a href="{{ path('app_habit') }}" class="lg:w-52 w-full lg:p-2.5 p-6 bg-black text-white text-center rounded-3xl lg:rounded-xl cursor-pointer text-[2.5rem] lg:text-[1rem]">Powrót</a>
                                 </div>
 
-                                <div class="panel-select--right w-1/3 h-full">
-                                    <div class="panel-select--margin m-4 w-auto h-auto">
-                                        <div class="panel-select__text flex flex-col gap-1 mb-4">
-                                            <p>Aktywność społeczna</p>
-                                            <div class="habits__category-bar habits__category-bar--activity w-full rounded-md"></div>
-                                        </div>
-                                        <div class="overflow-y-scroll overflow-x-hidden h-[22em] flex flex-col gap-4">
-                                           {% for key, field in form.habits %}
-                                                {% set habit = form.habits.vars.choices[key].data %}
-                                                
-                                                {% if habit.category is not null and habit.category.id == 3 %}
-                                                    <label for="{{ field.vars.id }}" class="panel-select__row--activity flex items-center gap-4 border rounded-md p-2 pl-4 pr-4">
-                                                        <!-- Ukryty checkbox -->
-                                                        {{ form_widget(field, {'attr': {'class': 'checkbox-hidden'}}) }}
-                                                        
-                                                        <!-- Ikona, która będzie pełniła rolę kliknięcia -->
-                                                        <div class="panel-select__icon w-9 h-9 flex">
-                                                            <div class="panel-select__icon--activity w-9 h-9 rounded-3xl flex items-center justify-center">
-                                                                <img src="{{ asset('img/icon-yellow.svg') }}" alt="">
-                                                            </div>
-                                                        </div>
-
-                                                        <!-- Etykieta checkboxa -->
-                                                        {{ form_label(field, null, {'label_attr': {'class': 'cursor-pointer'}}) }}
-                                                    </label>
-
-                                                {% endif %}
-                                            {% endfor %}
-                                            {% for key, field in form.ownHabits %}
-                                                {% set ownHabit = form.ownHabits.vars.choices[key].data %}
-                                                
-                                                {% if ownHabit.category is not null and ownHabit.category.id == 3 %}
-                                                    <label for="{{ field.vars.id }}" class="panel-select__row--activity flex items-center gap-4 border rounded-md p-2 pl-4 pr-4">
-                                                        <!-- Ukryty checkbox -->
-                                                        {{ form_widget(field, {'attr': {'class': 'checkbox-hidden'}}) }}
-                                                        
-                                                        <!-- Ikona, która będzie pełniła rolę kliknięcia -->
-                                                        <div class="panel-select__icon w-9 h-9 flex">
-                                                            <div class="panel-select__icon--activity w-9 h-9 rounded-3xl flex items-center justify-center">
-                                                                <img src="{{ asset('img/icon-yellow.svg') }}" alt="">
-                                                            </div>
-                                                        </div>
-
-                                                        <!-- Etykieta checkboxa -->
-                                                        {{ form_label(field, null, {'label_attr': {'class': 'cursor-pointer'}}) }}
-                                                    </label>
-
-                                                {% endif %}
-                                            {% endfor %}
-
-                                        </div>
-                                    </div>
+                                <div class="hidden">
+                                {{ form_rest(form) }}
                                 </div>
-                            </div>
-                            <div class="btn flex justify-end mr-4 gap-4">
-                                <button type="submit" class="w-52 p-2.5 bg-black text-white text-center rounded-xl cursor-pointer">Zapisz</button>
-                                <a href="{{ path('app_habit') }}" class="w-52 p-2.5 bg-black text-white text-center rounded-xl cursor-pointer">Powrót</a>
-                            </div>
 
-                            <div class="hidden">
-                            {{ form_rest(form) }}
-                            </div>
-
-                            {{ form_end(form, { 'render_rest': false }) }}
-                            
+                                {{ form_end(form, { 'render_rest': false }) }}
+                                
+                                </div>
                             </div>
                         </div>
                     </div>

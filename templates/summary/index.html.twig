@@ -5,13 +5,10 @@
 {% block body %}
 
 <div class="habits__container w-full max-h-full flex flex-col">
-{# <pre>
-    {{ dump(doneHabits) }}
-    {{ dump(habitsGrouped) }}
-</pre> #}
-    <div class="flex flex w-full h-full">
+
+    <div class="flex flex w-full h-full lg:flex-row flex-col">
         {# Nawigacja #}
-        <div class="nav__container h-[100vh] mt-5 flex justify-center">
+        <div class="nav__container h-[100vh] mt-5 flex justify-center absolute hidden lg:static lg:block">
             <div class="nav__container h-full flex flex-col items-center">
                 <div class="nav__name mb-16">
                     <p class="text-4xl font-bold">HABITIF<span class="main-color">Y.</span></p>
@@ -80,15 +77,31 @@
             </div>
 
         </div>
-
-        <div class="main-container w-full h-[100vh] flex flex-col">
+        {# Nawigacja mobilna #}
+        <div data-controller="mobile-menu" class="nav nav--mobile lg:hidden flex w-full justify-between h-[10vh] fixed main__background z-10">
+            <div data-action="click->mobile-menu#toggle" class="burger-btn pointer w-[6em] h-[6em] ml-16 relative flex flex-col justify-center z-50">
+                <div data-mobile-menu-target="bar" class="nav__btn-bar transition-all duration-500 absolute rounded-md h-[0.6em] bg-black mb-[3em] z-50"></div>
+                <div class="absolute rounded-md h-[0.6em] w-full bg-black z-50"></div>
+                <div data-mobile-menu-target="bar" class="nav__btn-bar transition-all duration-500 absolute rounded-md h-[0.6em] bg-black mt-[3em] right-0 z-50"></div>
+            </div>
+            <div class="name-page mr-16 text-[3rem] font-semibold z-50">
+                <p data-mobile-menu-target="page" class="">Podsumowanie</p>
+                <p data-mobile-menu-target="user" class="hidden static translate-x-full transition-all duration-500">{{ userData.firstname }} {{ userData.lastname }}</p>
+            </div>
+            <div data-mobile-menu-target="menu" class="fixed top-0 left-0 -translate-x-full transition-all duration-500 w-full h-full main__background z-[10] pt-[10vh]">
+                {{ include("./shared/_nav_mobile.html.twig") }}
+            </div>
+        
+        </div>
             {# Górny pasek z profilem #}
+        <div class="w-full lg:h-[100vh]">
             <div class="nav flex w-full justify-between h-[10vh]">
-                <div class="name-page ml-8 text-xl font-semibold">
+
+                <div class="name-page lg:ml-8 lg:mr-8 mr-8 text-[3rem] lg:text-xl font-semibold hidden lg:block">
                 Podsumowanie
                 </div>
 
-                <div class="profile flex justify-center items-center gap-4">
+                <div class="profile flex justify-center items-center gap-4 hidden lg:flex">
                     <div class="profile-text">
                         <a href="{{ path('app_profile') }}">
                             <p>{{ userData.firstname }} {{ userData.lastname }} </p>
@@ -107,119 +120,161 @@
                 </div>
             </div>
 
-            {# Panel główny podsumowania #}
-            <div class="habits__main h-[90vh] w-full main__background flex gap-4 flex-col p-8">
+            <div class="main-container w-full lg:h-[90vh] flex flex-col">
 
-                 <div class="habits__panel--top w-full h-28 flex justify-between items-center">
-                    <div class="">
-                        <p class="text-3xl font-semibold mb-3">Tydzień</p>
-                        <p class="text-lg">
-                            {{ startOfWeek }} - {{ endOfWeek }}
-                        </p>
-                    </div>
-                    
-                    <div class="flex gap-4">
-                        <div class="flex items-center gap-2">
-                            <div class="bg-green-300 w-12 h-6 rounded-sm"></div>
-                            <span>Wykonany</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <div class="bg-red-300 w-12 h-6 rounded-sm"></div>
-                            <span>Niewykonany</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <div class=" font-semibold text-xl">X</div>
-                            <span>Nieaktualny</span>
-                        </div>
-                    </div>
-                </div>
+                {# Panel główny podsumowania #}
+                <div class="habits__main h-[90vh] w-full main__background flex gap-4 flex-col lg:p-8 p-16">
 
-                {# Tabela z tygoniem #}
-                <div class="habits__table bg-white w-auto h-full flex flex-col justify-center items-center overflow-hidden border border-gray-200">
-
-                    <div class="rounded-table w-full h-auto bg-black pl-8 pr-8 pt-4 pb-4 overflow-hidden">
-                    <table class="bg-white rounded-table w-full">
-                        <thead class="">
-                            <tr class="dni_tygodnia bg-black text-white w-full">
-                                    <th class="p-1 w-[23%] tracking-widest font-semibold text-md main-color text-start">Nawyki</th>
-                                {% set days = [1, 2, 3, 4, 5, 6, 0] %}
-                                {% for day in days %}
-                                    <th class="p-1 w-[11%] font-normal tracking-widest text-md relative">
-                                    {{ ['Niedziela','Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota'][day] }}
-                                    {% if day == today|date('w') %}
-                                    <div class="day-indicator absolute main__background--gold rounded-xl"></div>
-                                    {% endif %}
-                                    </th>
-                                {% endfor %}
-                            </tr>
-                        </thead>
-                    </table>
+                    <div class="habits__panel--top w-full lg:h-28 flex lg:flex-row flex-col lg:justify-between lg:items-center">
+                        <div class="">
+                            <p class="lg:text-3xl text-[4rem] lg:font-semibold mb-3">Tydzień</p>
+                            <p class="lg:text-lg text-[2.8rem]">
+                                {{ startOfWeek }} - {{ endOfWeek }}
+                            </p>
+                        </div>
+                        
+                        <div class="lg:flex gap-4 hidden">
+                            <div class="flex items-center gap-2">
+                                <div class="bg-green-300 w-12 h-6 rounded-sm"></div>
+                                <span>Wykonany</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="bg-red-300 w-12 h-6 rounded-sm"></div>
+                                <span>Niewykonany</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class=" font-semibold text-xl">X</div>
+                                <span>Nieaktualny</span>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="table-scroll w-full h-full overflow-y-auto pl-8 pr-8 pt-0 mb-8">
-                    <table class="mt-0 w-full">
-                        <tbody class="overflow-y-auto w-auto">
-                            {% for habit in habitsGrouped %}
-                            {# <pre>
-                                {{ dump(habitsGrouped) }}
-                            </pre> #}
-                                <tr class="nawyk">
-                                    <td class="p-1 pt-2 pb-2 w-[23%] border-t border-r">
-                                        <div class="flex gap-4 items-center w-full break-words whitespace-normal">
-                                            {# <span class="w-[2em]">
-                                            {% if habit.category == 1 %}
-                                                <span class="w-8 h-8 bg-blue-100 rounded-2xl flex justify-center items-center">
-                                                    <img class="w-4 h-4" src="{{ asset('img/icon-blue.svg') }}" alt="">
-                                                </span>
-                                            {% elseif habit.category == 2 %}
-                                                <span class="w-8 h-8 bg-green-100 rounded-2xl flex justify-center items-center">
-                                                    <img class="w-4 h-4" src="{{ asset('img/icon-green.svg') }}" alt="">
-                                                </span>
-                                            {% elseif habit.category == 3 %}
-                                                <span class="w-8 h-8 bg-orange-100 rounded-2xl flex justify-center items-center">
-                                                    <img class="w-4 h-4" src="{{ asset('img/icon-yellow.svg') }}" alt="">
-                                                </span>
-                                            {% endif %}
-                                            </span> #}
+                    {# Tabela z tygoniem #}
+                    <div class="habits__table bg-white w-auto h-full lg:flex flex-col justify-center items-center overflow-hidden border border-gray-200 hidden">
 
-                                            {# <span class="break-words whitespace-normal"> #}
-                                                {{ habit.name }}
-                                            {# </span> #}
-                                        </div>
-                                    </td>
-
-                                    {% for i, day in days %}
-                                        <td class="border-l border-t w-[11%] h-2 text-center">
-                                            {% set found = false %}
-                                            {% set targetDate = startOfWeek|date_modify('+' ~ i ~ ' days')|date('Y-m-d') %}
-                                            
-                                            {% for track in doneHabits %}
-                                            {# data zaznaczenia nawyku taka jak data danego dnia tygodnia #}
-                                                {% if (track.h_id == habit.id or track.oh_id == habit.id)
-                                                    and track.date|date('Y-m-d') == targetDate and (track.is_deleted == 0 or (track.is_deleted == 1 and (targetDate <= habit.delete_date or targetDate >= habit.delete_date)))  %}
-                                                    <div class="bg-green-300 w-full h-full"></div>
-                                                    {% set found = true %}
-                                                {% endif %}
-                                            {% endfor %}
-
-                                            {% if not found and today|date('Y-m-d') > targetDate and (habit.delete_date == null or habit.delete_date < targetDate )  %}
-                                                    <div class="bg-red-300 w-full h-full"></div>
-                                            {% elseif not found and habit.delete_date != null and today|date('Y-m-d') >= targetDate %}
-                                                X
-                                            {% endif %}
-                                        </td>
+                        <div class="rounded-table w-full h-auto bg-black pl-8 pr-8 pt-4 pb-4 overflow-hidden">
+                        <table class="bg-white rounded-table w-full">
+                            <thead class="">
+                                <tr class="dni_tygodnia bg-black text-white w-full">
+                                        <th class="p-1 w-[23%] tracking-widest font-semibold text-md main-color text-start">Nawyki</th>
+                                    {% set days = [1, 2, 3, 4, 5, 6, 0] %}
+                                    {% for day in days %}
+                                        <th class="p-1 w-[11%] font-normal tracking-widest text-md relative">
+                                        {{ ['Niedziela','Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota'][day] }}
+                                        {% if day == today|date('w') %}
+                                        <div class="day-indicator absolute main__background--gold rounded-xl"></div>
+                                        {% endif %}
+                                        </th>
                                     {% endfor %}
                                 </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                            </thead>
+                        </table>
+                        </div>
+
+                        <div class="table-scroll w-full h-full overflow-y-auto pl-8 pr-8 pt-0 mb-8">
+                        <table class="mt-0 w-full">
+                            <tbody class="overflow-y-auto w-auto">
+                                {% for habit in habitsGrouped %}
+                                    <tr class="nawyk">
+                                        <td class="p-1 pt-2 pb-2 w-[23%] border-t border-r">
+                                            <div class="flex gap-4 items-center w-full break-words whitespace-normal">
+                                                    {{ habit.name }}
+                                            </div>
+                                        </td>
+
+                                        {% for i, day in days %}
+                                            <td class="border-l border-t w-[11%] h-2 text-center">
+                                                {% set found = false %}
+                                                {% set targetDate = startOfWeek|date_modify('+' ~ i ~ ' days')|date('Y-m-d') %}
+                                                
+                                                {% for track in doneHabits %}
+                                                {# data zaznaczenia nawyku taka jak data danego dnia tygodnia #}
+                                                    {% if (track.h_id == habit.id or track.oh_id == habit.id)
+                                                        and track.date|date('Y-m-d') == targetDate and (track.is_deleted == 0 or (track.is_deleted == 1 and (targetDate <= habit.delete_date or targetDate >= habit.delete_date)))  %}
+                                                        <div class="bg-green-300 w-full h-full"></div>
+                                                        {% set found = true %}
+                                                    {% endif %}
+                                                {% endfor %}
+
+                                                {% if not found and today|date('Y-m-d') > targetDate and (habit.delete_date == null or habit.delete_date < targetDate )  %}
+                                                        <div class="bg-red-300 w-full h-full"></div>
+                                                {% elseif not found and habit.delete_date != null and today|date('Y-m-d') >= targetDate %}
+                                                    X
+                                                {% endif %}
+                                            </td>
+                                        {% endfor %}
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        </div>
                     </div>
 
+                    {# Tabela z tygodniem - mobilna #}
+                    <div class="lg:hidden flex w-full h-full mt-12">
+                        <div class="flex flex-col w-full h-full">
+                            <div class="days w-full flex justify-between mb-32">
+                                {% set days = [1, 2, 3, 4, 5, 6, 0] %}
+                                {% for day in days %}
+                                <form action="{{ path('app_summary') }}" method="POST">
+                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('day_summary') }}">
+                                    <button name="day" value="{{ day }}" type="submit" class="p-1 text-white flex font-semibold justify-center items-center rounded-xl 
+                                    {% if day == todayNum  %} 
+                                    bg-[#FABB18] 
+                                    {% elseif day == selectedDayNum and day != todayNum %} 
+                                    bg-gray-400 
+                                    {% else %} 
+                                    bg-black  
+                                    {% endif %} w-[2em] h-[2em] font-normal text-[2.5rem]">
 
-                </div>
+                                    {{ daysLabels[day] }}
+                                    </button>
+                                </form>
+                                {% endfor %}
+                            </div>
 
-            </div>  
-               
+                            <div class="text-[2.5rem] flex flex-col gap-4">
+                                {% for i, dayValue in days %}
+                                    {% if dayValue == selectedDayNum %}
+                                        {# Obliczanie docelowego dnia tygodnia #}
+                                        {% set targetDate = startOfWeek|date_modify('+' ~ i ~ ' days')|date('Y-m-d') %}
+
+                                        {% for habit in habitsGrouped %}
+                                        {% set found = false %}
+
+                                        {# Sprawdzamoe oznaczenia nawyku na dany dzień #}
+                                        {% for track in doneHabits %}
+                                            {% if (track.h_id == habit.id or track.oh_id == habit.id)
+                                                and track.date|date('Y-m-d') == targetDate
+                                                and (track.is_deleted == 0
+                                                    or (track.is_deleted == 1
+                                                        and (targetDate <= habit.delete_date or targetDate >= habit.delete_date)))
+                                            %}
+                                            {% set found = true %}
+                                            {% endif %}
+                                        {% endfor %}
+
+                                        {# Kolor tła nawyku #}
+                                        <div class="p-8 pl-12 pr-12 mb-1 rounded-3xl border border-gray-300 flex justify-between
+                                            {% if found %}
+                                                bg-[rgb(70,206,86,44%)]
+                                            {% elseif not found and today|date('Y-m-d') > targetDate and (habit.delete_date == null or habit.delete_date < targetDate) %}
+                                                bg-[#FEC6C6]
+                                            {% endif %}">
+                                            <p>{{ habit.name }}</p>
+                                            {% if not found and habit.delete_date != null and today|date('Y-m-d') >= targetDate %}
+                                                <img class="w-[1.5em]" src="{{ asset('/img/deleted-icon.svg') }}" alt="">
+                                            {% endif %}
+                                        </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+                
+            </div>
         </div>
     </div>
 </div>

@@ -2,17 +2,18 @@
 
 namespace App\Controller;
 
-use App\Repository\SelectedHabitsRepository;
-use App\Repository\TrackingRepository;
 use DateTime;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\TrackingRepository;
+use App\Repository\SelectedHabitsRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class SummaryController extends AbstractController
 {
     #[Route('/habits/summary', name: 'app_summary')]
-    public function index(TrackingRepository $trackings, SelectedHabitsRepository $selectedHabits): Response
+    public function index(TrackingRepository $trackings, SelectedHabitsRepository $selectedHabits, Request $request): Response
     {
         $user = $this->getUser();
 
@@ -48,9 +49,44 @@ final class SummaryController extends AbstractController
                 }
             }
         }
-        // dd($trackings);
 
-        // dd($getSelectedHabits, $groupedHabits, $weekDoneHabits);
+
+        // $days = [1, 2, 3, 4, 5, 6, 0];
+        $daysLabels   = ['Nd','Pn','Wt','Śr','Cz','Pt','Sb'];
+        // Domyślnie „dzisiejszy dzień” bazując na 'format("w")' 
+        // format("w") w PHP zwraca: 0 = Niedziela, 1 = Poniedziałek, … 6 = Sobota
+        $todayNum = (int) $today->format('w');
+        // $selectedDay = $days[$todayNum];
+        $selectedDayNum = $todayNum;
+
+        // Jeżeli był POST – pobieramy przekazany "day" i nadpisujemy
+        if ($request->isMethod('POST')) {
+            // Jeżeli w formularzu jest CSRF, to można to sprawdzić:
+            $token = $request->request->get('_csrf_token');
+            if (!$this->isCsrfTokenValid('day_summary', $token)) {
+                // wywali 403, jeśli token błędny
+                throw $this->createAccessDeniedException('Nieprawidłowy token CSRF.');
+            }
+
+            $dayIndex = $request->request->get('day');
+            $dayIndex = (int) $dayIndex;
+            // upewniamy się, że dayIndex to rzeczywiście liczba 0..6
+           if ($dayIndex >= 0 && $dayIndex <= 6) {
+        $selectedDayNum = $dayIndex;
+    }
+    // przekierowanie PRG:
+    return $this->redirectToRoute('app_summary', ['day' => $selectedDayNum]);
+        }
+
+        // Jeżeli przyszliśmy GET-em po przekierowaniu (lub w ogóle GET-em), sprawdźmy czy w URL jest ?day=…
+$paramDay = $request->query->get('day');
+if (null !== $paramDay) {
+    $paramDay = (int) $paramDay;
+    if ($paramDay >= 0 && $paramDay <= 6) {
+        $selectedDayNum = $paramDay;
+    }
+}
+
 
 
 
@@ -64,6 +100,11 @@ final class SummaryController extends AbstractController
             'doneHabits' => $weekDoneHabits,
             'habitsGrouped' => $groupedHabits,
             'today' => $today,
+
+            'todayNum'      => $todayNum,       // liczba 0..6
+            'selectedDayNum'=> $selectedDayNum, // liczba 0..6
+            'daysLabels'    => $daysLabels,
         ]);
     }
+
 }

@@ -242,7 +242,7 @@
                                         {% for habit in habitsGrouped %}
                                         {% set found = false %}
 
-                                        {# Sprawdzamoe oznaczenia nawyku na dany dzień #}
+                                        {# Sprawdzanie oznaczenia nawyku na dany dzień #}
                                         {% for track in doneHabits %}
                                             {% if (track.h_id == habit.id or track.oh_id == habit.id)
                                                 and track.date|date('Y-m-d') == targetDate
@@ -255,11 +255,13 @@
                                         {% endfor %}
 
                                         {# Kolor tła nawyku #}
-                                        <div class="p-8 pl-12 pr-12 mb-1 rounded-3xl border border-gray-300 flex justify-between
+                                        <div class="p-10 pl-12 pr-12 mb-1 rounded-3xl border border-gray-300 flex justify-between
                                             {% if found %}
                                                 bg-[rgb(70,206,86,44%)]
                                             {% elseif not found and today|date('Y-m-d') > targetDate and (habit.delete_date == null or habit.delete_date < targetDate) %}
                                                 bg-[#FEC6C6]
+                                            {% else %}
+                                                bg-gray-100
                                             {% endif %}">
                                             <p>{{ habit.name }}</p>
                                             {% if not found and habit.delete_date != null and today|date('Y-m-d') >= targetDate %}
@@ -269,6 +271,23 @@
                                         {% endfor %}
                                     {% endif %}
                                 {% endfor %}
+                            </div>
+                            <div class="flex flex-col w-full mt-24 gap-8">
+                                <p class="text-[4rem] mb-4">Legenda</p>
+                                <div class="flex gap-8 items-center">
+                                    <div class="w-[8em] h-[5em] bg-[rgb(70,206,86,44%)] rounded-3xl"></div>
+                                    <p class="text-[2.5rem]">Wykonany</p>
+                                </div>
+                                <div class="flex gap-8 items-center">
+                                    <div class="w-[8em] h-[5em] bg-[#FEC6C6] rounded-3xl"></div>
+                                    <p class="text-[2.5rem]">Niewykonany</p>
+                                </div>
+                                <div class="flex gap-8 items-center">
+                                    <div class="w-[8em] h-[5em] flex justify-center items-center">
+                                        <img class="w-[3.5em]" src="{{ asset('/img/deleted-icon.svg') }}" alt="">
+                                    </div>
+                                    <p class="text-[2.5rem]">Nieaktualny</p>
+                                </div>
                             </div>
                         </div>
                     </div>

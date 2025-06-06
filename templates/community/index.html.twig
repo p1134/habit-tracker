@@ -3,11 +3,12 @@
 {% block title %}Habitify - Społeczność{% endblock %}
 
 {% block body %}
+
 <div class="habits__container w-full max-h-full flex flex-col">
 
-    <div class="flex flex w-full h-full">
+    <div class="flex flex w-full h-full lg:flex-row flex-col">
         {# Nawigacja #}
-        <div class="nav__container h-[100vh] mt-5 flex justify-center">
+        <div class="nav__container lg:h-[100vh] mt-5 flex justify-center absolute hidden lg:static lg:block">
             <div class="nav__container h-full flex flex-col items-center">
                 <div class="nav__name mb-16">
                     <p class="text-4xl font-bold">HABITIF<span class="main-color">Y.</span></p>
@@ -17,7 +18,7 @@
 
                     <div class="nav__tabs flex flex-col gap-5">
                         <a class="w-auto h-auto" href="{{ path('app_dashboard') }}">
-                            <div class="nav__dashboard w-auto h-auto relative overflow-hidden">
+                            <div class="nav__dashboard w-auto h-auto relative lg:overflow-hidden">
                                 <div class="nav__dashboard btn-inactive flex gap-3 justify-start items-center relative">
                                     <img class="w-5 h-5" src="{{ asset('/img/dashboard-off.svg') }}" alt="">
                                     <p>Pulpit</p>
@@ -27,7 +28,7 @@
 
                         <div class="nav__habits flex gap-3 justify-left items-center gap-4">
                             <a href="{{ path('app_habit') }}" class="flex gap-3 w-auto h-auto">
-                                <div class="nav__dashboard w-auto h-auto relative overflow-hidden">
+                                <div class="nav__dashboard w-auto h-auto relative lg:overflow-hidden">
                                     <div class="nav__dashboard btn-inactive flex gap-3 justify-start items-center relative">
                                         <img src="{{ asset('img/nawyki-off.svg') }}" alt="">
                                         <p>Nawyki</p>
@@ -37,7 +38,7 @@
                         </div>
                         <div class="nav__summary flex gap-3 justify-left items-center gap-4">
                             <a href="{{ path('app_summary') }}" class="flex gap-3">
-                                <div class="nav__dashboard w-auto h-auto relative overflow-hidden">
+                                <div class="nav__dashboard w-auto h-auto relative lg:overflow-hidden">
                                     <div class="nav__dashboard btn-inactive flex gap-3 justify-start items-center relative">
                                         <img src="{{ asset('img/podsumowanie-off.svg') }}" alt="">
                                         <p>Podsumowanie</p>
@@ -47,7 +48,7 @@
                         </div>
                         <div class="nav__society flex gap-3 justify-left items-center gap-4">
                             <a href="{{ path('app_community') }}" class="flex gap-3">
-                                <div class="nav__dashboard w-auto h-auto relative overflow-hidden">
+                                <div class="nav__dashboard w-auto h-auto relative lg:overflow-hidden">
                                     <div class="nav__dashboard btn-active flex gap-3 justify-start items-center relative">
                                         <img src="{{ asset('img/spolecznosc.svg') }}" alt="">
                                         <p>Społeczność</p>
@@ -57,7 +58,7 @@
                         </div>
                         <div class="nav__profile flex gap-3 justify-left items-center gap-4">
                             <a href="{{ path('app_profile') }}" class="flex gap-3">
-                                <div class="nav__dashboard w-auto h-auto relative overflow-hidden">
+                                <div class="nav__dashboard w-auto h-auto relative lg:overflow-hidden">
                                     <div class="nav__dashboard btn-inactive flex gap-3 justify-start items-center relative">
                                         <img src="{{ asset('img/profil-off.svg') }}" alt="">
                                         <p>Mój profil</p>
@@ -75,15 +76,31 @@
                 </div>
             </div>
         </div>
-
-        <div class="w-full">
+        {# Nawigacja mobilna #}
+        <div data-controller="mobile-menu" class="nav nav--mobile lg:hidden flex w-full justify-between h-[10vh] fixed main__background z-10">
+            <div data-action="click->mobile-menu#toggle" class="burger-btn pointer w-[6em] h-[6em] ml-16 relative flex flex-col justify-center z-50">
+                <div data-mobile-menu-target="bar" class="nav__btn-bar transition-all duration-500 absolute rounded-md h-[0.6em] bg-black mb-[3em] z-50"></div>
+                <div class="absolute rounded-md h-[0.6em] w-full bg-black z-50"></div>
+                <div data-mobile-menu-target="bar" class="nav__btn-bar transition-all duration-500 absolute rounded-md h-[0.6em] bg-black mt-[3em] right-0 z-50"></div>
+            </div>
+            <div class="name-page mr-16 text-[3rem] font-semibold z-50">
+                <p data-mobile-menu-target="page" class="">Społeczność</p>
+                <p data-mobile-menu-target="user" class="hidden static translate-x-full transition-all duration-500">{{ userData.firstname }} {{ userData.lastname }}</p>
+            </div>
+            <div data-mobile-menu-target="menu" class="fixed top-0 left-0 -translate-x-full transition-all duration-500 w-full h-full main__background z-[10] pt-[10vh]">
+                {{ include("./shared/_nav_mobile.html.twig") }}
+            </div>
+        
+        </div>
             {# Górny pasek z profilem #}
+        <div class="w-full lg:h-[100vh]">
             <div class="nav flex w-full justify-between h-[10vh]">
-                <div class="name-page ml-8 text-xl font-semibold">
+
+                <div class="name-page lg:ml-8 lg:mr-8 mr-8 text-[3rem] lg:text-xl font-semibold hidden lg:block">
                     Społeczność
                 </div>
 
-                <div class="profile flex justify-center items-center gap-4">
+                <div class="profile flex justify-center items-center gap-4 hidden lg:flex">
                     <div class="profile-text">
                         <a href="{{ path('app_profile') }}">
                             <p>{{ userData.firstname }} {{ userData.lastname }}</p>
@@ -102,13 +119,16 @@
                 </div>
             </div>
 
-            <div class="main-container w-full h-[90vh] flex flex-col">
+            <div class="main-container w-full lg:h-[90vh] h-[100vh] flex flex-col">
+
                 {# Panel główny społeczności #}
-                <div class="habits__main h-full w-full main__background gap-8 p-8 border border-gray-100">
-                    <div class="habits__panel bg-white w-full h-full p-8 rounded-[40px] border border-gray-100 flex">
+                <div class="habits__main lg:h-[90vh] h-full w-full main__background gap-8 p-8 border border-gray-100">
+
+                    <div class="lg:bg-white w-full h-full p-8 rounded-[40px] border border-gray-100 flex lg:flex-row flex-col">
                         {# Posty #}
-                        <div class="habits__posts h-full w-4/6 overflow-y-auto">
-                            <div class="w-full h-auto flex flex-wrap gap-8">
+                        <div class="habits__posts h-full lg:w-4/6 w-full lg:overflow-y-auto lg:order-1 order-2">
+                            <p class="text-[4rem] lg:text-[1rem] lg:hidden block mb-16">Posty</p>
+                            <div class="w-full h-full flex flex-wrap lg:gap-8 gap-16">
 
                                 {% for post in posts %}
                                 
@@ -151,22 +171,22 @@
                                                 {% endif %}
                                             </div> #}
                                             <div>
-                                                <p class="font-semibold text-[1.1rem]">{{ post.user.firstname }} {{ post.user.lastname }}</p>
+                                                <p class="font-semibold lg:text-[1.1rem] text-[2.5rem]">{{ post.user.firstname }} {{ post.user.lastname }}</p>
                                             </div>
                                             <div class="">
-                                                <p class="text-sm">{{ post.dateCreate|date('d/m/Y') }}</p>
+                                                <p class="lg:text-[0.8rem] text-[2rem]">{{ post.dateCreate|date('d/m/Y') }}</p>
                                             </div>
                                         </div>
 
-                                        <div class="flex w-full h-[8em] main__background rounded-[30px] justify-between p-3 border border-gray-100 gap-1">
+                                        <div class="flex w-full lg:h-[8em] min-h-[16em] bg-[#F2F2F2] lg:main__background rounded-[30px] justify-between lg:p-3 p-8 border border-gray-200 gap-1">
                                             <div class="flex flex-col">
-                                                <p class="font-semibold flex flex-wrap mb-2">{{ post.name }}</p>
-                                                <p class="font-light flex flex-wrap">
+                                                <p class="font-semibold flex flex-wrap mb-2 text-[2.5rem] lg:text-[1rem]">{{ post.name }}</p>
+                                                <p class="font-light flex flex-wrap lg:text-[1rem] text-[2.5rem]">
                                                     <span class="flex flex-wrap">{{ description }}</span>
                                                 </p>
                                             </div>
-                                            <div class="flex h-full w-[30%] items-center items-center justify-center">
-                                                <img class="h-11" src="{{ asset(image) }}" alt="{{ status }}">
+                                            <div class="flex h-full w-[30%] items-center lg:justify-center justify-end">
+                                                <img class="lg:h-11 h-[8em]" src="{{ asset(image) }}" alt="{{ status }}">
                                             </div>
                                         </div>
                                     </div>
@@ -174,27 +194,28 @@
                             </div>
                         </div>
                         {# Ranking #}
-                        <div class="rank-panel w-2/6 h-full main__background rounded-[30px] border border-gray-100 flex flex-col">
-                            <div class="rank__table--top flex bg-[#424242] w-full h-16 rounded-tr-[30px] rounded-tl-[30px] justify-center items-center">
+                        <div class="rank-panel lg:w-2/6 w-full h-full main__background rounded-[30px] border border-gray-100 flex flex-col lg:order-2 order-1 lg:mb-0 mb-[8em]">
+                            <p class="lg:hidden flex text-[4rem]">Ranking</p>
+                            <div class="rank__table--top lg:flex bg-[#424242] w-full lg:h-16 rounded-tr-[30px] rounded-tl-[30px] justify-center items-center hidden">
                                 <h1 class="text-xl text-white font-semibold">Ranking</h1>
                             </div> 
-                            <div class="flex flex-col w-full h-full p-4 overflow-hidden">
-                                <div class="flex flex-col w-full h-full overflow-y-auto gap-2 ">
+                            <div class="flex flex-col w-full h-full p-4 lg:overflow-hidden">
+                                <div class="flex flex-col w-full h-full lg:overflow-y-auto gap-2 ">
                                     <div class="flex items-center justify-end w-full border-b">
-                                        <p class="text-md font-semibold">Obecna seria</p>
+                                        <p class="text-[2.5rem] lg:text-[1rem] font-semibold">Obecna seria</p>
                                     </div>
                                     {% for person in ranking %}
-                                    <div class="flex items-center justify-between border-b">
-                                        <div class="flex items-center gap-2 mb-2">
+                                    <div class="flex items-center justify-between border-b lg:border-gray-200 border-gray-400">
+                                        <div class="flex items-center lg:gap-2 gap-12 lg:mb-2 lg:mt-0 mb-6 mt-6">
                                             {% if person.gender == 'M' %}
-                                            <img src="{{ asset('/img/profile.svg') }}" alt="">
+                                            <img class="w-[7em] lg:w-[3em]" src="{{ asset('/img/profile.svg') }}" alt="">
                                             {% else %}
-                                            <img src="{{ asset('/img/profilek.svg') }}" alt="">
+                                            <img class="w-[7em] lg:w-[3em]" src="{{ asset('/img/profilek.svg') }}" alt="">
                                             {% endif %}
-                                            <p>{{ person.firstname }} {{ person.lastname }}</p>
+                                            <p class="lg:text-[1rem] text-[2.5rem]">{{ person.firstname }} {{ person.lastname }}</p>
                                         </div>
                                         <div class="">
-                                            <p>
+                                            <p class="lg:text-[1rem] text-[2.5rem]">
                                             {% if person.currentStreak is null %}
                                             0 dni
                                             {% elseif person.currentStreak == 1 %}

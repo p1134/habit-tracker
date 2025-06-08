@@ -345,26 +345,8 @@ $chart->setOptions([
     'responsive' => true,
     'plugins' => [
         'legend' => [
-            'position' => 'bottom',
-            'labels' => [
-                'font' => [
-                    'size' => 16,         // 🔹 zmiana wielkości czcionki legendy
-                    'family' => 'Poppins', // 🔹 opcjonalnie rodzaj czcionki
-                    'weight' => 'normal' // 🔹 lub 'bold', 'lighter'
-                ],
-                'color' => '#444',       // 🔹 kolor tekstu
-            ]
+            'display' => false,
         ],
-    //     'title' => [
-    //         // 'display' => true,
-    //         // 'text' => 'Wykonane nawyki wg kategorii',
-    //         'font' => [
-    //             'family' => 'Poppins',    // czcionka
-    //             'size' => 19,           // rozmiar w px
-    //             'weight' => 'normal',     // np. 'normal', 'bold', 'lighter'
-    //         ],
-    //     'color' => '#000000'
-    // ],
     ],
 ]);
 

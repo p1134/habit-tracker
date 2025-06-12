@@ -1,60 +1,62 @@
-# Używamy oficjalnego obrazu PHP z CLI
+# -------------------------
+# 1) Stage: build assets
+# -------------------------
+FROM node:18-alpine AS assets
+
+WORKDIR /usr/src/app
+COPY package.json package-lock.json webpack.config.js ./
+RUN npm ci
+COPY assets/ ./assets/
+COPY public/style/ ./public/style/
+RUN npm run build
+
+# -------------------------
+# 2) Stage: PHP + Symfony CLI
+# -------------------------
 FROM php:8.2-cli-bullseye
 
-# Ustaw zmienne środowiskowe
-ENV COMPOSER_ALLOW_SUPERUSER=1 \
+# 2.0 Prod env
+ENV APP_ENV=prod \
+    APP_DEBUG=0 \
+    COMPOSER_ALLOW_SUPERUSER=1 \
     SYMFONY_ALLOW_APP_SHELL=1
 
+WORKDIR /app
 
-# Instalacja systemowych zależności i aktualizacja bezpieczeństwa
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y \
-        git \
-        unzip \
-        zip \
-        curl \
-        libpng-dev \
-        libjpeg62-turbo-dev \
-        libfreetype6-dev \
-        libxml2-dev \
-        libicu-dev \
-        libzip-dev \
-        libonig-dev \
-        bash \
-        nano \
-        procps \
-        openssl \
-        zlib1g-dev && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+# 2.1 System libs + PHP exts + MySQL client + netcat
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends \
+      git unzip zip curl \
+      libpng-dev libjpeg-dev libfreetype6-dev \
+      libxml2-dev libicu-dev libzip-dev libonig-dev \
+      bash nano procps openssl zlib1g-dev \
+      default-mysql-client netcat-openbsd \
+ && docker-php-ext-configure gd --with-freetype --with-jpeg \
+ && docker-php-ext-install -j$(nproc) gd intl zip opcache pdo_mysql \
+ && rm -rf /var/lib/apt/lists/*
 
-# Instalacja rozszerzeń PHP dla Symfony
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
-    docker-php-ext-install -j$(nproc) gd pdo pdo_mysql xml intl zip opcache
+# 2.2 Composer binary
+COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 
-# Instalacja Composer'a (menedżera pakietów PHP)
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# 2.3 Symfony CLI (if needed)
+RUN curl -sS https://get.symfony.com/cli/installer | bash \
+ && mv /root/.symfony*/bin/symfony /usr/local/bin/symfony
 
-# Instalacja Symfony CLI
-# Instalacja Symfony CLI
-RUN curl -sS https://get.symfony.com/cli/installer | bash && \
-    mv /root/.symfony*/bin/symfony /usr/local/bin/symfony
+# 2.4 Install PHP deps (without scripts)
+COPY composer.json composer.lock ./
+RUN composer install --optimize-autoloader --no-interaction --no-progress --no-scripts
 
-# Ustawiamy katalog roboczy
-WORKDIR /var/www/html
-
-# Kopiujemy pliki aplikacji Symfony do kontenera
+# 2.5 Copy application code
 COPY . .
 
-# Naprawa uprawnień do plików w repozytorium
-RUN chown -R www-data:www-data /var/www/html
-RUN git config --global --add safe.directory /var/www/html
-RUN composer clear-cache
+# 2.6 Copy built assets
+COPY --from=assets /usr/src/app/public/build public/build
 
-# Instalacja zależności projektu (wymaga wcześniejszego posiadania pliku composer.json)
-RUN composer install --optimize-autoloader
+# 2.7 Fix permissions
+RUN chown -R www-data:www-data /app
 
-# Ustawiamy domyślny port na 8000 i uruchamiamy Symfony CLI
-EXPOSE 8000
-CMD ["symfony", "serve", "--no-tls", "--allow-http", "--port=8000"]
+# 2.8 Entrypoint
+COPY entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
+
+ENTRYPOINT ["/app/entrypoint.sh"]

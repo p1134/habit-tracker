@@ -26,8 +26,8 @@
       <parameter key="MonologBundle">Symfony\Bundle\MonologBundle\MonologBundle</parameter>
       <parameter key="MakerBundle">Symfony\Bundle\MakerBundle\MakerBundle</parameter>
       <parameter key="SymfonyCastsVerifyEmailBundle">SymfonyCasts\Bundle\VerifyEmail\SymfonyCastsVerifyEmailBundle</parameter>
-      <parameter key="DoctrineFixturesBundle">Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle</parameter>
       <parameter key="ChartjsBundle">Symfony\UX\Chartjs\ChartjsBundle</parameter>
+      <parameter key="DoctrineFixturesBundle">Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle</parameter>
     </parameter>
     <parameter key="kernel.bundles_metadata" type="collection">
       <parameter key="FrameworkBundle" type="collection">
@@ -82,13 +82,13 @@
         <parameter key="path">/Users/paulina/Desktop/habit-tracker/vendor/symfonycasts/verify-email-bundle/src</parameter>
         <parameter key="namespace">SymfonyCasts\Bundle\VerifyEmail</parameter>
       </parameter>
-      <parameter key="DoctrineFixturesBundle" type="collection">
-        <parameter key="path">/Users/paulina/Desktop/habit-tracker/vendor/doctrine/doctrine-fixtures-bundle</parameter>
-        <parameter key="namespace">Doctrine\Bundle\FixturesBundle</parameter>
-      </parameter>
       <parameter key="ChartjsBundle" type="collection">
         <parameter key="path">/Users/paulina/Desktop/habit-tracker/vendor/symfony/ux-chartjs</parameter>
         <parameter key="namespace">Symfony\UX\Chartjs</parameter>
+      </parameter>
+      <parameter key="DoctrineFixturesBundle" type="collection">
+        <parameter key="path">/Users/paulina/Desktop/habit-tracker/vendor/doctrine/doctrine-fixtures-bundle</parameter>
+        <parameter key="namespace">Doctrine\Bundle\FixturesBundle</parameter>
       </parameter>
     </parameter>
     <parameter key="kernel.charset">UTF-8</parameter>
@@ -2544,8 +2544,8 @@
           <argument>/Users/paulina/Desktop/habit-tracker/vendor/symfony/security-bundle/translations</argument>
           <argument>/Users/paulina/Desktop/habit-tracker/vendor/symfony/monolog-bundle/translations</argument>
           <argument>/Users/paulina/Desktop/habit-tracker/vendor/symfony/maker-bundle/translations</argument>
-          <argument>/Users/paulina/Desktop/habit-tracker/vendor/doctrine/doctrine-fixtures-bundle/translations</argument>
           <argument>/Users/paulina/Desktop/habit-tracker/vendor/symfony/ux-chartjs/translations</argument>
+          <argument>/Users/paulina/Desktop/habit-tracker/vendor/doctrine/doctrine-fixtures-bundle/translations</argument>
         </argument>
         <argument key="cache_vary" type="collection">
           <argument key="scanned_directories" type="collection">
@@ -2566,8 +2566,8 @@
             <argument>vendor/symfony/security-bundle/translations</argument>
             <argument>vendor/symfony/monolog-bundle/translations</argument>
             <argument>vendor/symfony/maker-bundle/translations</argument>
-            <argument>vendor/doctrine/doctrine-fixtures-bundle/translations</argument>
             <argument>vendor/symfony/ux-chartjs/translations</argument>
+            <argument>vendor/doctrine/doctrine-fixtures-bundle/translations</argument>
           </argument>
         </argument>
       </argument>
@@ -7652,6 +7652,11 @@
       <argument type="service" id="symfonycasts.verify_email.token_generator"/>
       <argument>3600</argument>
     </service>
+    <service id="chartjs.builder" class="Symfony\UX\Chartjs\Builder\ChartBuilder"/>
+    <service id="chartjs.twig_extension" class="Symfony\UX\Chartjs\Twig\ChartExtension">
+      <tag name="twig.extension"/>
+      <argument type="service" id="stimulus.helper"/>
+    </service>
     <service id="doctrine.fixtures_load_command" class="Doctrine\Bundle\FixturesBundle\Command\LoadDataFixturesDoctrineCommand">
       <tag name="console.command" command="doctrine:fixtures:load"/>
       <tag name="container.no_preload"/>
@@ -7677,11 +7682,6 @@
     </service>
     <service id="doctrine.fixtures.purger.orm_purger_factory" class="Doctrine\Bundle\FixturesBundle\Purger\ORMPurgerFactory">
       <tag name="doctrine.fixtures.purger_factory" alias="default"/>
-    </service>
-    <service id="chartjs.builder" class="Symfony\UX\Chartjs\Builder\ChartBuilder"/>
-    <service id="chartjs.twig_extension" class="Symfony\UX\Chartjs\Twig\ChartExtension">
-      <tag name="twig.extension"/>
-      <argument type="service" id="stimulus.helper"/>
     </service>
     <service id=".instanceof.Symfony\Component\Console\Command\Command.0.App\Command\TrackHabitsCommand" class="App\Command\TrackHabitsCommand" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Command\TrackHabitsCommand" class="App\Command\TrackHabitsCommand" autowire="true" autoconfigure="true" abstract="true"/>

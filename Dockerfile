@@ -30,7 +30,7 @@ RUN apt-get update \
       zlib1g-dev libxml2-dev libicu-dev libzip-dev libonig-dev \
       default-mysql-client postgresql-client libpq-dev netcat-openbsd \
  && docker-php-ext-configure gd --with-freetype --with-jpeg \
- && docker-php-ext-install -j"$(nproc)" \
+ && docker-php-ext-install -j$(nproc) \
       gd intl zip opcache pdo_mysql pdo_pgsql \
  && rm -rf /var/lib/apt/lists/*
 
@@ -54,7 +54,7 @@ COPY --from=assets /usr/src/app/public/build public/build
 # 2.7 Uprawnienia
 RUN chown -R www-data:www-data /app
 
-# 2.8 Entrypoint\C
+# 2.8 Entrypoint
 COPY entrypoint.sh /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
 

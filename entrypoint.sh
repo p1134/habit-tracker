@@ -1,6 +1,17 @@
 #!/usr/bin/env sh
 set -e
 
+echo "DATABASE_URL: $DATABASE_URL"
+
+# Ekstrakcja hosta i usera z DATABASE_URL jeśli to Postgres
+if echo "$DATABASE_URL" | grep -q "^postgres"; then
+  export DATABASE_HOST=$(echo "$DATABASE_URL" | sed -E 's|^postgresql?://[^@]+@([^:/?]+).*|\1|')
+  export DATABASE_USER=$(echo "$DATABASE_URL" | sed -E 's|^postgresql?://([^:/@]+).*|\1|')
+fi
+
+echo "DATABASE_HOST: $DATABASE_HOST"
+echo "DATABASE_USER: $DATABASE_USER"
+
 # 0) Parsujemy protokół z DATABASE_URL
 PROTO=$(echo "$DATABASE_URL" | sed -E 's,^(.*)://.*,\1,')
 case "$PROTO" in
@@ -13,8 +24,8 @@ case "$PROTO" in
     ;;
   pgsql|postgres)
     # czekaj aż PostgreSQL odpowie
-    until pg_isready -h "${DATABASE_HOST:-postgres}" -U "${DATABASE_USER:-postgres}"; do
-      echo "Waiting for Postgres…"
+    until pg_isready -h "${DATABASE_HOST}" -U "${DATABASE_USER}"; do
+      echo "Waiting for Postgres at host: ${DATABASE_HOST} with user: ${DATABASE_USER}…"
       sleep 1
     done
     ;;

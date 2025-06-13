@@ -3,14 +3,14 @@ set -e
 
 echo "DATABASE_URL: $DATABASE_URL"
 
-# Ekstrakcja hosta i usera z DATABASE_URL jeśli to Postgres
 if echo "$DATABASE_URL" | grep -q "^postgres"; then
-  export DATABASE_HOST=$(echo "$DATABASE_URL" | sed -E 's|^postgresql?://[^@]+@([^:/?]+).*|\1|')
-  export DATABASE_USER=$(echo "$DATABASE_URL" | sed -E 's|^postgresql?://([^:/@]+).*|\1|')
+  export DATABASE_USER=$(echo "$DATABASE_URL" | sed -E 's|^postgres(ql)?://([^:/@]+).*|\2|')
+  export DATABASE_HOST=$(echo "$DATABASE_URL" | sed -E 's|^postgres(ql)?://[^@]+@([^:/?]+).*|\2|')
 fi
 
 echo "DATABASE_HOST: $DATABASE_HOST"
 echo "DATABASE_USER: $DATABASE_USER"
+
 
 # 0) Parsujemy protokół z DATABASE_URL
 PROTO=$(echo "$DATABASE_URL" | sed -E 's,^(.*)://.*,\1,')

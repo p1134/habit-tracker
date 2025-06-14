@@ -1,12 +1,15 @@
 services:
-  mysql:
-    image: mariadb:10.8.3
-    command: --default-authentication-plugin=mysql_native_password
+  db:
+    image: postgres:16
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      POSTGRES_DB: habit_tracker
+      POSTGRES_USER: habituser
+      POSTGRES_PASSWORD: secretpassword
     ports:
-      - 3306:3306
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
 
   adminer:
     image: adminer
@@ -39,16 +42,23 @@ services:
       APP_ENV: prod
       APP_DEBUG: '0'
       APP_SECRET: '35cfa9cc3ecff75537f52b69f9976a97'
-      DATABASE_URL: "mysql://root:root@mysql:3306/habit-tracker?serverVersion=mariadb-10.8.3&charset=utf8mb4"
+      DATABASE_URL: "postgresql://habituser:secretpassword@db:5432/habit_tracker?serverVersion=16&charset=utf8"
+      POSTGRES_DB: habit_tracker
+      POSTGRES_USER: habituser
+      POSTGRES_PASSWORD: secretpassword
+
       MAILER_DSN: "smtp://mailer:1025?encryption=&auth_mode=none"
     depends_on:
-      - mysql
+      - db
       - mailer
-    command: >
-      bash -lc "
-        composer install --no-interaction &&
-        php bin/console doctrine:database:create --if-not-exists &&
-        php bin/console doctrine:migrations:migrate --no-interaction &&
-        php bin/console doctrine:fixtures:load --no-interaction &&
-        symfony serve --no-tls --allow-http --port=8000 --dir=public --allow-all-ip
-      "
+    # command: >
+    #   bash -lc "
+    #     composer install --no-interaction &&
+    #     php bin/console doctrine:database:create --if-not-exists &&
+    #     php bin/console doctrine:migrations:migrate --no-interaction &&
+    #     php bin/console doctrine:fixtures:load --no-interaction &&
+    #     symfony serve --no-tls --allow-http --port=8000 --dir=public --allow-all-ip"
+    command: sleep infinity
+
+volumes:
+  pgdata:

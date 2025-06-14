@@ -36,7 +36,10 @@
         {{ encore_entry_link_tags('vendor') }}
         {{ encore_entry_link_tags('controllers') }}
 
-
+        <script>
+        // Przekazujemy środowisko do JS
+        window.APP_ENV = '{{ app.environment }}';
+        </script>
     </head>
     <body class="h-full w-full m-0">
         {% block body %}{% endblock %}
@@ -54,6 +57,22 @@
                 .catch(err => console.error('❌ SW registration failed:', err));
             });
             }
+        </script>
+
+            <script>
+        if (window.APP_ENV === 'prod' && 'serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('SW registered!', reg))
+                    .catch(err => console.error('SW registration failed:', err));
+            });
+        }
+        // Ewentualnie unregister w dev:
+        if (window.APP_ENV !== 'prod' && 'serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(regs => {
+                for (let reg of regs) reg.unregister();
+            });
+        }
         </script>
 
     </body>

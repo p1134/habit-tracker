@@ -169,6 +169,7 @@ final class ProfileController extends AbstractController
     }
 
         //Powrót po przerwie
+    $dayDiff = 0;
     $lastTrack = (int)array_key_last($tracks);
     $beforeLast = $lastTrack - 1;
     foreach($tracks as $key => $value){

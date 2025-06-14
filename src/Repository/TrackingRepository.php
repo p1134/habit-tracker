@@ -43,12 +43,12 @@ class TrackingRepository extends ServiceEntityRepository
         $sql = 'WITH habit_check AS (
                 SELECT DISTINCT t.date
                 FROM tracking t
-                WHERE t.user_id = :user AND t.selected = 1 AND t.is_deleted = 0
+                WHERE t.user_id = :user AND t.selected = true AND t.is_deleted = false
                 ),
                 ranked_dates AS (
                 SELECT
                     date,
-                    DATEDIFF(date, LAG(date) OVER (ORDER BY date)) AS day_diff
+                    (date - LAG(date) OVER (ORDER BY date)) AS day_diff
                 FROM habit_check
                 ),
                 grouped_dates AS (
@@ -98,14 +98,25 @@ class TrackingRepository extends ServiceEntityRepository
 
        public function getWeekSelectedHabits($user){
         $conn = $this->getEntityManager()->getConnection();
-        $sql = "SELECT 
-                ELT(DAYOFWEEK(t.date), 'Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota') AS dzien, t.date AS data,
-                COUNT(*) AS liczba
+    $sql = "SELECT 
+            CASE EXTRACT(DOW FROM t.date)
+                WHEN 0 THEN 'Niedziela'
+                WHEN 1 THEN 'Poniedziałek'
+                WHEN 2 THEN 'Wtorek'
+                WHEN 3 THEN 'Środa'
+                WHEN 4 THEN 'Czwartek'
+                WHEN 5 THEN 'Piątek'
+                WHEN 6 THEN 'Sobota'
+            END AS dzien,
+            t.date AS data,
+            COUNT(*) AS liczba
             FROM tracking t
-            WHERE DATE(t.date) BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND CURDATE()
+            WHERE t.date::date BETWEEN (CURRENT_DATE - INTERVAL '7 days') AND CURRENT_DATE
             AND t.user_id = :user
-            GROUP BY DAYOFWEEK(t.date), t.date
-            ORDER BY t.date";
+            GROUP BY dzien, t.date
+            ORDER BY t.date;
+            ";
+
 
         $stmt = $conn->prepare($sql);
         $stmt->bindValue("user", $user->getId());
@@ -123,7 +134,7 @@ class TrackingRepository extends ServiceEntityRepository
             ->leftJoin('oh.category', 'ohc')
             ->andWhere('t.user = :user')
             ->setParameter('user', $user)
-            ->andWhere('t.selected = 1')
+            ->andWhere('t.selected = true')
             ->orderBy('t.date','ASC')
             ->getQuery();
         return $query->getResult();
